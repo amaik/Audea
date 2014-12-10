@@ -10,7 +10,18 @@
 
 #ifndef WAVESHAPER_H_INCLUDED
 #define WAVESHAPER_H_INCLUDED
+class WaveShaper
+{
+	float *drive;
+public:
+	WaveShaper(float *drv): 
+		drive(drv)
+	{
+	}
+	~WaveShaper(){}
 
+	void process(float *left, float *right);
+};
 
 
 

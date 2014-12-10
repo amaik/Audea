@@ -17,7 +17,7 @@ void Flanger::process(float* left, float* right){
 	float maxDelay = center + (depth / 2);
 
 	if (Feedback != 0)
-		in = *left - DelayTap(center) * Feedback;
+	//	in = *left - DelayTap(center) * Feedback;
 	delayOffset = delayCenter + (delayRange /**Oszillator*/);
 	delayRead = delayWrite - delayOffset;
 	if (delayRead < 0)

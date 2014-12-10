@@ -50,6 +50,8 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[FlangerFeedback] = 0.0f;
 	UserParams[FlangerDelay] = 10.0f;
 	UserParams[FlangerIsOn] = 0.0f;
+	UserParams[DistortionIsOn] = 0.0f;
+	UserParams[DistortionAmt] = 0.0f;
 
 
 	UIUpdateFlag = true; //Request UI update
@@ -75,6 +77,9 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 AudeaAudioProcessor::~AudeaAudioProcessor()
 {
 	delete filter;
+	delete delay;
+	delete flanger;
+	delete wvShaper;
 }
 
 //==============================================================================
@@ -192,6 +197,10 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 		break;
 	case FlangerIsOn:	UserParams[FlangerIsOn] = newValue;
 		break;
+	case DistortionAmt:	UserParams[DistortionAmt] = newValue;
+		break;
+	case DistortionIsOn: UserParams[DistortionIsOn] = newValue;
+		break;
 	}
 	UIUpdateFlag = true;
 }
@@ -200,26 +209,26 @@ const String AudeaAudioProcessor::getParameterName (int index)
 {
 	switch (index)
 	{
-	case MasterBypass:	return "Master Bypass";
-	case OscVoices:		return "Oscillator Voices";
-	case Osc1WaveForm:	return "Oscillator 1 Waveform";
-	case Osc2WaveForm:	return "Oscillator 2 Waveform";
-	case Osc3WaveForm:	return "Oscillator 3 Waveform";
-	case Osc2IsOn:		return "Oscillator 2 Bypass";
-	case Osc3IsOn:		return "Oscillator 3 Bypass";
-	case Osc2Tune:		return "Oscillator 2 Tune";
-	case Osc3Tune:		return "Oscillator 3 Tune";
-	case Osc1Amp:		return "Oscillator 1 Volume";
-	case Osc2Amp:		return "Oscillator 2 Volume";
-	case Osc3Amp:		return "Oscillator 3 Volume";
-	case AmpEnvAttack:	return "Amplitude Envelope Attack";
-	case AmpEnvDecay:	return "Amplitude Envelope Decay";
-	case AmpEnvSustain:	return "Amplitude Envelope Sustain";
-	case AmpEnvRelease:	return "Amplitude Envelope Release";
-	case FilterType:	return "Filter Type";
-	case FilterCutoff:	return "Filter Cutoff Frequency";
-	case FilterRes:		return "Filter Resonance";
-	case FilterEnvAmt:	return "Filter Envelope Amount";
+	case MasterBypass:		return "Master Bypass";
+	case OscVoices:			return "Oscillator Voices";
+	case Osc1WaveForm:		return "Oscillator 1 Waveform";
+	case Osc2WaveForm:		return "Oscillator 2 Waveform";
+	case Osc3WaveForm:		return "Oscillator 3 Waveform";
+	case Osc2IsOn:			return "Oscillator 2 Bypass";
+	case Osc3IsOn:			return "Oscillator 3 Bypass";
+	case Osc2Tune:			return "Oscillator 2 Tune";
+	case Osc3Tune:			return "Oscillator 3 Tune";
+	case Osc1Amp:			return "Oscillator 1 Volume";
+	case Osc2Amp:			return "Oscillator 2 Volume";
+	case Osc3Amp:			return "Oscillator 3 Volume";
+	case AmpEnvAttack:		return "Amplitude Envelope Attack";
+	case AmpEnvDecay:		return "Amplitude Envelope Decay";
+	case AmpEnvSustain:		return "Amplitude Envelope Sustain";
+	case AmpEnvRelease:		return "Amplitude Envelope Release";
+	case FilterType:		return "Filter Type";
+	case FilterCutoff:		return "Filter Cutoff Frequency";
+	case FilterRes:			return "Filter Resonance";
+	case FilterEnvAmt:		return "Filter Envelope Amount";
 	case FilterEnvAttack:	return "Filter Envelope Attack";
 	case FilterEnvDecay:	return "Filter Envelope Decay";
 	case FilterEnvSustain:	return "Filter Envelope Sustain";
@@ -228,9 +237,12 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case DelayMix:          return "Delay Mix";
 	case DelayLenRight:     return "Delay Length Right";
 	case DelayLenLeft:      return "Delay Length Left";
-	case FlangerMix:	return "Flanger Mix";
-	case FlangerFeedback: return "Flanger FeedbacK";
-	case FlangerDelay:	return "Flanger Delay";
+	case FlangerMix:		return "Flanger Mix";
+	case FlangerFeedback:	return "Flanger FeedbacK";
+	case FlangerDelay:		return "Flanger Delay";
+	case FlangerIsOn:		return "Flanger Bypass";
+	case DistortionIsOn:	return "Distortion Bypass";
+	case DistortionAmt:		return "Distortion Amount";
 	//OtherParams...
 	default:return String::empty;
 	}
@@ -357,6 +369,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			delay->process(&left[i], &right[i]);
 		if (UserParams[FlangerIsOn])
 			flanger->process(&left[i], &right[i]);
+		if (UserParams[DistortionIsOn])
+			wvShaper->process(&left[i], &right[i]);
 	}
 
 

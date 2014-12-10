@@ -9,3 +9,13 @@
 */
 
 #include "WaveShaper.h"
+#include <cmath>
+#include "JuceHeader.h"
+
+void WaveShaper::process(float *left, float *right)
+{
+	double a = sin(((*drive + 1) / 101) * (double_Pi / 2));
+	double k = 2 * a / (1 - a);
+	*left = ((1 + k) * *left) / (1 + k * abs(*left));
+	*right = ((1 + k) * *right) / (1 + k * abs(*right));
+}

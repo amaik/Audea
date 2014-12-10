@@ -17,6 +17,7 @@
 #include "FilterEnvelope.h"
 #include "Delay.h"
 #include "Flanger.h"
+#include "WaveShaper.h"
 
 
 //==============================================================================
@@ -106,6 +107,8 @@ public:
 		FlangerFeedback,
 		FlangerDelay,
 		FlangerIsOn,
+		DistortionIsOn,
+		DistortionAmt,
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -152,13 +155,17 @@ private:
 	//Private Data
 	float UserParams[totalNumParam];
 	bool UIUpdateFlag;
+	bool isInited = false;
+	
 	AudioPlayHead* playHead;
 	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
 	Delay* delay;
 	Flanger* flanger;
-	bool isInited = false;
 	Synthesiser synth;
 	Filter *filter = new AllPassFilter(&UserParams[FilterRes]);
+	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
+
+
 
 	//Helper Methods
 	void changeOscillatorWaveForm(int oscID, int wvForm);
