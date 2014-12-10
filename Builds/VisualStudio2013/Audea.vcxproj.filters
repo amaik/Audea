@@ -8,6 +8,9 @@
     <Filter Include="Audea\Source">
       <UniqueIdentifier>{8B156451-1A89-8037-22F0-E4F00E320EEC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audea\Source\Helpers">
+      <UniqueIdentifier>{F4CC888C-2889-EF97-CAAD-50C6773C2208}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Audea\Source\Filters">
       <UniqueIdentifier>{DD167ED3-CE7C-9B95-3159-E2E2B61D4827}</UniqueIdentifier>
     </Filter>
@@ -340,6 +343,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\EffectLFO.cpp">
+      <Filter>Audea\Source\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\VariableDelayLine.cpp">
+      <Filter>Audea\Source\Helpers</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\AllPassFilter.cpp">
       <Filter>Audea\Source\Filters</Filter>
     </ClCompile>
@@ -357,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Filter.cpp">
       <Filter>Audea\Source\Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Chorus.cpp">
+      <Filter>Audea\Source\Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Flanger.cpp">
       <Filter>Audea\Source\Effects</Filter>
@@ -1635,6 +1647,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\EffectLFO.h">
+      <Filter>Audea\Source\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\VariableDelayLine.h">
+      <Filter>Audea\Source\Helpers</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\FilterHeader.h">
       <Filter>Audea\Source\Filters</Filter>
     </ClInclude>
@@ -1655,6 +1673,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\Filter.h">
       <Filter>Audea\Source\Filters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Chorus.h">
+      <Filter>Audea\Source\Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Flanger.h">
       <Filter>Audea\Source\Effects</Filter>
@@ -2973,12 +2994,6 @@
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.h">
       <Filter>Juce Modules\juce_gui_extra</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Draggable3DOrientation.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Matrix3D.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLContext.h">
       <Filter>Juce Modules\juce_opengl\opengl</Filter>
     </ClInclude>
@@ -3004,12 +3019,6 @@
       <Filter>Juce Modules\juce_opengl\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLTexture.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Quaternion.h">
-      <Filter>Juce Modules\juce_opengl\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Vector3D.h">
       <Filter>Juce Modules\juce_opengl\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Draggable3DOrientation.h">

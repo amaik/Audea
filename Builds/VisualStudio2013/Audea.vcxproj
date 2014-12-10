@@ -139,12 +139,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\EffectLFO.cpp"/>
+    <ClCompile Include="..\..\Source\VariableDelayLine.cpp"/>
     <ClCompile Include="..\..\Source\AllPassFilter.cpp"/>
     <ClCompile Include="..\..\Source\BandRejectFilter.cpp"/>
     <ClCompile Include="..\..\Source\HighPassFilter.cpp"/>
     <ClCompile Include="..\..\Source\BandPassFilter.cpp"/>
     <ClCompile Include="..\..\Source\LowPassFilter.cpp"/>
     <ClCompile Include="..\..\Source\Filter.cpp"/>
+    <ClCompile Include="..\..\Source\Chorus.cpp"/>
     <ClCompile Include="..\..\Source\Flanger.cpp"/>
     <ClCompile Include="..\..\Source\Delay.cpp"/>
     <ClCompile Include="..\..\Source\FilterEnvelope.cpp"/>
@@ -1282,6 +1285,8 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_plugin_client\VST3\juce_VST3_Wrapper.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\EffectLFO.h"/>
+    <ClInclude Include="..\..\Source\VariableDelayLine.h"/>
     <ClInclude Include="..\..\Source\FilterHeader.h"/>
     <ClInclude Include="..\..\Source\AllPassFilter.h"/>
     <ClInclude Include="..\..\Source\BandRejectFilter.h"/>
@@ -1289,6 +1294,7 @@
     <ClInclude Include="..\..\Source\BandPassFilter.h"/>
     <ClInclude Include="..\..\Source\LowPassFilter.h"/>
     <ClInclude Include="..\..\Source\Filter.h"/>
+    <ClInclude Include="..\..\Source\Chorus.h"/>
     <ClInclude Include="..\..\Source\Flanger.h"/>
     <ClInclude Include="..\..\Source\Delay.h"/>
     <ClInclude Include="..\..\Source\FilterEnvelope.h"/>
@@ -1728,8 +1734,6 @@
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_gui_extra\misc\juce_WebBrowserComponent.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_gui_extra\native\juce_mac_CarbonViewWrapperComponent.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.h"/>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Draggable3DOrientation.h"/>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Matrix3D.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLContext.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLFrameBuffer.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLGraphicsContext.h"/>
@@ -1739,8 +1743,6 @@
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLRenderer.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLShaderProgram.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_OpenGLTexture.h"/>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Quaternion.h"/>
-    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Vector3D.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Draggable3DOrientation.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Matrix3D.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Quaternion.h"/>

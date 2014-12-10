@@ -12,6 +12,14 @@
               companyName="Audea">
   <MAINGROUP id="MeAM4n" name="Audea">
     <GROUP id="{E58AD537-E8AB-25A0-FDFB-70B3795549EF}" name="Source">
+      <GROUP id="{0DF08EAD-4D98-8BA2-A784-A19D9109C666}" name="Helpers">
+        <FILE id="ajlEx9" name="EffectLFO.cpp" compile="1" resource="0" file="Source/EffectLFO.cpp"/>
+        <FILE id="txFUbS" name="EffectLFO.h" compile="0" resource="0" file="Source/EffectLFO.h"/>
+        <FILE id="twplbO" name="VariableDelayLine.cpp" compile="1" resource="0"
+              file="Source/VariableDelayLine.cpp"/>
+        <FILE id="qPT8ov" name="VariableDelayLine.h" compile="0" resource="0"
+              file="Source/VariableDelayLine.h"/>
+      </GROUP>
       <GROUP id="{E66AA732-8524-9A75-F749-285D9E6B0A2E}" name="Filters">
         <FILE id="Sy9TMn" name="FilterHeader.h" compile="0" resource="0" file="Source/FilterHeader.h"/>
         <FILE id="ImFViB" name="AllPassFilter.cpp" compile="1" resource="0"
@@ -36,6 +44,8 @@
         <FILE id="PTkEin" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       </GROUP>
       <GROUP id="{B3D30E4F-43F8-5BF2-FD90-4154DBC84E3E}" name="Effects">
+        <FILE id="IkvoKv" name="Chorus.cpp" compile="1" resource="0" file="Source/Chorus.cpp"/>
+        <FILE id="EgNPTR" name="Chorus.h" compile="0" resource="0" file="Source/Chorus.h"/>
         <FILE id="Vgt06D" name="Flanger.cpp" compile="1" resource="0" file="Source/Flanger.cpp"/>
         <FILE id="Gq0XSk" name="Flanger.h" compile="0" resource="0" file="Source/Flanger.h"/>
         <FILE id="j1tiDk" name="Delay.cpp" compile="1" resource="0" file="Source/Delay.cpp"/>
