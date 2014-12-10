@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="BNFHeC" name="Audea" projectType="audioplug" version="1.0.0"
+              bundleIdentifier="com.yourcompany.Audea" includeBinaryInAppConfig="1"
+              buildVST="1" buildVST3="1" buildAU="1" buildRTAS="0" buildAAX="0"
+              pluginName="Audea" pluginDesc="Audea - A simple subtractive synthesiser"
+              pluginManufacturer="Audea" pluginManufacturerCode="AUD" pluginCode="Plug"
+              pluginChannelConfigs="{1, 1}, {2, 2}" pluginIsSynth="1" pluginWantsMidiIn="1"
+              pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="AudeaAU" pluginRTASCategory="" aaxIdentifier="com.yourcompany.Audea"
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.1.0"
+              companyName="Audea">
+  <MAINGROUP id="MeAM4n" name="Audea">
+    <GROUP id="{E58AD537-E8AB-25A0-FDFB-70B3795549EF}" name="Source">
+      <GROUP id="{E66AA732-8524-9A75-F749-285D9E6B0A2E}" name="Filters">
+        <FILE id="Sy9TMn" name="FilterHeader.h" compile="0" resource="0" file="Source/FilterHeader.h"/>
+        <FILE id="ImFViB" name="AllPassFilter.cpp" compile="1" resource="0"
+              file="Source/AllPassFilter.cpp"/>
+        <FILE id="ylhaod" name="AllPassFilter.h" compile="0" resource="0" file="Source/AllPassFilter.h"/>
+        <FILE id="fDXyuj" name="BandRejectFilter.cpp" compile="1" resource="0"
+              file="Source/BandRejectFilter.cpp"/>
+        <FILE id="Y6EM8e" name="BandRejectFilter.h" compile="0" resource="0"
+              file="Source/BandRejectFilter.h"/>
+        <FILE id="IjPgrv" name="HighPassFilter.cpp" compile="1" resource="0"
+              file="Source/HighPassFilter.cpp"/>
+        <FILE id="Toh36X" name="HighPassFilter.h" compile="0" resource="0"
+              file="Source/HighPassFilter.h"/>
+        <FILE id="XZ6xeF" name="BandPassFilter.cpp" compile="1" resource="0"
+              file="Source/BandPassFilter.cpp"/>
+        <FILE id="p1R8gF" name="BandPassFilter.h" compile="0" resource="0"
+              file="Source/BandPassFilter.h"/>
+        <FILE id="HypRbr" name="LowPassFilter.cpp" compile="1" resource="0"
+              file="Source/LowPassFilter.cpp"/>
+        <FILE id="pP3Nox" name="LowPassFilter.h" compile="0" resource="0" file="Source/LowPassFilter.h"/>
+        <FILE id="wr50OV" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
+        <FILE id="PTkEin" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
+      </GROUP>
+      <GROUP id="{B3D30E4F-43F8-5BF2-FD90-4154DBC84E3E}" name="Effects">
+        <FILE id="j1tiDk" name="Delay.cpp" compile="1" resource="0" file="Source/Delay.cpp"/>
+        <FILE id="f4naqp" name="Delay.h" compile="0" resource="0" file="Source/Delay.h"/>
+      </GROUP>
+      <GROUP id="{90448975-9B19-229D-B9EF-57B15CE8EE46}" name="Modulators">
+        <FILE id="pPWlMl" name="FilterEnvelope.cpp" compile="1" resource="0"
+              file="Source/FilterEnvelope.cpp"/>
+        <FILE id="iBohlD" name="FilterEnvelope.h" compile="0" resource="0"
+              file="Source/FilterEnvelope.h"/>
+        <FILE id="cSSAt2" name="Envelope.h" compile="0" resource="0" file="Source/Envelope.h"/>
+        <FILE id="KScmNg" name="Envelope.cpp" compile="1" resource="0" file="Source/Envelope.cpp"/>
+      </GROUP>
+      <GROUP id="{49A151C8-409C-2F6E-6E76-85400FF3AF7F}" name="WaveForms">
+        <FILE id="Z6jNvU" name="AudeaVoice.cpp" compile="1" resource="0" file="Source/AudeaVoice.cpp"/>
+        <FILE id="kaLgH1" name="AudeaVoice.h" compile="0" resource="0" file="Source/AudeaVoice.h"/>
+      </GROUP>
+      <FILE id="OmAz5Q" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="nbfxPM" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="uFUcr6" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="QmRxXq" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <VS2013 targetFolder="Builds/VisualStudio2013" vstFolder="c:\SDKs\vstsdk2.4"
+            vst3Folder="c:\SDKs\VST3 SDK">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="Audea"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="2" targetName="Audea" postbuildCommand="copy /Y &quot;$(TargetPath)&quot; &quot;$(AudeaPath)&quot;"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_opengl" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_events" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_cryptography" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_core" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="C:/juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="C:/juce/modules"/>
+      </MODULEPATHS>
+    </VS2013>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_audio_utils" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="1"/>
+    <MODULES id="juce_video" showAllCode="1" useLocalCopy="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>
