@@ -95,7 +95,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (OscOneLabel = new Label ("OscOneLabel",
                                                 TRANS("OSC 1")));
-    OscOneLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    OscOneLabel->setFont (Font (15.00f, Font::bold));
     OscOneLabel->setJustificationType (Justification::centredLeft);
     OscOneLabel->setEditable (false, false, false);
     OscOneLabel->setColour (Label::backgroundColourId, Colour (0x00000000));
@@ -105,7 +105,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (OscTwoLabel = new Label ("OscTwoLabel",
                                                 TRANS("OSC 2")));
-    OscTwoLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    OscTwoLabel->setFont (Font (15.00f, Font::bold));
     OscTwoLabel->setJustificationType (Justification::centredLeft);
     OscTwoLabel->setEditable (false, false, false);
     OscTwoLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -126,7 +126,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (OscThreeLabel = new Label ("OscThreeLabel",
                                                   TRANS("OSC 3")));
-    OscThreeLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    OscThreeLabel->setFont (Font (15.00f, Font::bold));
     OscThreeLabel->setJustificationType (Justification::centredLeft);
     OscThreeLabel->setEditable (false, false, false);
     OscThreeLabel->setColour (Label::backgroundColourId, Colour (0x00000000));
@@ -156,7 +156,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (OscVoicesLabel = new Label ("OscVoicesLabel",
                                                    TRANS("Voices")));
-    OscVoicesLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    OscVoicesLabel->setFont (Font (15.00f, Font::bold));
     OscVoicesLabel->setJustificationType (Justification::centredLeft);
     OscVoicesLabel->setEditable (false, false, false);
     OscVoicesLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -201,7 +201,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (AmpLabel = new Label ("AmpLabel",
                                              TRANS("Amp")));
-    AmpLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    AmpLabel->setFont (Font (15.00f, Font::bold));
     AmpLabel->setJustificationType (Justification::centredLeft);
     AmpLabel->setEditable (false, false, false);
     AmpLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -210,7 +210,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (TuneLabel = new Label ("TuneLabel",
                                               TRANS("Tune")));
-    TuneLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    TuneLabel->setFont (Font (15.00f, Font::bold));
     TuneLabel->setJustificationType (Justification::centredLeft);
     TuneLabel->setEditable (false, false, false);
     TuneLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -246,7 +246,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (AmpEnvAttackLabel = new Label ("AmpEnvAttackLabel",
                                                       TRANS("A")));
-    AmpEnvAttackLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    AmpEnvAttackLabel->setFont (Font (15.00f, Font::bold));
     AmpEnvAttackLabel->setJustificationType (Justification::centredLeft);
     AmpEnvAttackLabel->setEditable (false, false, false);
     AmpEnvAttackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -255,7 +255,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (AmpEnvDecayLabel = new Label ("AmpEnvDecayLabel",
                                                      TRANS("D")));
-    AmpEnvDecayLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    AmpEnvDecayLabel->setFont (Font (15.00f, Font::bold));
     AmpEnvDecayLabel->setJustificationType (Justification::centredLeft);
     AmpEnvDecayLabel->setEditable (false, false, false);
     AmpEnvDecayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -264,7 +264,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (AmpEnvSustainLabel = new Label ("AmpEnvSustainLabel",
                                                        TRANS("S")));
-    AmpEnvSustainLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    AmpEnvSustainLabel->setFont (Font (15.00f, Font::bold));
     AmpEnvSustainLabel->setJustificationType (Justification::centredLeft);
     AmpEnvSustainLabel->setEditable (false, false, false);
     AmpEnvSustainLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -273,7 +273,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (AmpEnvReleaseLabel = new Label ("AmpEnvReleaseLabel",
                                                        TRANS("R")));
-    AmpEnvReleaseLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    AmpEnvReleaseLabel->setFont (Font (15.00f, Font::bold));
     AmpEnvReleaseLabel->setJustificationType (Justification::centredLeft);
     AmpEnvReleaseLabel->setEditable (false, false, false);
     AmpEnvReleaseLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -282,7 +282,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterEnvAttackLabel = new Label ("FilterEnvAttackLabel",
                                                          TRANS("A")));
-    FilterEnvAttackLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterEnvAttackLabel->setFont (Font (15.00f, Font::bold));
     FilterEnvAttackLabel->setJustificationType (Justification::centredLeft);
     FilterEnvAttackLabel->setEditable (false, false, false);
     FilterEnvAttackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -291,7 +291,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterEnvDecayLabel = new Label ("FilterEnvDecayLabel",
                                                         TRANS("D")));
-    FilterEnvDecayLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterEnvDecayLabel->setFont (Font (15.00f, Font::bold));
     FilterEnvDecayLabel->setJustificationType (Justification::centredLeft);
     FilterEnvDecayLabel->setEditable (false, false, false);
     FilterEnvDecayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -300,7 +300,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterEnvSustainLabel = new Label ("FilterEnvSustainLabel",
                                                           TRANS("S")));
-    FilterEnvSustainLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterEnvSustainLabel->setFont (Font (15.00f, Font::bold));
     FilterEnvSustainLabel->setJustificationType (Justification::centredLeft);
     FilterEnvSustainLabel->setEditable (false, false, false);
     FilterEnvSustainLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -309,7 +309,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterEnvReleaseLabel = new Label ("FilterEnvReleaseLabel",
                                                           TRANS("R")));
-    FilterEnvReleaseLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterEnvReleaseLabel->setFont (Font (15.00f, Font::bold));
     FilterEnvReleaseLabel->setJustificationType (Justification::centredLeft);
     FilterEnvReleaseLabel->setEditable (false, false, false);
     FilterEnvReleaseLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -358,14 +358,14 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     addAndMakeVisible (FilterCutoffSlider = new Slider ("FilterCutoffSlider"));
     FilterCutoffSlider->setRange (1, 20000, 1);
     FilterCutoffSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterCutoffSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    FilterCutoffSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterCutoffSlider->addListener (this);
     FilterCutoffSlider->setSkewFactor (0.5);
 
     addAndMakeVisible (FilterResonanceSlider = new Slider ("FilterResonanceSlider"));
     FilterResonanceSlider->setRange (0.05, 5, 0.01);
     FilterResonanceSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterResonanceSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
+    FilterResonanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterResonanceSlider->addListener (this);
 
     addAndMakeVisible (FilterEnvelopeSlider = new Slider ("FilterEnvelopeSlider"));
@@ -376,7 +376,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterCutoffLabel = new Label ("FilterCutoffLabel",
                                                       TRANS("Cutoff")));
-    FilterCutoffLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterCutoffLabel->setFont (Font (15.00f, Font::bold));
     FilterCutoffLabel->setJustificationType (Justification::centredLeft);
     FilterCutoffLabel->setEditable (false, false, false);
     FilterCutoffLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -385,7 +385,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterResLabel = new Label ("FilterResLabel",
                                                    TRANS("Res")));
-    FilterResLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterResLabel->setFont (Font (15.00f, Font::bold));
     FilterResLabel->setJustificationType (Justification::centredLeft);
     FilterResLabel->setEditable (false, false, false);
     FilterResLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -394,7 +394,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterEnvelopeLabel = new Label ("FilterEnvelopeLabel",
                                                         TRANS("Envelope")));
-    FilterEnvelopeLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FilterEnvelopeLabel->setFont (Font (15.00f, Font::bold));
     FilterEnvelopeLabel->setJustificationType (Justification::centredLeft);
     FilterEnvelopeLabel->setEditable (false, false, false);
     FilterEnvelopeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -415,7 +415,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ReverbMixLabel = new Label ("ReverbMixLabel",
                                                    TRANS("Mix")));
-    ReverbMixLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    ReverbMixLabel->setFont (Font (15.00f, Font::bold));
     ReverbMixLabel->setJustificationType (Justification::centredLeft);
     ReverbMixLabel->setEditable (false, false, false);
     ReverbMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -424,7 +424,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ReverbSizeLabel = new Label ("ReverbSizeLabel",
                                                     TRANS("Size")));
-    ReverbSizeLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    ReverbSizeLabel->setFont (Font (15.00f, Font::bold));
     ReverbSizeLabel->setJustificationType (Justification::centredLeft);
     ReverbSizeLabel->setEditable (false, false, false);
     ReverbSizeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -433,7 +433,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ChorusMixLabel = new Label ("ChorusMixLabel",
                                                    TRANS("Mix")));
-    ChorusMixLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    ChorusMixLabel->setFont (Font (15.00f, Font::bold));
     ChorusMixLabel->setJustificationType (Justification::centredLeft);
     ChorusMixLabel->setEditable (false, false, false);
     ChorusMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -454,7 +454,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ChorusRateLabel = new Label ("ChorusRateLabel",
                                                     TRANS("Rate")));
-    ChorusRateLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    ChorusRateLabel->setFont (Font (15.00f, Font::bold));
     ChorusRateLabel->setJustificationType (Justification::centredLeft);
     ChorusRateLabel->setEditable (false, false, false);
     ChorusRateLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -469,7 +469,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerDelayLabel = new Label ("FlangerDelayLabel",
                                                       TRANS("Delay")));
-    FlangerDelayLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FlangerDelayLabel->setFont (Font (15.00f, Font::bold));
     FlangerDelayLabel->setJustificationType (Justification::centredLeft);
     FlangerDelayLabel->setEditable (false, false, false);
     FlangerDelayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -478,7 +478,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerFeedbackLabel = new Label ("FlangerFeedbackLabel",
                                                          TRANS("FB")));
-    FlangerFeedbackLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FlangerFeedbackLabel->setFont (Font (15.00f, Font::bold));
     FlangerFeedbackLabel->setJustificationType (Justification::centredLeft);
     FlangerFeedbackLabel->setEditable (false, false, false);
     FlangerFeedbackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -515,7 +515,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DistortionAmountLabel = new Label ("DistortionAmountLabel",
                                                           TRANS("Amount\n")));
-    DistortionAmountLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    DistortionAmountLabel->setFont (Font (15.00f, Font::bold));
     DistortionAmountLabel->setJustificationType (Justification::centredLeft);
     DistortionAmountLabel->setEditable (false, false, false);
     DistortionAmountLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -524,7 +524,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerMixLabel = new Label ("FlangerMixLabel",
                                                     TRANS("Mix")));
-    FlangerMixLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    FlangerMixLabel->setFont (Font (15.00f, Font::bold));
     FlangerMixLabel->setJustificationType (Justification::centredLeft);
     FlangerMixLabel->setEditable (false, false, false);
     FlangerMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -581,7 +581,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DelayRateLeftLabel = new Label ("DelayRateLeftLabel",
                                                        TRANS("Rate - Left")));
-    DelayRateLeftLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    DelayRateLeftLabel->setFont (Font (15.00f, Font::bold));
     DelayRateLeftLabel->setJustificationType (Justification::centredLeft);
     DelayRateLeftLabel->setEditable (false, false, false);
     DelayRateLeftLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -590,7 +590,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DelayMixLabel = new Label ("DelayMixLabel",
                                                   TRANS("Mix")));
-    DelayMixLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    DelayMixLabel->setFont (Font (15.00f, Font::bold));
     DelayMixLabel->setJustificationType (Justification::centredLeft);
     DelayMixLabel->setEditable (false, false, false);
     DelayMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -599,7 +599,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DelayFeedbackLabel = new Label ("DelayFeedbackLabel",
                                                        TRANS("FB")));
-    DelayFeedbackLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    DelayFeedbackLabel->setFont (Font (15.00f, Font::bold));
     DelayFeedbackLabel->setJustificationType (Justification::centredLeft);
     DelayFeedbackLabel->setEditable (false, false, false);
     DelayFeedbackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -608,7 +608,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DelayRateRightLabel = new Label ("DelayRateRightLabel",
                                                         TRANS("Rate - Right")));
-    DelayRateRightLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    DelayRateRightLabel->setFont (Font (15.00f, Font::bold));
     DelayRateRightLabel->setJustificationType (Justification::centredLeft);
     DelayRateRightLabel->setEditable (false, false, false);
     DelayRateRightLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -630,7 +630,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFODestinationLabel = new Label ("LFODestinationLabel",
                                                         TRANS("Destination")));
-    LFODestinationLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    LFODestinationLabel->setFont (Font (15.00f, Font::bold));
     LFODestinationLabel->setJustificationType (Justification::centredLeft);
     LFODestinationLabel->setEditable (false, false, false);
     LFODestinationLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -639,7 +639,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFOAmountLabel = new Label ("LFOAmountLabel",
                                                    TRANS("Amount")));
-    LFOAmountLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    LFOAmountLabel->setFont (Font (15.00f, Font::bold));
     LFOAmountLabel->setJustificationType (Justification::centredLeft);
     LFOAmountLabel->setEditable (false, false, false);
     LFOAmountLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -648,7 +648,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFORateLabel = new Label ("LFORateLabel",
                                                  TRANS("Rate")));
-    LFORateLabel->setFont (Font ("Linographer", 15.00f, Font::bold));
+    LFORateLabel->setFont (Font (15.00f, Font::bold));
     LFORateLabel->setJustificationType (Justification::centredLeft);
     LFORateLabel->setEditable (false, false, false);
     LFORateLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -682,7 +682,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFOMonoLabel = new Label ("LFOMonoLabel",
                                                  TRANS("Mono")));
-    LFOMonoLabel->setFont (Font ("Linographer", 11.20f, Font::bold));
+    LFOMonoLabel->setFont (Font (11.20f, Font::bold));
     LFOMonoLabel->setJustificationType (Justification::centredLeft);
     LFOMonoLabel->setEditable (false, false, false);
     LFOMonoLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -691,7 +691,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFOPolyLabel = new Label ("LFOPolyLabel",
                                                  TRANS("Poly")));
-    LFOPolyLabel->setFont (Font ("Linographer", 11.20f, Font::bold));
+    LFOPolyLabel->setFont (Font (11.20f, Font::bold));
     LFOPolyLabel->setJustificationType (Justification::centredLeft);
     LFOPolyLabel->setEditable (false, false, false);
     LFOPolyLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -700,7 +700,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFORetriggerLabel = new Label ("LFORetriggerLabel",
                                                       TRANS("Retrigger")));
-    LFORetriggerLabel->setFont (Font ("Linographer", 11.20f, Font::bold));
+    LFORetriggerLabel->setFont (Font (11.20f, Font::bold));
     LFORetriggerLabel->setJustificationType (Justification::centredLeft);
     LFORetriggerLabel->setEditable (false, false, false);
     LFORetriggerLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
@@ -891,16 +891,16 @@ void AudeaAudioProcessorEditor::resized()
     FilterEnvelopeLabel->setBounds (632, 40, 72, 24);
     ReverbMixSlider->setBounds (656, 376, 39, 40);
     ReverbSizeSlider->setBounds (656, 288, 39, 40);
-    ReverbMixLabel->setBounds (656, 336, 40, 24);
-    ReverbSizeLabel->setBounds (648, 256, 48, 24);
-    ChorusMixLabel->setBounds (576, 336, 40, 24);
+    ReverbMixLabel->setBounds (656, 344, 40, 24);
+    ReverbSizeLabel->setBounds (656, 256, 40, 24);
+    ChorusMixLabel->setBounds (576, 344, 40, 24);
     ChorusRateSlider->setBounds (576, 288, 39, 40);
     ChorusMixSlider->setBounds (576, 376, 39, 40);
-    ChorusRateLabel->setBounds (568, 256, 48, 24);
+    ChorusRateLabel->setBounds (576, 256, 40, 24);
     FlangerFeedbackSlider->setBounds (400, 264, 39, 40);
-    FlangerDelayLabel->setBounds (392, 296, 48, 24);
+    FlangerDelayLabel->setBounds (392, 304, 48, 24);
     FlangerFeedbackLabel->setBounds (408, 240, 32, 32);
-    FlangerDelaySlider->setBounds (400, 320, 39, 40);
+    FlangerDelaySlider->setBounds (400, 328, 39, 40);
     FlangerIsOn->setBounds (384, 232, 24, 24);
     ChorusIsOn->setBounds (560, 232, 24, 24);
     ReverbIsOn->setBounds (648, 232, 24, 24);
@@ -1333,11 +1333,11 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="24 16 72 24" bkgCol="0"
          textCol="ffb2ff8b" edTextCol="ff000000" edBkgCol="0" labelText="OSC 1"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
-         fontname="Linographer" fontsize="15" bold="1" italic="0" justification="33"/>
+         fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="OscTwoLabel" id="80b92a6d3da041d7" memberName="OscTwoLabel"
          virtualName="" explicitFocusOrder="0" pos="24 80 72 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="OSC 2" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="OscTwoBox" id="9658df6ae373fec0" memberName="OscTwoBox"
             virtualName="" explicitFocusOrder="0" pos="24 112 72 24" editable="0"
@@ -1347,7 +1347,7 @@ BEGIN_JUCER_METADATA
          virtualName="" explicitFocusOrder="0" pos="24 144 72 24" bkgCol="0"
          textCol="ffb2ff8b" edTextCol="ff000000" edBkgCol="0" labelText="OSC 3"
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
-         fontname="Linographer" fontsize="15" bold="1" italic="0" justification="33"/>
+         fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="OscThreeBox" id="c3eda3b88ca10927" memberName="OscThreeBox"
             virtualName="" explicitFocusOrder="0" pos="24 176 72 24" editable="0"
             layout="33" items="Sine&#10;Triangle&#10;Square&#10;Saw&#10;Noise"
@@ -1361,7 +1361,7 @@ BEGIN_JUCER_METADATA
   <LABEL name="OscVoicesLabel" id="ad98ae9f583cce49" memberName="OscVoicesLabel"
          virtualName="" explicitFocusOrder="0" pos="216 16 64 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Voices" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="OscVoicesSlider" id="6bc9606b0691e0d2" memberName="OscVoicesSlider"
           virtualName="" explicitFocusOrder="0" pos="200 40 88 40" min="1"
@@ -1390,12 +1390,12 @@ BEGIN_JUCER_METADATA
   <LABEL name="AmpLabel" id="8c8284e7aa750e8e" memberName="AmpLabel" virtualName=""
          explicitFocusOrder="0" pos="112 16 47 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Amp" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="TuneLabel" id="733fecb2ba92fcae" memberName="TuneLabel"
          virtualName="" explicitFocusOrder="0" pos="200 80 47 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Tune" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="AmpEnvAttackSlider" id="4f8a01927368655c" memberName="AmpEnvAttackSlider"
           virtualName="" explicitFocusOrder="0" pos="320 56 40 144" min="0"
@@ -1416,42 +1416,42 @@ BEGIN_JUCER_METADATA
   <LABEL name="AmpEnvAttackLabel" id="675c93b93a42f2b4" memberName="AmpEnvAttackLabel"
          virtualName="" explicitFocusOrder="0" pos="328 24 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="A" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="AmpEnvDecayLabel" id="cf1eb2ff18322695" memberName="AmpEnvDecayLabel"
          virtualName="" explicitFocusOrder="0" pos="368 24 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="D" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="AmpEnvSustainLabel" id="c28e48a072fb03be" memberName="AmpEnvSustainLabel"
          virtualName="" explicitFocusOrder="0" pos="408 24 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="S" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="AmpEnvReleaseLabel" id="bdb70944e9013ae7" memberName="AmpEnvReleaseLabel"
          virtualName="" explicitFocusOrder="0" pos="448 24 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="R" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterEnvAttackLabel" id="4695c6f213cd256b" memberName="FilterEnvAttackLabel"
          virtualName="" explicitFocusOrder="0" pos="512 120 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="A" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterEnvDecayLabel" id="70ec896ab585366f" memberName="FilterEnvDecayLabel"
          virtualName="" explicitFocusOrder="0" pos="560 120 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="D" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterEnvSustainLabel" id="960e70083f617ad7" memberName="FilterEnvSustainLabel"
          virtualName="" explicitFocusOrder="0" pos="608 120 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="S" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterEnvReleaseLabel" id="3601e6d859db0297" memberName="FilterEnvReleaseLabel"
          virtualName="" explicitFocusOrder="0" pos="656 120 24 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="R" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FilterEnvAttackSlider" id="17c6e681fdd783f7" memberName="FilterEnvAttackSlider"
           virtualName="" explicitFocusOrder="0" pos="504 144 40 80" min="0"
@@ -1475,11 +1475,11 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="FilterCutoffSlider" id="290abad0411db05d" memberName="FilterCutoffSlider"
           virtualName="" explicitFocusOrder="0" pos="520 72 39 40" min="1"
-          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxBelow"
+          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
           virtualName="" explicitFocusOrder="0" pos="576 72 39 40" min="0.050000000000000003"
-          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="TextBoxBelow"
+          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
           virtualName="" explicitFocusOrder="0" pos="640 64 39 40" min="0"
@@ -1488,17 +1488,17 @@ BEGIN_JUCER_METADATA
   <LABEL name="FilterCutoffLabel" id="f6e337c9abe5937" memberName="FilterCutoffLabel"
          virtualName="" explicitFocusOrder="0" pos="512 40 48 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Cutoff" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterResLabel" id="f43fb1111063d372" memberName="FilterResLabel"
          virtualName="" explicitFocusOrder="0" pos="576 40 48 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Res" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FilterEnvelopeLabel" id="ba5c138277650060" memberName="FilterEnvelopeLabel"
          virtualName="" explicitFocusOrder="0" pos="632 40 72 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Envelope" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
           virtualName="" explicitFocusOrder="0" pos="656 376 39 40" min="0"
@@ -1509,19 +1509,19 @@ BEGIN_JUCER_METADATA
           max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="656 336 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="656 344 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
-         virtualName="" explicitFocusOrder="0" pos="648 256 48 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="656 256 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Size" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="ChorusMixLabel" id="b4ad33fdd8052ed9" memberName="ChorusMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="576 336 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="576 344 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
           virtualName="" explicitFocusOrder="0" pos="576 288 39 40" min="0"
@@ -1532,26 +1532,26 @@ BEGIN_JUCER_METADATA
           max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
-         virtualName="" explicitFocusOrder="0" pos="568 256 48 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="576 256 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
           virtualName="" explicitFocusOrder="0" pos="400 264 39 40" min="0"
           max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FlangerDelayLabel" id="272eb6964a7114f0" memberName="FlangerDelayLabel"
-         virtualName="" explicitFocusOrder="0" pos="392 296 48 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="392 304 48 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Delay" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FlangerFeedbackLabel" id="fdc662dd4cb4641" memberName="FlangerFeedbackLabel"
          virtualName="" explicitFocusOrder="0" pos="408 240 32 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="FB" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
-          virtualName="" explicitFocusOrder="0" pos="400 320 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="0"
           max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
@@ -1573,12 +1573,12 @@ BEGIN_JUCER_METADATA
   <LABEL name="DistortionAmountLabel" id="be66008f7bf2db32" memberName="DistortionAmountLabel"
          virtualName="" explicitFocusOrder="0" pos="472 296 72 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Amount&#10;" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FlangerMixLabel" id="c0699ca2f76a7f24" memberName="FlangerMixLabel"
          virtualName="" explicitFocusOrder="0" pos="400 360 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
           virtualName="" explicitFocusOrder="0" pos="400 384 39 40" min="0"
@@ -1607,22 +1607,22 @@ BEGIN_JUCER_METADATA
   <LABEL name="DelayRateLeftLabel" id="286c9d511ea89ea2" memberName="DelayRateLeftLabel"
          virtualName="" explicitFocusOrder="0" pos="232 232 96 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate - Left" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="DelayMixLabel" id="ea4b4356928b2f72" memberName="DelayMixLabel"
          virtualName="" explicitFocusOrder="0" pos="224 352 32 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="DelayFeedbackLabel" id="c65d61c2d4dcc603" memberName="DelayFeedbackLabel"
          virtualName="" explicitFocusOrder="0" pos="296 352 32 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="FB" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="DelayRateRightLabel" id="135a82273eff0c07" memberName="DelayRateRightLabel"
          virtualName="" explicitFocusOrder="0" pos="232 288 96 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate - Right" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFODestinationBox" id="9bcda03ffed93fb9" memberName="LFODestinationBox"
             virtualName="" explicitFocusOrder="0" pos="32 280 120 24" editable="0"
@@ -1634,17 +1634,17 @@ BEGIN_JUCER_METADATA
   <LABEL name="LFODestinationLabel" id="d6929965cd407937" memberName="LFODestinationLabel"
          virtualName="" explicitFocusOrder="0" pos="40 248 96 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Destination" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFOAmountLabel" id="7f50080a208b8bbf" memberName="LFOAmountLabel"
          virtualName="" explicitFocusOrder="0" pos="16 312 64 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Amount" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFORateLabel" id="5ff6d628d761acfc" memberName="LFORateLabel"
          virtualName="" explicitFocusOrder="0" pos="112 312 48 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFORateBox" id="a255da4f656aae8d" memberName="LFORateBox"
             virtualName="" explicitFocusOrder="0" pos="104 352 64 24" editable="0"
@@ -1659,17 +1659,17 @@ BEGIN_JUCER_METADATA
   <LABEL name="LFOMonoLabel" id="a61e7d76ccac9329" memberName="LFOMonoLabel"
          virtualName="" explicitFocusOrder="0" pos="24 384 48 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mono" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
   <LABEL name="LFOPolyLabel" id="8264c7192d3851c0" memberName="LFOPolyLabel"
          virtualName="" explicitFocusOrder="0" pos="72 384 40 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Poly" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
   <LABEL name="LFORetriggerLabel" id="5ad6ae6975863a09" memberName="LFORetriggerLabel"
          virtualName="" explicitFocusOrder="0" pos="120 384 56 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Retrigger" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Linographer"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
 </JUCER_COMPONENT>
 
