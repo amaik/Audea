@@ -36,6 +36,8 @@
         <FILE id="PTkEin" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       </GROUP>
       <GROUP id="{B3D30E4F-43F8-5BF2-FD90-4154DBC84E3E}" name="Effects">
+        <FILE id="Vgt06D" name="Flanger.cpp" compile="1" resource="0" file="Source/Flanger.cpp"/>
+        <FILE id="Gq0XSk" name="Flanger.h" compile="0" resource="0" file="Source/Flanger.h"/>
         <FILE id="j1tiDk" name="Delay.cpp" compile="1" resource="0" file="Source/Delay.cpp"/>
         <FILE id="f4naqp" name="Delay.h" compile="0" resource="0" file="Source/Delay.h"/>
       </GROUP>

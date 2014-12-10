@@ -317,6 +317,9 @@
     <Filter Include="Juce Modules\juce_opengl\opengl">
       <UniqueIdentifier>{2D8D0E19-E676-83EB-38D9-F73500DD6B79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Juce Modules\juce_opengl\geometry">
+      <UniqueIdentifier>{B3141847-8F13-F67D-45B2-E3ECF6E09088}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Juce Modules\juce_opengl\native">
       <UniqueIdentifier>{151B49D8-6102-F802-1C07-D59931BC0574}</UniqueIdentifier>
     </Filter>
@@ -354,6 +357,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\Filter.cpp">
       <Filter>Audea\Source\Filters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Flanger.cpp">
+      <Filter>Audea\Source\Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Delay.cpp">
       <Filter>Audea\Source\Effects</Filter>
@@ -1650,6 +1656,9 @@
     <ClInclude Include="..\..\Source\Filter.h">
       <Filter>Audea\Source\Filters</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\Flanger.h">
+      <Filter>Audea\Source\Effects</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Delay.h">
       <Filter>Audea\Source\Effects</Filter>
     </ClInclude>
@@ -2346,6 +2355,9 @@
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_events\messages\juce_MessageManager.h">
       <Filter>Juce Modules\juce_events\messages</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_events\messages\juce_MountedVolumeListChangeDetector.h">
+      <Filter>Juce Modules\juce_events\messages</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_events\messages\juce_NotificationType.h">
       <Filter>Juce Modules\juce_events\messages</Filter>
     </ClInclude>
@@ -2999,6 +3011,18 @@
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\opengl\juce_Vector3D.h">
       <Filter>Juce Modules\juce_opengl\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Draggable3DOrientation.h">
+      <Filter>Juce Modules\juce_opengl\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Matrix3D.h">
+      <Filter>Juce Modules\juce_opengl\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Quaternion.h">
+      <Filter>Juce Modules\juce_opengl\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\geometry\juce_Vector3D.h">
+      <Filter>Juce Modules\juce_opengl\geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_opengl\native\juce_MissingGLDefinitions.h">
       <Filter>Juce Modules\juce_opengl\native</Filter>

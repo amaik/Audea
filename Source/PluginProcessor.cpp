@@ -46,6 +46,10 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[DelayLenRight] = 2.0f;
 	UserParams[DelayLenLeft] = 2.0f;
 	UserParams[DelayIsOn] = 0.0f;
+	UserParams[FlangerMix] = 0.0f;
+	UserParams[FlangerFeedback] = 0.0f;
+	UserParams[FlangerDelay] = 10.0f;
+	UserParams[FlangerIsOn] = 0.0f;
 
 
 	UIUpdateFlag = true; //Request UI update
@@ -176,6 +180,18 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 		break;
 	case DelayIsOn:		UserParams[DelayIsOn] = newValue;
 		break;
+	case FlangerMix:	UserParams[FlangerMix] = newValue;
+		flanger->setMix(newValue);
+		break;
+	case FlangerFeedback: UserParams[FlangerFeedback] = newValue;
+		flanger->setFeedback(newValue);
+		break;
+	case FlangerDelay:	UserParams[FlangerDelay] = newValue;
+		flanger->setDepth(newValue);
+		flanger->updateRange();
+		break;
+	case FlangerIsOn:	UserParams[FlangerIsOn] = newValue;
+		break;
 	}
 	UIUpdateFlag = true;
 }
@@ -212,6 +228,9 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case DelayMix:          return "Delay Mix";
 	case DelayLenRight:     return "Delay Length Right";
 	case DelayLenLeft:      return "Delay Length Left";
+	case FlangerMix:	return "Flanger Mix";
+	case FlangerFeedback: return "Flanger FeedbacK";
+	case FlangerDelay:	return "Flanger Delay";
 	//OtherParams...
 	default:return String::empty;
 	}
@@ -336,6 +355,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 	{
 		if (UserParams[DelayIsOn])
 			delay->process(&left[i], &right[i]);
+		if (UserParams[FlangerIsOn])
+			flanger->process(&left[i], &right[i]);
 	}
 
 
@@ -616,6 +637,7 @@ void AudeaAudioProcessor::init()
 	float samples = getSampleRate();
 
 	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples);
+	flanger = new Flanger(samples);
 
 }
 

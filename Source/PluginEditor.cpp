@@ -967,6 +967,10 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == FlangerIsOn)
     {
         //[UserButtonCode_FlangerIsOn] -- add your button handler code here..
+		if (buttonThatWasClicked->getToggleState())
+			ourProcessor->setParameter(AudeaAudioProcessor::FlangerIsOn, 1.0f);
+		else
+			ourProcessor->setParameter(AudeaAudioProcessor::FlangerIsOn, 0.0f);
         //[/UserButtonCode_FlangerIsOn]
     }
     else if (buttonThatWasClicked == ChorusIsOn)
@@ -1197,11 +1201,13 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == FlangerFeedbackSlider)
     {
         //[UserSliderCode_FlangerFeedbackSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerFeedback, sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerFeedbackSlider]
     }
     else if (sliderThatWasMoved == FlangerDelaySlider)
     {
         //[UserSliderCode_FlangerDelaySlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerDelay, sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerDelaySlider]
     }
     else if (sliderThatWasMoved == DistortionAmountSlider)
@@ -1212,6 +1218,7 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == FlangerMixSlider)
     {
         //[UserSliderCode_FlangerMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerMix, sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerMixSlider]
     }
     else if (sliderThatWasMoved == DelayMixSlider)
@@ -1272,6 +1279,9 @@ void AudeaAudioProcessorEditor::timerCallback()
 		DelayMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DelayMix));
 		DelayRateRightBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::DelayLenRight), false);
 		DelayRateLeftBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::DelayLenLeft), false);
+		FlangerMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerMix));
+		FlangerFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerFeedback));
+		FlangerDelaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerDelay));
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
 	}

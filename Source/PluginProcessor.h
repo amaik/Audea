@@ -16,6 +16,7 @@
 #include "FilterHeader.h"
 #include "FilterEnvelope.h"
 #include "Delay.h"
+#include "Flanger.h"
 
 
 //==============================================================================
@@ -101,6 +102,10 @@ public:
 		DelayLenRight,
 		DelayLenLeft,
 		DelayIsOn,
+		FlangerMix,
+		FlangerFeedback,
+		FlangerDelay,
+		FlangerIsOn,
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -150,6 +155,7 @@ private:
 	AudioPlayHead* playHead;
 	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
 	Delay* delay;
+	Flanger* flanger;
 	bool isInited = false;
 	Synthesiser synth;
 	Filter *filter = new AllPassFilter(&UserParams[FilterRes]);
