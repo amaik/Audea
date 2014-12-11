@@ -504,7 +504,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ReverbIsOn->addListener (this);
 
     addAndMakeVisible (DistortionAmountSlider = new Slider ("DistortionAmountSlider"));
-    DistortionAmountSlider->setRange (0, 10, 0);
+    DistortionAmountSlider->setRange (0, 100, 0.1);
     DistortionAmountSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     DistortionAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DistortionAmountSlider->addListener (this);
@@ -986,6 +986,10 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == DistortionIsOn)
     {
         //[UserButtonCode_DistortionIsOn] -- add your button handler code here..
+		if (buttonThatWasClicked->getToggleState())
+			ourProcessor->setParameter(AudeaAudioProcessor::DistortionIsOn, 1.0f);
+		else
+			ourProcessor->setParameter(AudeaAudioProcessor::DistortionIsOn, 0.0f);
         //[/UserButtonCode_DistortionIsOn]
     }
     else if (buttonThatWasClicked == DelayIsOn)
@@ -1213,6 +1217,7 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == DistortionAmountSlider)
     {
         //[UserSliderCode_DistortionAmountSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::DistortionAmt, sliderThatWasMoved->getValue());
         //[/UserSliderCode_DistortionAmountSlider]
     }
     else if (sliderThatWasMoved == FlangerMixSlider)
@@ -1282,6 +1287,10 @@ void AudeaAudioProcessorEditor::timerCallback()
 		FlangerMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerMix));
 		FlangerFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerFeedback));
 		FlangerDelaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerDelay));
+		FlangerIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::FlangerIsOn), false);
+		DistortionIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::DistortionIsOn), false);
+		DistortionAmountSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DistortionAmt));
+
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
 	}
@@ -1575,8 +1584,9 @@ BEGIN_JUCER_METADATA
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
           virtualName="" explicitFocusOrder="0" pos="488 328 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          max="100" int="0.10000000000000001" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="DistortionIsOn" id="6cc597398b435cf2" memberName="DistortionIsOn"
                 virtualName="" explicitFocusOrder="0" pos="472 232 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
