@@ -13,53 +13,18 @@
 
 void Flanger::process(float* left, float* right){
 	float in;
-	//Oszillator
-	float maxDelay = center + (depth / 2);
-
-	if (Feedback != 0)
-		in = *left - DelayTap(center) * Feedback;
-	delayOffset = delayCenter + (delayRange /**Oszillator*/);
-	delayRead = delayWrite - delayOffset;
-	if (delayRead < 0)
-		delayRead += maxDelay * (Samples / 1000);
-	readInt = (int)(delayCenter + (delayRange/**Oszillator*/));
-	readFract = (delayCenter + (delayRange/**Oszillator*/)) - readInt;
-	if (delayOffset < 1)
-		variableDelayLine[delayWrite] = *left;
-	float out = variableDelayLine[readInt] * (1 - readFract);
-	if (--readInt < 0)
-		readInt += maxDelay * (Samples / 1000);
-	out += variableDelayLine[readInt] * readFract;
-	if (delayOffset >= 1)
-		variableDelayLine[delayWrite] = *left;
-	if (++delayWrite >= maxDelay * (Samples / 1000))
-		delayWrite -= maxDelay * (Samples / 1000);
-	out *= Mix;
-
-	*left = (in * (1-Mix)) + out;
-
+	oscil.Init(sweep);
 
 
 	if (Feedback != 0)
-		in = *right - variableDelayLine[(int)center] * Feedback;
-	delayOffset = delayCenter + (delayRange /**Oszillator*/);
-	delayRead = delayWrite - delayOffset;
-	if (delayRead < 0)
-		delayRead += maxDelay * (Samples / 1000);
-	readInt = (int)(delayCenter + (delayRange/**Oszillator*/));
-	readFract = (delayCenter + (delayRange/**Oszillator*/)) - readInt;
-	if (delayOffset < 1)
-		variableDelayLine[delayWrite] = *right;
-	out = variableDelayLine[readInt] * (1 - readFract);
-	if (--readInt < 0)
-		readInt += maxDelay * (Samples / 1000);
-	out += variableDelayLine[readInt] * readFract;
-	if (delayOffset >= 1)
-		variableDelayLine[delayWrite] = *right;
-	if (++delayWrite >= maxDelay * (Samples / 1000))
-		delayWrite -= maxDelay * (Samples / 1000);
-	out *= Mix;
+		in = *left - vdlLeft->getValueAtOffset(center*(Samples / 1000)) * Feedback;
+	vdlLeft->Set((center + (depth  /**Oszillator*/))*(Samples / 1000));
+	*left = (in * (1 - Mix)) + (vdlLeft->readWrite(in) * Mix);
 
-	*right = (in * (1-Mix)) + out;
+
+	if (Feedback != 0)
+		in = *right - vdlRight->getValueAtOffset(center*(Samples / 1000)) * Feedback;
+	vdlRight->Set((center + (depth  /**Oszillator*/))*(Samples/1000));
+	*right = (in * (1 - Mix)) + (vdlRight->readWrite(in) * Mix);
 
 }

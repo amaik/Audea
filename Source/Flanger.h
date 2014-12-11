@@ -12,6 +12,7 @@
 #define FLANGER_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "VariableDelayLine.h"
 
 class Flanger{
 
@@ -23,14 +24,17 @@ public:
 		Feedback = 0.5f;
 		depth = 10.0f;
 		Samples = samplesPerMillisecond;
-		variableDelayLine = new float[(int)((center + (10.0f / 2)) * (Samples / 1000))];
-		memset(variableDelayLine, 0, (center + (depth / 2))*(Samples / 1000));
+		vdlLeft = new VariableDelayLine((center + (10.0f / 2)) * (Samples / 1000));
+		vdlRight = new VariableDelayLine((center + (10.0f / 2)) * (Samples / 1000));
+		memset(vdlLeft->getBuffer, 0, (center + (depth / 2))*(Samples / 1000));
+		memset(vdlRight->getBuffer, 0, (center + (depth / 2))*(Samples / 1000));
 		delayCenter = (center * (Samples / 1000));
 		delayRange = (depth * (Samples / 1000)) / 2;
 	}
 
 	~Flanger(){
-		delete[] variableDelayLine;
+		delete[] vdlLeft->getBuffer;
+		delete[] vdlRight->getBuffer;
 	}
 
 	void setMix(float newMix){ Mix = newMix; };
@@ -48,11 +52,8 @@ private:
 	float depth;
 	float center;
 	float Samples;
-	float* variableDelayLine;
-	float readFract;
-	int readInt;
-	int delayWrite = 0;
-	int delayRead;
+	VariableDelayLine* vdlLeft;
+	VariableDelayLine* vdlRight;
 	int delayOffset;
 	int delayRange;
 	int delayCenter;
