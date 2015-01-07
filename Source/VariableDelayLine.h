@@ -11,6 +11,8 @@
 #ifndef VARIABLEDELAYLINE_H_INCLUDED
 #define VARIABLEDELAYLINE_H_INCLUDED
 
+#include "../JuceLibraryCode/JuceHeader.h"
+
 class VariableDelayLine
 {
 
@@ -27,7 +29,12 @@ public:
 	VariableDelayLine(){}
 	VariableDelayLine(int Length){
 		vdl = new float[Length];
+		memset(vdl, 0, Length);
 		vdlLength = Length;
+	}
+
+	~VariableDelayLine(){
+		delete[] vdl;
 	}
 
 	float* getBuffer(){

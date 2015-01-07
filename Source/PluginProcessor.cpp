@@ -365,12 +365,12 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 	
 	for (long i = 0; i < numSamples; i++)
 	{
-		if (UserParams[DelayIsOn])
-			delay->process(&left[i], &right[i]);
+		//if (UserParams[DelayIsOn])
+			//delay->process(&left[i], &right[i]);
 		if (UserParams[FlangerIsOn])
 			flanger->process(&left[i], &right[i]);
-		if (UserParams[DistortionIsOn])
-			wvShaper->process(&left[i], &right[i]);
+		//if (UserParams[DistortionIsOn])
+			//wvShaper->process(&left[i], &right[i]);
 	}
 
 
