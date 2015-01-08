@@ -10,12 +10,6 @@
 
 #include "EffectLFO.h"
 
-
-void EffectLFO::setFrequency(float newfrequency)
-{
-	frequency = newfrequency;
-}
-
 void EffectLFO::calculateIncrement(int samplerate)
 {
 	increment = double_Pi / (samplerate / frequency);

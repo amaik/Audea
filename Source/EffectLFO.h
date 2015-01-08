@@ -19,7 +19,7 @@ class EffectLFO
 private:
 	float index = 0;
 	float increment = 0;
-	float frequency;
+	float frequency = 0.15;
 
 public:
 	EffectLFO(float frq)
