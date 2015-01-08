@@ -22,7 +22,7 @@ public:
 	Flanger(float samplesPerSecond){
 		center = 8.0f;
 		Mix = 0.5f;
-		Feedback = 0.5f;
+		Feedback = 0.0f;
 		depth = 10.0f;
 		samplesPerMillisecond = samplesPerSecond/1000;
 		vdlLeft = new VariableDelayLine((center + (10.0f / 2)) * samplesPerMillisecond);

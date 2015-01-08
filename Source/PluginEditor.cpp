@@ -462,7 +462,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ChorusRateLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerFeedbackSlider = new Slider ("FlangerFeedbackSlider"));
-    FlangerFeedbackSlider->setRange (0, 10, 0);
+    FlangerFeedbackSlider->setRange (0, 0.99, 0.01);
     FlangerFeedbackSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FlangerFeedbackSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerFeedbackSlider->addListener (this);
@@ -486,7 +486,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FlangerFeedbackLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerDelaySlider = new Slider ("FlangerDelaySlider"));
-    FlangerDelaySlider->setRange (0, 10, 0);
+    FlangerDelaySlider->setRange (0.1, 10, 0.1);
     FlangerDelaySlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FlangerDelaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerDelaySlider->addListener (this);
@@ -532,7 +532,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FlangerMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerMixSlider = new Slider ("FlangerMixSlider"));
-    FlangerMixSlider->setRange (0, 10, 0);
+    FlangerMixSlider->setRange (0, 1, 0.01);
     FlangerMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FlangerMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerMixSlider->addListener (this);
@@ -1557,8 +1557,9 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
           virtualName="" explicitFocusOrder="0" pos="400 264 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          max="0.98999999999999999" int="0.01" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FlangerDelayLabel" id="272eb6964a7114f0" memberName="FlangerDelayLabel"
          virtualName="" explicitFocusOrder="0" pos="392 304 48 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Delay" editableSingleClick="0"
@@ -1570,9 +1571,10 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
-          virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="0.10000000000000001"
+          max="10" int="0.10000000000000001" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
                 virtualName="" explicitFocusOrder="0" pos="384 232 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
@@ -1602,7 +1604,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
           virtualName="" explicitFocusOrder="0" pos="400 384 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
           virtualName="" explicitFocusOrder="0" pos="224 384 39 40" min="0"

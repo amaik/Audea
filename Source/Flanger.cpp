@@ -12,16 +12,17 @@
 
 
 void Flanger::process(float* left, float* right){
-	float in = 0;
+	float in = *left;
 
 	if (Feedback != 0)
-		in = *left - vdlLeft->getValueAtOffset(center* samplesPerMillisecond) * Feedback;
+		in = *left + vdlLeft->getValueAtOffset(center* samplesPerMillisecond) * Feedback;
 	vdlLeft->Set((center + (depth  * lfo->getNextSample()))* samplesPerMillisecond);
 	*left = (in * (1 - Mix)) + (vdlLeft->readWrite(in) * Mix);
 
+	in = *right;
 
 	if (Feedback != 0)
-		in = *right - vdlRight->getValueAtOffset(center * samplesPerMillisecond) * Feedback;
+		in = *right + vdlRight->getValueAtOffset(center * samplesPerMillisecond) * Feedback;
 	vdlRight->Set((center + (depth  * lfo->getNextSample()))* samplesPerMillisecond);
 	*right = (in * (1 - Mix)) + (vdlRight->readWrite(in) * Mix);
 

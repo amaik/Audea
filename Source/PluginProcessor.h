@@ -159,8 +159,8 @@ private:
 	
 	AudioPlayHead* playHead;
 	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
-	Delay* delay;
-	Flanger* flanger;
+	Delay* delay = nullptr;
+	Flanger* flanger = nullptr;
 	Synthesiser synth;
 	Filter *filter = new AllPassFilter(&UserParams[FilterRes]);
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);

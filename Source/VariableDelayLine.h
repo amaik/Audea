@@ -26,7 +26,6 @@ private:
 	float decay;
 
 public:
-	VariableDelayLine(){}
 	VariableDelayLine(int Length){
 		vdl = new float[Length];
 		memset(vdl, 0, Length);

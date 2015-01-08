@@ -46,7 +46,7 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[DelayLenRight] = 2.0f;
 	UserParams[DelayLenLeft] = 2.0f;
 	UserParams[DelayIsOn] = 0.0f;
-	UserParams[FlangerMix] = 0.0f;
+	UserParams[FlangerMix] = 0.5f;
 	UserParams[FlangerFeedback] = 0.0f;
 	UserParams[FlangerDelay] = 10.0f;
 	UserParams[FlangerIsOn] = 0.0f;
@@ -76,10 +76,14 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 
 AudeaAudioProcessor::~AudeaAudioProcessor()
 {
-	delete filter;
-	delete delay;
-	delete flanger;
-	delete wvShaper;
+	if (filter != nullptr)
+		delete filter;
+	if (delay != nullptr)
+		delete delay;
+	if (flanger != nullptr)
+		delete flanger;
+	if (wvShaper != nullptr)
+		delete wvShaper;
 }
 
 //==============================================================================
