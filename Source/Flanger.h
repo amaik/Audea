@@ -27,7 +27,6 @@ public:
 		samplesPerMillisecond = samplesPerSecond/1000;
 		vdlLeft = new VariableDelayLine((center + (10.0f / 2)) * samplesPerMillisecond);
 		vdlRight = new VariableDelayLine((center + (10.0f / 2)) * samplesPerMillisecond);
-		lfo->setFrequency(0.15f);
 		delayCenter = (center * samplesPerMillisecond);
 		delayRange = (depth / 2) * samplesPerMillisecond;
 	}
@@ -54,7 +53,7 @@ private:
 	float samplesPerMillisecond;
 	VariableDelayLine* vdlLeft;
 	VariableDelayLine* vdlRight;
-	EffectLFO* lfo;
+	EffectLFO* lfo = new EffectLFO(0.15f);
 	int delayOffset;
 	int delayRange;
 	int delayCenter;

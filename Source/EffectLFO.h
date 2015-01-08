@@ -22,8 +22,11 @@ private:
 	float frequency;
 
 public:
+	EffectLFO(float frq)
+	{
+		frequency = frq;
+	}
 	float getNextSample();
-	void setFrequency(float frequency);
 	void calculateIncrement(int samplerate);
 };
 
