@@ -11,22 +11,19 @@
 #ifndef REVERB_H_INCLUDED
 #define REVERB_H_INCLUDED
 class Reverb{
-	float mix = 0.0f;
-	float decay = 0.0f;	//in ms
-	float size = 0.0f; //represented ind Reflectiontime in ms
+	float *mix;
+	float *decay;	//in ms
+	float *size; //represented ind Reflectiontime in ms
 	float delayLen = 0.0f;
 	float prevSample = 0.0f;
 
 	float *delay;
 
 public:
-	Reverb(float sampleRate);
+	Reverb(float sampleRate,float *mix, float *decay, float *size);
 	~Reverb();
 
-	void setMix(float newMix){ mix = newMix;}
-	void setDecay(float newDecay){ decay = newDecay; }
-	
-	void setSize(float newSize);
+	void setDelayLenght(float newSize);
 	void process(float* left, float *right);
 };
 

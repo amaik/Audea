@@ -10,18 +10,19 @@
 
 #include "Reverb.h"
 
-Reverb::Reverb(float sampleRate)
+Reverb::Reverb(float sampleRate, float *mix, float *decay, float *size) :
+	mix(mix),
+	decay(decay),
+	size(size)
 {
 	//Compute maxLength
 	int maxLengthDelay = 0.5 * sampleRate;
 	delay = new float[maxLengthDelay];
 	delayLen = maxLengthDelay;
 }
-
-void Reverb::setSize(float newSize)
+void Reverb::setDelayLenght(float newSize)
 {
-	size = newSize;
-	delayLen = 
+
 }
 
 void Reverb::process(float* left, float *right)
