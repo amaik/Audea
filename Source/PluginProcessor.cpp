@@ -366,16 +366,19 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
 	float *left = buffer.getWritePointer(0);
 	float *right = buffer.getWritePointer(1);
-	
-	for (long i = 0; i < numSamples; i++)
-	{
-		if (UserParams[DelayIsOn])
-			delay->process(&left[i], &right[i]);
-		if (UserParams[FlangerIsOn])
-			flanger->process(&left[i], &right[i]);
-		if (UserParams[DistortionIsOn])
-			wvShaper->process(&left[i], &right[i]);
+
+	if (left[0] != 0){
+		for (long i = 0; i < numSamples; i++)
+		{
+			if (UserParams[DelayIsOn])
+				delay->process(&left[i], &right[i]);
+			if (UserParams[FlangerIsOn])
+				flanger->process(&left[i], &right[i]);
+			if (UserParams[DistortionIsOn])
+				wvShaper->process(&left[i], &right[i]);
+		}
 	}
+	
 
 
 	// In case we have more outputs than inputs, this code clears any output

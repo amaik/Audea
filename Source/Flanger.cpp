@@ -43,7 +43,7 @@ void Flanger::process(float* left, float* right){
 		inFB = *left - vdlLeft->getValueAtOffset(center * samplesPerMillisecond) * Feedback;
 		isFeedback = true;
 	}
-	vdlLeft->Set((center + (depth  * nextSample))* samplesPerMillisecond);
+	vdlLeft->Set((center + ((depth / 2)  * nextSample))* samplesPerMillisecond);
 
 	if (isFeedback)
 		*left = (in * (1 - Mix)) + (vdlLeft->readWrite(inFB) * Mix);
@@ -57,7 +57,7 @@ void Flanger::process(float* left, float* right){
 		isFeedback = true;
 	}
 
-	vdlRight->Set((center + (depth  * nextSample))* samplesPerMillisecond);
+	vdlRight->Set((center + ((depth/2)  * nextSample))* samplesPerMillisecond);
 	if (isFeedback)
 		*right = (in * (1 - Mix)) + (vdlRight->readWrite(inFB) * Mix);
 	else 

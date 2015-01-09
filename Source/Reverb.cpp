@@ -21,7 +21,7 @@ Reverb::Reverb(float sampleRate)
 void Reverb::setSize(float newSize)
 {
 	size = newSize;
-	delayLen = 
+	delayLen =
 }
 
 void Reverb::process(float* left, float *right)
