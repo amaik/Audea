@@ -28,8 +28,8 @@ private:
 public:
 	VariableDelayLine(int Length){
 		vdl = new float[Length];
-		for (int i = Length; i-- > 0;)
-			*vdl = 0;
+		for (int i = Length; --i >= 0;)
+			*(vdl + i) = 0;
 		vdlLength = Length;
 	}
 	
