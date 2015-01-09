@@ -9,6 +9,21 @@
 */
 
 #include "Delay.h"
+Delay::Delay(int lengthLeft, int lengthRight){
+	Mix = 0.5f;
+	Feedback = 0.5f;
+	delayBufferRight = new std::atomic<float>[lengthRight];
+	memset(delayBufferRight, 0, lengthRight);
+	RightLength = lengthRight;
+	delayBufferLeft = new std::atomic<float>[lengthLeft];
+	memset(delayBufferLeft, 0, lengthLeft);
+	LeftLength = lengthLeft;
+}
+
+Delay::~Delay(){
+	delete[] delayBufferLeft;
+	delete[] delayBufferRight;
+}
 
 void Delay::process(float* left, float *right){
 
@@ -29,4 +44,14 @@ void Delay::process(float* left, float *right){
 	if (delayPositionRight.load() >= RightLength.load())
 		delayPositionRight.store(0);
 
+}
+
+void Delay::setDelayBufferLengthRight(int newlength){
+	RightLength.store(newlength);
+	delayPositionRight.store(0);
+}
+
+void Delay::setDelayBufferLengthLeft(int newlength){
+	LeftLength.store(newlength);
+	delayPositionLeft.store(0);
 }

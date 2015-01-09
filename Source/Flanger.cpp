@@ -9,7 +9,27 @@
 */
 
 #include "Flanger.h"
+Flanger::Flanger(float samplesPerSecond){
+	center = 8.0f;
+	Mix = 0.5f;
+	Feedback = 0.0f;
+	depth = 10.0f;
+	samplesPerMillisecond = samplesPerSecond / 1000;
+	lfo->calculateIncrement(samplesPerSecond);
 
+	float maxDelay = center + (10.0f / 2);
+
+	vdlLeft = new VariableDelayLine(maxDelay * samplesPerMillisecond);
+	vdlRight = new VariableDelayLine(maxDelay * samplesPerMillisecond);
+	delayCenter = (center * samplesPerMillisecond);
+	delayRange = (depth / 2) * samplesPerMillisecond;
+}
+
+
+Flanger::~Flanger(){
+	delete vdlLeft;
+	delete vdlRight;
+}
 
 void Flanger::process(float* left, float* right){
 	float in = *left;

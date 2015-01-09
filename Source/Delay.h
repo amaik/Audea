@@ -17,23 +17,18 @@
 
 
 class Delay{
-public:
-	Delay(){};
-	Delay(int lengthLeft, int lengthRight){
-		Mix = 0.5f;
-		Feedback = 0.5f;
-		delayBufferRight = new std::atomic<float>[lengthRight];
-		memset(delayBufferRight, 0, lengthRight);
-		RightLength = lengthRight;
-		delayBufferLeft = new std::atomic<float>[lengthLeft];
-		memset(delayBufferLeft, 0, lengthLeft);
-		LeftLength = lengthLeft;
-	}
+	std::atomic<float> *delayBufferLeft;
+	std::atomic<int> LeftLength;
+	std::atomic<float> *delayBufferRight;
+	std::atomic<int> RightLength;
+	float Mix;
+	float Feedback;
+	std::atomic<int> delayPositionLeft = 0;
+	std::atomic<int> delayPositionRight = 0;
 
-	~Delay(){
-		delete[] delayBufferLeft;
-		delete[] delayBufferRight;
-	}
+public:
+	Delay(int lengthLeft, int lengthRight);
+	~Delay();
 
 	void process(float* left, float *right);
 
@@ -43,26 +38,10 @@ public:
 	float getFeedback(){ return Feedback; }
 	float getLenght(){ return LeftLength; }
 
-	void setDelayBufferLengthRight(int newlength){
-		RightLength.store(newlength);
-		delayPositionRight.store(0);
-	}
-
-	void setDelayBufferLengthLeft(int newlength){
-		LeftLength.store(newlength);
-		delayPositionLeft.store(0);
-	}
+	void setDelayBufferLengthRight(int newlength);
+	void setDelayBufferLengthLeft(int newlength);
 
 
-private:
-	std::atomic<float> *delayBufferLeft;
-	std::atomic<int> LeftLength;
-	std::atomic<float> *delayBufferRight;
-	std::atomic<int> RightLength;
-	float Mix;
-	float Feedback;
-	std::atomic<int> delayPositionLeft = 0;
-	std::atomic<int> delayPositionRight = 0;
 };
 
 

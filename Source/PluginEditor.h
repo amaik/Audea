@@ -159,6 +159,8 @@ private:
     ScopedPointer<Label> LFOMonoLabel;
     ScopedPointer<Label> LFOPolyLabel;
     ScopedPointer<Label> LFORetriggerLabel;
+    ScopedPointer<Label> ReverbDecayLabel;
+    ScopedPointer<Slider> ReverbDecaySlider;
 
 
     //==============================================================================

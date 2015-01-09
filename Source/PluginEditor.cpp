@@ -402,13 +402,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FilterEnvelopeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (ReverbMixSlider = new Slider ("ReverbMixSlider"));
-    ReverbMixSlider->setRange (0, 10, 0);
+    ReverbMixSlider->setRange (0, 1, 0.01);
     ReverbMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     ReverbMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbMixSlider->addListener (this);
 
     addAndMakeVisible (ReverbSizeSlider = new Slider ("ReverbSizeSlider"));
-    ReverbSizeSlider->setRange (0, 10, 0);
+    ReverbSizeSlider->setRange (0.03, 0.5, 0.001);
     ReverbSizeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     ReverbSizeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbSizeSlider->addListener (this);
@@ -707,6 +707,21 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFORetriggerLabel->setColour (TextEditor::textColourId, Colours::black);
     LFORetriggerLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
+    addAndMakeVisible (ReverbDecayLabel = new Label ("ReverbDecayLabel",
+                                                     TRANS("Decay")));
+    ReverbDecayLabel->setFont (Font (15.00f, Font::bold));
+    ReverbDecayLabel->setJustificationType (Justification::centredLeft);
+    ReverbDecayLabel->setEditable (false, false, false);
+    ReverbDecayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ReverbDecayLabel->setColour (TextEditor::textColourId, Colours::black);
+    ReverbDecayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (ReverbDecaySlider = new Slider ("ReverbDecaySlider"));
+    ReverbDecaySlider->setRange (0.05, 1.5, 0.001);
+    ReverbDecaySlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ReverbDecaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ReverbDecaySlider->addListener (this);
+
 
     //[UserPreSize]
 
@@ -819,6 +834,8 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     LFOMonoLabel = nullptr;
     LFOPolyLabel = nullptr;
     LFORetriggerLabel = nullptr;
+    ReverbDecayLabel = nullptr;
+    ReverbDecaySlider = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -889,10 +906,10 @@ void AudeaAudioProcessorEditor::resized()
     FilterCutoffLabel->setBounds (512, 40, 48, 24);
     FilterResLabel->setBounds (576, 40, 48, 24);
     FilterEnvelopeLabel->setBounds (632, 40, 72, 24);
-    ReverbMixSlider->setBounds (656, 376, 39, 40);
-    ReverbSizeSlider->setBounds (656, 288, 39, 40);
-    ReverbMixLabel->setBounds (656, 344, 40, 24);
-    ReverbSizeLabel->setBounds (656, 256, 40, 24);
+    ReverbMixSlider->setBounds (656, 384, 39, 40);
+    ReverbSizeSlider->setBounds (656, 256, 39, 40);
+    ReverbMixLabel->setBounds (656, 360, 40, 24);
+    ReverbSizeLabel->setBounds (656, 240, 40, 24);
     ChorusMixLabel->setBounds (576, 344, 40, 24);
     ChorusRateSlider->setBounds (576, 288, 39, 40);
     ChorusMixSlider->setBounds (576, 376, 39, 40);
@@ -929,6 +946,8 @@ void AudeaAudioProcessorEditor::resized()
     LFOMonoLabel->setBounds (24, 384, 48, 32);
     LFOPolyLabel->setBounds (72, 384, 40, 32);
     LFORetriggerLabel->setBounds (120, 384, 56, 32);
+    ReverbDecayLabel->setBounds (656, 296, 40, 24);
+    ReverbDecaySlider->setBounds (656, 320, 39, 40);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -1243,6 +1262,11 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_LFOAmountSlider] -- add your slider handling code here..
         //[/UserSliderCode_LFOAmountSlider]
     }
+    else if (sliderThatWasMoved == ReverbDecaySlider)
+    {
+        //[UserSliderCode_ReverbDecaySlider] -- add your slider handling code here..
+        //[/UserSliderCode_ReverbDecaySlider]
+    }
 
     //[UsersliderValueChanged_Post]
     //[/UsersliderValueChanged_Post]
@@ -1520,20 +1544,20 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="656 376 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          virtualName="" explicitFocusOrder="0" pos="656 384 39 40" min="0"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
-          virtualName="" explicitFocusOrder="0" pos="656 288 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          virtualName="" explicitFocusOrder="0" pos="656 256 39 40" min="0.029999999999999999"
+          max="0.5" int="0.001" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="656 344 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="656 360 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
-         virtualName="" explicitFocusOrder="0" pos="656 256 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="656 240 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Size" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
@@ -1693,6 +1717,15 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="Retrigger" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
+  <LABEL name="ReverbDecayLabel" id="9d1ccd10ad6d1c44" memberName="ReverbDecayLabel"
+         virtualName="" explicitFocusOrder="0" pos="656 296 40 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Decay" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <SLIDER name="ReverbDecaySlider" id="ec827733ecdec647" memberName="ReverbDecaySlider"
+          virtualName="" explicitFocusOrder="0" pos="656 320 39 40" min="0.050000000000000003"
+          max="1.5" int="0.001" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

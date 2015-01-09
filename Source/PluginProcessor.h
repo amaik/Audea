@@ -109,6 +109,10 @@ public:
 		FlangerIsOn,
 		DistortionIsOn,
 		DistortionAmt,
+		ReverbIsOn,
+		ReverbMix,
+		ReverbSize,
+		ReverbDecay,
 		/*OtherParams..,*/
 		totalNumParam 
 	};
