@@ -25,8 +25,11 @@ public:
 		Feedback = 0.0f;
 		depth = 10.0f;
 		samplesPerMillisecond = samplesPerSecond/1000;
-		vdlLeft = new VariableDelayLine((center + (10.0f / 2)) * samplesPerMillisecond);
-		vdlRight = new VariableDelayLine((center + (10.0f / 2)) * samplesPerMillisecond);
+		lfo->calculateIncrement(samplesPerSecond);
+
+		float maxDelay = center + (10.0f / 2);
+		vdlLeft = new VariableDelayLine(maxDelay * samplesPerMillisecond);
+		vdlRight = new VariableDelayLine(maxDelay * samplesPerMillisecond);
 		delayCenter = (center * samplesPerMillisecond);
 		delayRange = (depth / 2) * samplesPerMillisecond;
 	}
@@ -40,7 +43,6 @@ public:
 	void setFeedback(float newFeedback){ Feedback = newFeedback; };
 	void setDepth(float newDepth){ depth = newDepth; };
 	void updateRange(){ delayRange = (depth * samplesPerMillisecond) / 2; };
-
 
 	void process(float* left, float *right);
 

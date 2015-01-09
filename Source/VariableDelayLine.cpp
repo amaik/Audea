@@ -45,5 +45,5 @@ float VariableDelayLine::readWrite(float invalue)
 		if (++delayWrite >= vdlLength)
 			delayWrite = 0;
 	}
-	return out * decay;
+	return out ;
 }

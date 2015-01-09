@@ -486,7 +486,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FlangerFeedbackLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerDelaySlider = new Slider ("FlangerDelaySlider"));
-    FlangerDelaySlider->setRange (0.1, 10, 0.1);
+    FlangerDelaySlider->setRange (1, 10, 0.1);
     FlangerDelaySlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FlangerDelaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerDelaySlider->addListener (this);
@@ -1571,7 +1571,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
-          virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="0.10000000000000001"
+          virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="1"
           max="10" int="0.10000000000000001" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
