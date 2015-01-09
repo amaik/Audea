@@ -28,6 +28,7 @@ public:
 		lfo->calculateIncrement(samplesPerSecond);
 
 		float maxDelay = center + (10.0f / 2);
+
 		vdlLeft = new VariableDelayLine(maxDelay * samplesPerMillisecond);
 		vdlRight = new VariableDelayLine(maxDelay * samplesPerMillisecond);
 		delayCenter = (center * samplesPerMillisecond);

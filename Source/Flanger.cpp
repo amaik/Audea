@@ -16,7 +16,7 @@ void Flanger::process(float* left, float* right){
 	float nextSample = lfo->getNextSample();
 
 	if (Feedback != 0)
-		in = *left - vdlLeft->getValueAtOffset(center* samplesPerMillisecond) * Feedback;
+		in = *left - vdlLeft->getValueAtOffset(center * samplesPerMillisecond) * Feedback;
 	vdlLeft->Set((center + (depth  * nextSample))* samplesPerMillisecond);
 	*left = (in * (1 - Mix)) + (vdlLeft->readWrite(in) * Mix);
 

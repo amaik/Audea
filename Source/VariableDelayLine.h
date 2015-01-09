@@ -17,20 +17,22 @@ class VariableDelayLine
 {
 
 private:
-	float* vdl;
-	int delayRead;
+	float* vdl = 0;
+	int delayRead = 0;
 	int delayWrite = 0;
-	int vdlLength;
-	float readFract;
-	int readInt;
-	float decay;
+	int vdlLength = 0;
+	float readFract = 0;
+	int readInt = 0;
+	float decay = 0;
 
 public:
 	VariableDelayLine(int Length){
 		vdl = new float[Length];
-		memset(vdl, 0, Length);
+		for (int i = Length; i-- > 0;)
+			*vdl = 0;
 		vdlLength = Length;
 	}
+	
 
 	~VariableDelayLine(){
 		delete[] vdl;
