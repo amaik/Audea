@@ -10,7 +10,8 @@
 
 #ifndef WAVESHAPER_H_INCLUDED
 #define WAVESHAPER_H_INCLUDED
-class WaveShaper
+#include "Effect.h"
+class WaveShaper : public Effect
 {
 	float *drive;
 public:
@@ -19,7 +20,6 @@ public:
 	{
 	}
 	~WaveShaper(){}
-
 	void process(float *left, float *right);
 };
 

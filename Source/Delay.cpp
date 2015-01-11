@@ -9,9 +9,9 @@
 */
 
 #include "Delay.h"
-Delay::Delay(int lengthLeft, int lengthRight){
-	Mix = 0.5f;
-	Feedback = 0.5f;
+Delay::Delay(int lengthLeft, int lengthRight,float *mx, float *fb){
+	mix = mx;
+	feedback = fb;
 	delayBufferRight = new std::atomic<float>[lengthRight];
 	memset(delayBufferRight, 0, lengthRight);
 	RightLength = lengthRight;
@@ -29,8 +29,8 @@ void Delay::process(float* left, float *right){
 
 	//left
 	float in = *left;
-	*left = (in * (1 - Mix)) + ((delayBufferLeft[delayPositionLeft.load()].load()) * (Mix));
-	delayBufferLeft[delayPositionLeft.load()].store(((delayBufferLeft[delayPositionLeft.load()].load()) * Feedback) + in);
+	*left = (in * (1 - *mix)) + ((delayBufferLeft[delayPositionLeft.load()].load()) * (*mix));
+	delayBufferLeft[delayPositionLeft.load()].store(((delayBufferLeft[delayPositionLeft.load()].load()) * *feedback) + in);
 	delayPositionLeft++;
 	if (delayPositionLeft.load() >= LeftLength.load())
 		delayPositionLeft.store(0);
@@ -38,8 +38,8 @@ void Delay::process(float* left, float *right){
 
 	//right
 	in = *right;
-	*right = (in * (1 - Mix)) + ((delayBufferRight[delayPositionRight.load()].load()) * (Mix));
-	delayBufferRight[delayPositionRight.load()].store(((delayBufferRight[delayPositionRight.load()].load()) * Feedback) + in);
+	*right = (in * (1 - *mix)) + ((delayBufferRight[delayPositionRight.load()].load()) * (*mix));
+	delayBufferRight[delayPositionRight.load()].store(((delayBufferRight[delayPositionRight.load()].load()) * *feedback) + in);
 	delayPositionRight++;
 	if (delayPositionRight.load() >= RightLength.load())
 		delayPositionRight.store(0);

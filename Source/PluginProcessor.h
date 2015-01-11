@@ -15,9 +15,7 @@
 #include "Envelope.h"
 #include "FilterHeader.h"
 #include "FilterEnvelope.h"
-#include "Delay.h"
-#include "Flanger.h"
-#include "WaveShaper.h"
+#include "EffectHeader.h"
 
 
 //==============================================================================
@@ -107,6 +105,9 @@ public:
 		FlangerFeedback,
 		FlangerDelay,
 		FlangerIsOn,
+		ChorusRate,
+		ChorusMix,
+		ChorusIsOn,
 		DistortionIsOn,
 		DistortionAmt,
 		ReverbIsOn,
@@ -163,9 +164,13 @@ private:
 	
 	AudioPlayHead* playHead;
 	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
+	Synthesiser synth;
+
+	//Effects
+	AudeaReverb* reverb = nullptr;
 	Delay* delay = nullptr;
 	Flanger* flanger = nullptr;
-	Synthesiser synth;
+	Chorus* chorus = nullptr;
 	Filter *filter = new AllPassFilter(&UserParams[FilterRes]);
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 

@@ -441,13 +441,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ChorusMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (ChorusRateSlider = new Slider ("ChorusRateSlider"));
-    ChorusRateSlider->setRange (0, 10, 0);
+    ChorusRateSlider->setRange (1.25, 25, 0.1);
     ChorusRateSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     ChorusRateSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ChorusRateSlider->addListener (this);
 
     addAndMakeVisible (ChorusMixSlider = new Slider ("ChorusMixSlider"));
-    ChorusMixSlider->setRange (0, 10, 0);
+    ChorusMixSlider->setRange (0, 0.5, 0.01);
     ChorusMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     ChorusMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ChorusMixSlider->addListener (this);
@@ -995,11 +995,19 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == ChorusIsOn)
     {
         //[UserButtonCode_ChorusIsOn] -- add your button handler code here..
+		if (buttonThatWasClicked->getToggleState())
+			ourProcessor->setParameter(AudeaAudioProcessor::ChorusIsOn, 1.0f);
+		else
+			ourProcessor->setParameter(AudeaAudioProcessor::ChorusIsOn, 0.0f);
         //[/UserButtonCode_ChorusIsOn]
     }
     else if (buttonThatWasClicked == ReverbIsOn)
     {
         //[UserButtonCode_ReverbIsOn] -- add your button handler code here..
+		if (buttonThatWasClicked->getToggleState())
+			ourProcessor->setParameter(AudeaAudioProcessor::ReverbIsOn, 1.0f);
+		else
+			ourProcessor->setParameter(AudeaAudioProcessor::ReverbIsOn, 0.0f);
         //[/UserButtonCode_ReverbIsOn]
     }
     else if (buttonThatWasClicked == DistortionIsOn)
@@ -1204,21 +1212,25 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == ReverbMixSlider)
     {
         //[UserSliderCode_ReverbMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbMix, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ReverbMixSlider]
     }
     else if (sliderThatWasMoved == ReverbSizeSlider)
     {
         //[UserSliderCode_ReverbSizeSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbSize, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ReverbSizeSlider]
     }
     else if (sliderThatWasMoved == ChorusRateSlider)
     {
         //[UserSliderCode_ChorusRateSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ChorusRate, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ChorusRateSlider]
     }
     else if (sliderThatWasMoved == ChorusMixSlider)
     {
         //[UserSliderCode_ChorusMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ChorusMix, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ChorusMixSlider]
     }
     else if (sliderThatWasMoved == FlangerFeedbackSlider)
@@ -1265,6 +1277,7 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == ReverbDecaySlider)
     {
         //[UserSliderCode_ReverbDecaySlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbDecay, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ReverbDecaySlider]
     }
 
@@ -1312,8 +1325,15 @@ void AudeaAudioProcessorEditor::timerCallback()
 		FlangerFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerFeedback));
 		FlangerDelaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerDelay));
 		FlangerIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::FlangerIsOn), false);
+		ChorusIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ChorusIsOn), false);
+		ChorusMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ChorusMix));
+		ChorusRateSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ChorusRate));
 		DistortionIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::DistortionIsOn), false);
 		DistortionAmountSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DistortionAmt));
+		ReverbIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ReverbIsOn), false);
+		ReverbMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbMix));
+		ReverbSizeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbSize));
+		ReverbDecaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbDecay));
 
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
@@ -1567,12 +1587,13 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
-          virtualName="" explicitFocusOrder="0" pos="576 288 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="576 288 39 40" min="1.25"
+          max="25" int="0.10000000000000001" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ChorusMixSlider" id="e459f174052e0ff2" memberName="ChorusMixSlider"
           virtualName="" explicitFocusOrder="0" pos="576 376 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="0.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
          virtualName="" explicitFocusOrder="0" pos="576 256 40 24" textCol="ffb2ff8b"

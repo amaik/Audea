@@ -8,20 +8,28 @@
   ==============================================================================
 */
 
-#ifndef REVERB_H_INCLUDED
-#define REVERB_H_INCLUDED
-class Reverb{
-	float *mix;
-	float *decay;	//in ms
-	float *size; //represented ind Reflectiontime in ms
-	float delayLen = 0.0f;
-	float prevSample = 0.0f;
+#ifndef AUDEAREVERB_H_INCLUDED
+#define AUDEAREVERB_H_INCLUDED
 
-	float *delay;
+#include "Effect.h"
+class AudeaReverb : public Effect{
+
+	float *mix;
+	float *rvbTime;	//in ms
+	float *size; //represented ind Reflectiontime in ms
+	float decay = 0.0f;
+	float delayLen = 0.0f;
+	float prevLeft = 0.0f;
+	float prevRight = 0.0f;
+	int delayIndex = 0;
+
+	float *delayLeft;
+
+	float *delayRight;
 
 public:
-	Reverb(float sampleRate,float *mix, float *decay, float *size);
-	~Reverb();
+	AudeaReverb(float sampleRate,float *mx, float *rvbT, float *sze);
+	~AudeaReverb();
 
 	void setDelayLenght(float newSize);
 	void process(float* left, float *right);
@@ -30,4 +38,4 @@ public:
 
 
 
-#endif  // REVERB_H_INCLUDED
+#endif  // AUDEAREVERB_H_INCLUDED

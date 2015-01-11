@@ -44,8 +44,14 @@
         <FILE id="PTkEin" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       </GROUP>
       <GROUP id="{B3D30E4F-43F8-5BF2-FD90-4154DBC84E3E}" name="Effects">
-        <FILE id="gRyoJB" name="Reverb.cpp" compile="1" resource="0" file="Source/Reverb.cpp"/>
-        <FILE id="x3dLxS" name="Reverb.h" compile="0" resource="0" file="Source/Reverb.h"/>
+        <FILE id="Y3J8eI" name="EffectHeader.h" compile="0" resource="0" file="Source/EffectHeader.h"/>
+        <FILE id="nmBmOX" name="ModulatorEffect.cpp" compile="1" resource="0"
+              file="Source/ModulatorEffect.cpp"/>
+        <FILE id="x8zqS2" name="ModulatorEffect.h" compile="0" resource="0"
+              file="Source/ModulatorEffect.h"/>
+        <FILE id="SJSAws" name="Effect.h" compile="0" resource="0" file="Source/Effect.h"/>
+        <FILE id="gRyoJB" name="AudeaReverb.cpp" compile="1" resource="0" file="Source/AudeaReverb.cpp"/>
+        <FILE id="x3dLxS" name="AudeaReverb.h" compile="0" resource="0" file="Source/AudeaReverb.h"/>
         <FILE id="sb3bBk" name="WaveShaper.cpp" compile="1" resource="0" file="Source/WaveShaper.cpp"/>
         <FILE id="rjEelM" name="WaveShaper.h" compile="0" resource="0" file="Source/WaveShaper.h"/>
         <FILE id="IkvoKv" name="Chorus.cpp" compile="1" resource="0" file="Source/Chorus.cpp"/>

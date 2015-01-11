@@ -50,8 +50,15 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[FlangerFeedback] = 0.0f;
 	UserParams[FlangerDelay] = 10.0f;
 	UserParams[FlangerIsOn] = 0.0f;
+	UserParams[ChorusRate] = 5.0f;
+	UserParams[ChorusMix] = 0.25f;
+	UserParams[ChorusIsOn] = 0.0f;
 	UserParams[DistortionIsOn] = 0.0f;
 	UserParams[DistortionAmt] = 0.0f;
+	UserParams[ReverbIsOn] = 0.0f;
+	UserParams[ReverbMix] = 0.0f;
+	UserParams[ReverbSize] = 0.03f;
+	UserParams[ReverbDecay] = 0.05f;
 
 
 	UIUpdateFlag = true; //Request UI update
@@ -84,6 +91,10 @@ AudeaAudioProcessor::~AudeaAudioProcessor()
 		delete flanger;
 	if (wvShaper != nullptr)
 		delete wvShaper;
+	if (chorus != nullptr)
+		delete chorus;
+	if (reverb != nullptr)
+		delete reverb;
 }
 
 //==============================================================================
@@ -182,18 +193,14 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 		changeDelayLength((int)newValue, true);
 		break;
 	case DelayFeedback:     UserParams[DelayFeedback] = newValue;
-		delay->setFeedback(newValue);
 		break;
 	case DelayMix:          UserParams[DelayMix] = newValue;
-		delay->setMix(newValue);
 		break;
 	case DelayIsOn:		UserParams[DelayIsOn] = newValue;
 		break;
 	case FlangerMix:	UserParams[FlangerMix] = newValue;
-		flanger->setMix(newValue);
 		break;
 	case FlangerFeedback: UserParams[FlangerFeedback] = newValue;
-		flanger->setFeedback(newValue);
 		break;
 	case FlangerDelay:	UserParams[FlangerDelay] = newValue;
 		flanger->setDepth(newValue);
@@ -204,6 +211,21 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case DistortionAmt:	UserParams[DistortionAmt] = newValue;
 		break;
 	case DistortionIsOn: UserParams[DistortionIsOn] = newValue;
+		break;
+	case ChorusIsOn: UserParams[ChorusIsOn] = newValue;
+		break;
+	case ChorusMix:	UserParams[ChorusMix] = newValue;
+		break;
+	case ChorusRate:UserParams[ChorusRate] = newValue;
+		chorus->setLFOfrequency(newValue);
+		break;
+	case ReverbIsOn: UserParams[ReverbIsOn] = newValue;
+		break;
+	case ReverbMix: UserParams[ReverbMix] = newValue;
+		break;
+	case ReverbSize: UserParams[ReverbSize] = newValue;
+		break;
+	case ReverbDecay: UserParams[ReverbDecay] = newValue;
 		break;
 	}
 	UIUpdateFlag = true;
@@ -245,8 +267,15 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case FlangerFeedback:	return "Flanger FeedbacK";
 	case FlangerDelay:		return "Flanger Delay";
 	case FlangerIsOn:		return "Flanger Bypass";
+	case ChorusIsOn:		return "Chorus Bypass";
+	case ChorusMix:			return "Chorus Mix";
+	case ChorusRate:		return "Chorus Rate";
 	case DistortionIsOn:	return "Distortion Bypass";
 	case DistortionAmt:		return "Distortion Amount";
+	case ReverbIsOn:		return "Reverb Bypass";
+	case ReverbMix:			return "Reverb Mix";
+	case ReverbSize:		return "Reverb RoomSize";
+	case ReverbDecay:		return "Reverb DecayTime";
 	//OtherParams...
 	default:return String::empty;
 	}
@@ -367,7 +396,6 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 	float *left = buffer.getWritePointer(0);
 	float *right = buffer.getWritePointer(1);
 
-	if (left[0] != 0){
 		for (long i = 0; i < numSamples; i++)
 		{
 			if (UserParams[DelayIsOn])
@@ -376,8 +404,12 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 				flanger->process(&left[i], &right[i]);
 			if (UserParams[DistortionIsOn])
 				wvShaper->process(&left[i], &right[i]);
+			if (UserParams[ChorusIsOn])
+				chorus->process(&left[i], &right[i]);
+			if (UserParams[ReverbIsOn])
+				reverb->process(&left[i], &right[i]);
 		}
-	}
+
 	
 
 
@@ -657,8 +689,10 @@ void AudeaAudioProcessor::init()
 	float secondsPerMeasure = 60 / mpm;
 	float samples = getSampleRate();
 
-	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples);
-	flanger = new Flanger(samples);
+	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples,&UserParams[DelayMix],&UserParams[DelayFeedback]);
+	flanger = new Flanger(samples,&UserParams[FlangerMix],&UserParams[FlangerFeedback]);
+	chorus = new Chorus(samples, &UserParams[ChorusMix]);
+	reverb = new AudeaReverb(samples, &UserParams[ReverbMix], &UserParams[ReverbDecay], &UserParams[ReverbSize]);
 
 }
 
