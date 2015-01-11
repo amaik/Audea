@@ -532,7 +532,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FlangerMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerMixSlider = new Slider ("FlangerMixSlider"));
-    FlangerMixSlider->setRange (0, 1, 0.01);
+    FlangerMixSlider->setRange (0, 0.5, 0.01);
     FlangerMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FlangerMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerMixSlider->addListener (this);
@@ -1628,7 +1628,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
           virtualName="" explicitFocusOrder="0" pos="400 384 39 40" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="0.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
           virtualName="" explicitFocusOrder="0" pos="224 384 39 40" min="0"
