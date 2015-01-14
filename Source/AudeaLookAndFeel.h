@@ -18,7 +18,7 @@ class AudeaLookAndFeel : public LookAndFeel_V3{
 public:
 	AudeaLookAndFeel()
 	{
-		rotarySliderImage = ;
+		//rotarySliderImage = ;
 	}
 	;
 	~AudeaLookAndFeel();
