@@ -113,7 +113,7 @@ public:
 		ReverbIsOn,
 		ReverbMix,
 		ReverbSize,
-		ReverbDecay,
+		ReverbWidth,
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -171,7 +171,7 @@ private:
 	Delay* delay = nullptr;
 	Flanger* flanger = nullptr;
 	Chorus* chorus = nullptr;
-	Filter *filter = new AllPassFilter(&UserParams[FilterRes]);
+	Filter *filter = nullptr;
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 
 

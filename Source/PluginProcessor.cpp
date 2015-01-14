@@ -57,12 +57,15 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[DistortionAmt] = 0.0f;
 	UserParams[ReverbIsOn] = 0.0f;
 	UserParams[ReverbMix] = 0.0f;
-	UserParams[ReverbSize] = 0.03f;
-	UserParams[ReverbDecay] = 0.05f;
+	UserParams[ReverbSize] = 0.0f;
+	UserParams[ReverbWidth] = 0.0f;
 
 
 	UIUpdateFlag = true; //Request UI update
 
+
+	float samples = getSampleRate();
+	filter = new LowPassFilter(&UserParams[FilterRes], getSampleRate());
 	//Initialise the synthesisers
 	for (int i = (int)UserParams[OscVoices]; --i >= 0;)
 	{
@@ -222,10 +225,13 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case ReverbIsOn: UserParams[ReverbIsOn] = newValue;
 		break;
 	case ReverbMix: UserParams[ReverbMix] = newValue;
+		reverb->setMix(newValue);
 		break;
 	case ReverbSize: UserParams[ReverbSize] = newValue;
+		reverb->setSize(newValue);
 		break;
-	case ReverbDecay: UserParams[ReverbDecay] = newValue;
+	case ReverbWidth: UserParams[ReverbWidth] = newValue;
+		reverb->setWidth(newValue);
 		break;
 	}
 	UIUpdateFlag = true;
@@ -275,7 +281,7 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case ReverbIsOn:		return "Reverb Bypass";
 	case ReverbMix:			return "Reverb Mix";
 	case ReverbSize:		return "Reverb RoomSize";
-	case ReverbDecay:		return "Reverb DecayTime";
+	case ReverbWidth:		return "Reverb DecayTime";
 	//OtherParams...
 	default:return String::empty;
 	}
@@ -395,7 +401,7 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
 	float *left = buffer.getWritePointer(0);
 	float *right = buffer.getWritePointer(1);
-
+	//if (*left != 0)
 		for (long i = 0; i < numSamples; i++)
 		{
 			if (UserParams[DelayIsOn])
@@ -689,10 +695,11 @@ void AudeaAudioProcessor::init()
 	float secondsPerMeasure = 60 / mpm;
 	float samples = getSampleRate();
 
+	filter = new LowPassFilter(&UserParams[FilterRes]);
 	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples,&UserParams[DelayMix],&UserParams[DelayFeedback]);
 	flanger = new Flanger(samples,&UserParams[FlangerMix],&UserParams[FlangerFeedback]);
 	chorus = new Chorus(samples, &UserParams[ChorusMix]);
-	reverb = new AudeaReverb(samples, &UserParams[ReverbMix], &UserParams[ReverbDecay], &UserParams[ReverbSize]);
+	reverb = new AudeaReverb(samples, UserParams[ReverbMix], UserParams[ReverbWidth], UserParams[ReverbSize]);
 
 }
 

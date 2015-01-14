@@ -16,8 +16,8 @@ class HighPassFilter : public Filter
 {
 
 public:
-	HighPassFilter(float *Q = nullptr) :
-		Filter(Q)
+	HighPassFilter(float *Q = nullptr, float samplerate = 41000) :
+		Filter(Q,samplerate)
 	{
 	}
 	~HighPassFilter();

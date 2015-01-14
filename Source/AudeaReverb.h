@@ -12,26 +12,22 @@
 #define AUDEAREVERB_H_INCLUDED
 
 #include "Effect.h"
-class AudeaReverb : public Effect{
+#include "../JuceLibraryCode/JuceHeader.h"
 
-	float *mix;
-	float *rvbTime;	//in ms
-	float *size; //represented ind Reflectiontime in ms
-	float decay = 0.0f;
-	float delayLen = 0.0f;
-	float prevLeft = 0.0f;
-	float prevRight = 0.0f;
-	int delayIndex = 0;
 
-	float *delayLeft;
+class AudeaReverb : public Effect
+{
 
-	float *delayRight;
+	juce::Reverb reverb;
+	Reverb::Parameters params;
 
 public:
-	AudeaReverb(float sampleRate,float *mx, float *rvbT, float *sze);
+	AudeaReverb(float sampleRate,float mix, float size, float width);
 	~AudeaReverb();
 
-	void setDelayLenght(float newSize);
+	void setMix(float mix);
+	void setWidth(float width);
+	void setSize(float size);
 	void process(float* left, float *right);
 };
 

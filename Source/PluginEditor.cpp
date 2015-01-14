@@ -363,7 +363,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FilterCutoffSlider->setSkewFactor (0.5);
 
     addAndMakeVisible (FilterResonanceSlider = new Slider ("FilterResonanceSlider"));
-    FilterResonanceSlider->setRange (0.05, 5, 0.01);
+    FilterResonanceSlider->setRange (0.5, 5, 0.01);
     FilterResonanceSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     FilterResonanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterResonanceSlider->addListener (this);
@@ -408,7 +408,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ReverbMixSlider->addListener (this);
 
     addAndMakeVisible (ReverbSizeSlider = new Slider ("ReverbSizeSlider"));
-    ReverbSizeSlider->setRange (0.03, 0.5, 0.001);
+    ReverbSizeSlider->setRange (0, 1, 0.01);
     ReverbSizeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     ReverbSizeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbSizeSlider->addListener (this);
@@ -504,7 +504,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ReverbIsOn->addListener (this);
 
     addAndMakeVisible (DistortionAmountSlider = new Slider ("DistortionAmountSlider"));
-    DistortionAmountSlider->setRange (0, 100, 0.1);
+    DistortionAmountSlider->setRange (0, 99, 0.1);
     DistortionAmountSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     DistortionAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DistortionAmountSlider->addListener (this);
@@ -707,20 +707,52 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFORetriggerLabel->setColour (TextEditor::textColourId, Colours::black);
     LFORetriggerLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (ReverbDecayLabel = new Label ("ReverbDecayLabel",
-                                                     TRANS("Decay")));
-    ReverbDecayLabel->setFont (Font (15.00f, Font::bold));
-    ReverbDecayLabel->setJustificationType (Justification::centredLeft);
-    ReverbDecayLabel->setEditable (false, false, false);
-    ReverbDecayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    ReverbDecayLabel->setColour (TextEditor::textColourId, Colours::black);
-    ReverbDecayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (ReverbWidthLabel = new Label ("ReverbWidthLabel",
+                                                     TRANS("Width")));
+    ReverbWidthLabel->setFont (Font (15.00f, Font::bold));
+    ReverbWidthLabel->setJustificationType (Justification::centredLeft);
+    ReverbWidthLabel->setEditable (false, false, false);
+    ReverbWidthLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ReverbWidthLabel->setColour (TextEditor::textColourId, Colours::black);
+    ReverbWidthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (ReverbDecaySlider = new Slider ("ReverbDecaySlider"));
-    ReverbDecaySlider->setRange (0.05, 1.5, 0.001);
-    ReverbDecaySlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    ReverbDecaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ReverbDecaySlider->addListener (this);
+    addAndMakeVisible (ReverbWidthSlider = new Slider ("ReverbWidthSlider"));
+    ReverbWidthSlider->setRange (0, 1, 0.01);
+    ReverbWidthSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ReverbWidthSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ReverbWidthSlider->addListener (this);
+
+    addAndMakeVisible (GlobalVolumeLabel = new Label ("GlobalVolumeLabel",
+                                                      TRANS("Volume")));
+    GlobalVolumeLabel->setFont (Font (15.00f, Font::bold));
+    GlobalVolumeLabel->setJustificationType (Justification::centredLeft);
+    GlobalVolumeLabel->setEditable (false, false, false);
+    GlobalVolumeLabel->setColour (Label::backgroundColourId, Colour (0x00000000));
+    GlobalVolumeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    GlobalVolumeLabel->setColour (TextEditor::textColourId, Colours::black);
+    GlobalVolumeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (GlobalPanLabel = new Label ("GlobalPanLabel",
+                                                   TRANS("Pan")));
+    GlobalPanLabel->setFont (Font (15.00f, Font::bold));
+    GlobalPanLabel->setJustificationType (Justification::centredLeft);
+    GlobalPanLabel->setEditable (false, false, false);
+    GlobalPanLabel->setColour (Label::backgroundColourId, Colour (0x00000000));
+    GlobalPanLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    GlobalPanLabel->setColour (TextEditor::textColourId, Colours::black);
+    GlobalPanLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (GlobalVolumeSlider = new Slider ("GlobalVolumeSlider"));
+    GlobalVolumeSlider->setRange (0, 1.5, 0.01);
+    GlobalVolumeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    GlobalVolumeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    GlobalVolumeSlider->addListener (this);
+
+    addAndMakeVisible (GlobalPanSlider = new Slider ("GlobalPanSlider"));
+    GlobalPanSlider->setRange (0, 1, 0.01);
+    GlobalPanSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    GlobalPanSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    GlobalPanSlider->addListener (this);
 
 
     //[UserPreSize]
@@ -730,7 +762,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     //[/UserPreSize]
 
-    setSize (800, 600);
+    setSize (800, 700);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -834,8 +866,12 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     LFOMonoLabel = nullptr;
     LFOPolyLabel = nullptr;
     LFORetriggerLabel = nullptr;
-    ReverbDecayLabel = nullptr;
-    ReverbDecaySlider = nullptr;
+    ReverbWidthLabel = nullptr;
+    ReverbWidthSlider = nullptr;
+    GlobalVolumeLabel = nullptr;
+    GlobalPanLabel = nullptr;
+    GlobalVolumeSlider = nullptr;
+    GlobalPanSlider = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -856,6 +892,9 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
 
 void AudeaAudioProcessorEditor::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     ReverbGroup->setBounds (640, 224, 72, 232);
     ChorusGroup->setBounds (552, 224, 88, 232);
     DistortionGroup->setBounds (464, 224, 88, 232);
@@ -902,7 +941,7 @@ void AudeaAudioProcessorEditor::resized()
     FilterTypeBox->setBounds (528, 16, 150, 16);
     FilterCutoffSlider->setBounds (520, 72, 39, 40);
     FilterResonanceSlider->setBounds (576, 72, 39, 40);
-    FilterEnvelopeSlider->setBounds (640, 64, 39, 40);
+    FilterEnvelopeSlider->setBounds (640, 72, 39, 40);
     FilterCutoffLabel->setBounds (512, 40, 48, 24);
     FilterResLabel->setBounds (576, 40, 48, 24);
     FilterEnvelopeLabel->setBounds (632, 40, 72, 24);
@@ -946,8 +985,12 @@ void AudeaAudioProcessorEditor::resized()
     LFOMonoLabel->setBounds (24, 384, 48, 32);
     LFOPolyLabel->setBounds (72, 384, 40, 32);
     LFORetriggerLabel->setBounds (120, 384, 56, 32);
-    ReverbDecayLabel->setBounds (656, 296, 40, 24);
-    ReverbDecaySlider->setBounds (656, 320, 39, 40);
+    ReverbWidthLabel->setBounds (656, 296, 40, 24);
+    ReverbWidthSlider->setBounds (656, 320, 39, 40);
+    GlobalVolumeLabel->setBounds (0, 456, 72, 24);
+    GlobalPanLabel->setBounds (368, 456, 72, 24);
+    GlobalVolumeSlider->setBounds (64, 464, 104, 80);
+    GlobalPanSlider->setBounds (408, 456, 104, 80);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -1274,11 +1317,21 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
         //[UserSliderCode_LFOAmountSlider] -- add your slider handling code here..
         //[/UserSliderCode_LFOAmountSlider]
     }
-    else if (sliderThatWasMoved == ReverbDecaySlider)
+    else if (sliderThatWasMoved == ReverbWidthSlider)
     {
-        //[UserSliderCode_ReverbDecaySlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ReverbDecay, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_ReverbDecaySlider]
+        //[UserSliderCode_ReverbWidthSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbWidth, sliderThatWasMoved->getValue());
+        //[/UserSliderCode_ReverbWidthSlider]
+    }
+    else if (sliderThatWasMoved == GlobalVolumeSlider)
+    {
+        //[UserSliderCode_GlobalVolumeSlider] -- add your slider handling code here..
+        //[/UserSliderCode_GlobalVolumeSlider]
+    }
+    else if (sliderThatWasMoved == GlobalPanSlider)
+    {
+        //[UserSliderCode_GlobalPanSlider] -- add your slider handling code here..
+        //[/UserSliderCode_GlobalPanSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -1333,7 +1386,7 @@ void AudeaAudioProcessorEditor::timerCallback()
 		ReverbIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ReverbIsOn), false);
 		ReverbMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbMix));
 		ReverbSizeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbSize));
-		ReverbDecaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbDecay));
+		ReverbWidthSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbWidth));
 
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
@@ -1356,7 +1409,7 @@ BEGIN_JUCER_METADATA
                  componentName="" parentClasses="public AudioProcessorEditor, public Timer"
                  constructorParams="AudeaAudioProcessor* ownerFilter" variableInitialisers="AudioProcessorEditor(ownerFilter),&#10;midiKeyboard(ownerFilter-&gt;keyboardState,MidiKeyboardComponent::horizontalKeyboard)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="800" initialHeight="600">
+                 fixedSize="0" initialWidth="800" initialHeight="700">
   <BACKGROUND backgroundColour="ff18140f"/>
   <GROUPCOMPONENT name="ReverbGroup" id="acdcfe1f8849f242" memberName="ReverbGroup"
                   virtualName="" explicitFocusOrder="0" pos="640 224 72 232" outlinecol="669c1900"
@@ -1541,11 +1594,11 @@ BEGIN_JUCER_METADATA
           max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
-          virtualName="" explicitFocusOrder="0" pos="576 72 39 40" min="0.050000000000000003"
+          virtualName="" explicitFocusOrder="0" pos="576 72 39 40" min="0.5"
           max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
-          virtualName="" explicitFocusOrder="0" pos="640 64 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="640 72 39 40" min="0"
           max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FilterCutoffLabel" id="f6e337c9abe5937" memberName="FilterCutoffLabel"
@@ -1568,8 +1621,8 @@ BEGIN_JUCER_METADATA
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
-          virtualName="" explicitFocusOrder="0" pos="656 256 39 40" min="0.029999999999999999"
-          max="0.5" int="0.001" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          virtualName="" explicitFocusOrder="0" pos="656 256 39 40" min="0"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
          virtualName="" explicitFocusOrder="0" pos="656 360 40 24" textCol="ffb2ff8b"
@@ -1631,7 +1684,7 @@ BEGIN_JUCER_METADATA
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
           virtualName="" explicitFocusOrder="0" pos="488 328 39 40" min="0"
-          max="100" int="0.10000000000000001" style="RotaryVerticalDrag"
+          max="99" int="0.10000000000000001" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="DistortionIsOn" id="6cc597398b435cf2" memberName="DistortionIsOn"
@@ -1738,14 +1791,32 @@ BEGIN_JUCER_METADATA
          edTextCol="ff000000" edBkgCol="0" labelText="Retrigger" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
-  <LABEL name="ReverbDecayLabel" id="9d1ccd10ad6d1c44" memberName="ReverbDecayLabel"
+  <LABEL name="ReverbWidthLabel" id="9d1ccd10ad6d1c44" memberName="ReverbWidthLabel"
          virtualName="" explicitFocusOrder="0" pos="656 296 40 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Decay" editableSingleClick="0"
+         edTextCol="ff000000" edBkgCol="0" labelText="Width" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <SLIDER name="ReverbDecaySlider" id="ec827733ecdec647" memberName="ReverbDecaySlider"
-          virtualName="" explicitFocusOrder="0" pos="656 320 39 40" min="0.050000000000000003"
-          max="1.5" int="0.001" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+  <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
+          virtualName="" explicitFocusOrder="0" pos="656 320 39 40" min="0"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="GlobalVolumeLabel" id="80c153321d0b3d2c" memberName="GlobalVolumeLabel"
+         virtualName="" explicitFocusOrder="0" pos="0 456 72 24" bkgCol="0"
+         textCol="ffb2ff8b" edTextCol="ff000000" edBkgCol="0" labelText="Volume"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="GlobalPanLabel" id="553a35605cfad4af" memberName="GlobalPanLabel"
+         virtualName="" explicitFocusOrder="0" pos="368 456 72 24" bkgCol="0"
+         textCol="ffb2ff8b" edTextCol="ff000000" edBkgCol="0" labelText="Pan"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
+  <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
+          virtualName="" explicitFocusOrder="0" pos="64 464 104 80" min="0"
+          max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
+          virtualName="" explicitFocusOrder="0" pos="408 456 104 80" min="0"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>
 
