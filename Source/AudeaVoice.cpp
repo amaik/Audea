@@ -112,9 +112,9 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
 					//Filter has to be processed before the sample is written to the buffer
 					if (i == 0)
-						outputBuffer.addSample(i, startSample, fil->processFilterLeft(currentSample));
+						outputBuffer.addSample(i, startSample, currentSample/*fil->processFilterLeft(currentSample)*/);
 					else if (i == 1)
-						outputBuffer.addSample(i, startSample, fil->processFilterRight(currentSample));
+						outputBuffer.addSample(i, startSample, currentSample/*fil->processFilterRight(currentSample)*/);
 					else
 						outputBuffer.addSample(i, startSample, currentSample);
 				}

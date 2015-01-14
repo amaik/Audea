@@ -63,25 +63,6 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 
 	UIUpdateFlag = true; //Request UI update
 
-
-	float samples = getSampleRate();
-	filter = new LowPassFilter(&UserParams[FilterRes], getSampleRate());
-	//Initialise the synthesisers
-	for (int i = (int)UserParams[OscVoices]; --i >= 0;)
-	{
-		Envelope *env = new Envelope(&UserParams[AmpEnvAttack], &UserParams[AmpEnvDecay], &UserParams[AmpEnvSustain], &UserParams[AmpEnvRelease]);
-		FilterEnvelope *filEnv = new FilterEnvelope(&UserParams[FilterEnvAttack], &UserParams[FilterEnvDecay], &UserParams[FilterEnvSustain], &UserParams[FilterEnvRelease], &UserParams[FilterCutoff], &UserParams[FilterEnvAmt]);
-		synth.addVoice(
-			new AudeaVoice(
-				&UserParams[Osc1Amp],
-				&UserParams[Osc2Amp],
-				&UserParams[Osc3Amp],
-				&UserParams[Osc2Tune],
-				&UserParams[Osc3Tune],
-				env, filter, filEnv)
-		);
-	}
-	synth.addSound(new AudeaSound());
 }
 
 AudeaAudioProcessor::~AudeaAudioProcessor()
@@ -599,19 +580,19 @@ void AudeaAudioProcessor::changeFilterType(int filterId)
 {
 	switch (filterId)
 	{
-	case BandPass:delete[] filter;
+	case BandPass:delete filter;
 		filter = new BandPassFilter(&UserParams[FilterRes]);
 		break;
-	case LowPass:delete[] filter;
+	case LowPass:delete filter;
 		filter = new LowPassFilter(&UserParams[FilterRes]);
 		break;
-	case HighPass:delete[] filter;
+	case HighPass:delete filter;
 		filter = new HighPassFilter(&UserParams[FilterRes]);
 		break;
-	case BandReject:delete[] filter;
+	case BandReject:delete filter;
 		filter = new BandRejectFilter(&UserParams[FilterRes]);
 		break;
-	case Allpass:delete[] filter;
+	case Allpass:delete filter;
 		filter = new AllPassFilter(&UserParams[FilterRes]);
 		break;
 	}
@@ -695,7 +676,26 @@ void AudeaAudioProcessor::init()
 	float secondsPerMeasure = 60 / mpm;
 	float samples = getSampleRate();
 
-	filter = new LowPassFilter(&UserParams[FilterRes]);
+	filter = new LowPassFilter(&UserParams[FilterRes],samples);
+
+	//Initialise the synthesisers
+	for (int i = (int)UserParams[OscVoices]; --i >= 0;)
+	{
+		Envelope *env = new Envelope(&UserParams[AmpEnvAttack], &UserParams[AmpEnvDecay], &UserParams[AmpEnvSustain], &UserParams[AmpEnvRelease]);
+		FilterEnvelope *filEnv = new FilterEnvelope(&UserParams[FilterEnvAttack], &UserParams[FilterEnvDecay], &UserParams[FilterEnvSustain], &UserParams[FilterEnvRelease], &UserParams[FilterCutoff], &UserParams[FilterEnvAmt]);
+		synth.addVoice(
+			new AudeaVoice(
+			&UserParams[Osc1Amp],
+			&UserParams[Osc2Amp],
+			&UserParams[Osc3Amp],
+			&UserParams[Osc2Tune],
+			&UserParams[Osc3Tune],
+			env, filter, filEnv)
+			);
+	}
+	synth.addSound(new AudeaSound());
+	
+	//Initialise the effects
 	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples,&UserParams[DelayMix],&UserParams[DelayFeedback]);
 	flanger = new Flanger(samples,&UserParams[FlangerMix],&UserParams[FlangerFeedback]);
 	chorus = new Chorus(samples, &UserParams[ChorusMix]);

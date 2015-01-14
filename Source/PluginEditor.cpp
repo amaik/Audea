@@ -61,10 +61,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     AmpEnvelopeGroup2->setColour (GroupComponent::outlineColourId, Colour (0x669c1900));
     AmpEnvelopeGroup2->setColour (GroupComponent::textColourId, Colour (0xffff6843));
 
-    addAndMakeVisible (LFOIsPoly = new ToggleButton ("LFOIsPoly"));
-    LFOIsPoly->setButtonText (String::empty);
-    LFOIsPoly->addListener (this);
-
     addAndMakeVisible (FilterGroup = new GroupComponent ("FilterGroup",
                                                          TRANS("Filter")));
     FilterGroup->setColour (GroupComponent::outlineColourId, Colour (0x669c1900));
@@ -620,6 +616,10 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFODestinationBox->setJustificationType (Justification::centredLeft);
     LFODestinationBox->setTextWhenNothingSelected (String::empty);
     LFODestinationBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
+    LFODestinationBox->addItem (TRANS("None"), 1);
+    LFODestinationBox->addItem (TRANS("FilterCutoff"), 2);
+    LFODestinationBox->addItem (TRANS("Volume"), 3);
+    LFODestinationBox->addItem (TRANS("Pan"), 4);
     LFODestinationBox->addListener (this);
 
     addAndMakeVisible (LFOAmountSlider = new Slider ("LFOAmountSlider"));
@@ -672,31 +672,9 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFORateBox->addItem (TRANS("1/32"), 10);
     LFORateBox->addListener (this);
 
-    addAndMakeVisible (LFOIsMono = new ToggleButton ("LFOIsMono"));
-    LFOIsMono->setButtonText (String::empty);
-    LFOIsMono->addListener (this);
-
     addAndMakeVisible (LFOIsRetrigger = new ToggleButton ("LFOIsRetrigger"));
     LFOIsRetrigger->setButtonText (String::empty);
     LFOIsRetrigger->addListener (this);
-
-    addAndMakeVisible (LFOMonoLabel = new Label ("LFOMonoLabel",
-                                                 TRANS("Mono")));
-    LFOMonoLabel->setFont (Font (11.20f, Font::bold));
-    LFOMonoLabel->setJustificationType (Justification::centredLeft);
-    LFOMonoLabel->setEditable (false, false, false);
-    LFOMonoLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    LFOMonoLabel->setColour (TextEditor::textColourId, Colours::black);
-    LFOMonoLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (LFOPolyLabel = new Label ("LFOPolyLabel",
-                                                 TRANS("Poly")));
-    LFOPolyLabel->setFont (Font (11.20f, Font::bold));
-    LFOPolyLabel->setJustificationType (Justification::centredLeft);
-    LFOPolyLabel->setEditable (false, false, false);
-    LFOPolyLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    LFOPolyLabel->setColour (TextEditor::textColourId, Colours::black);
-    LFOPolyLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (LFORetriggerLabel = new Label ("LFORetriggerLabel",
                                                       TRANS("Retrigger")));
@@ -782,7 +760,6 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     FlangerGroup = nullptr;
     DelayGroup = nullptr;
     AmpEnvelopeGroup2 = nullptr;
-    LFOIsPoly = nullptr;
     FilterGroup = nullptr;
     AmpEnvelopeGroup = nullptr;
     GenerateGroup = nullptr;
@@ -861,10 +838,7 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     LFOAmountLabel = nullptr;
     LFORateLabel = nullptr;
     LFORateBox = nullptr;
-    LFOIsMono = nullptr;
     LFOIsRetrigger = nullptr;
-    LFOMonoLabel = nullptr;
-    LFOPolyLabel = nullptr;
     LFORetriggerLabel = nullptr;
     ReverbWidthLabel = nullptr;
     ReverbWidthSlider = nullptr;
@@ -901,7 +875,6 @@ void AudeaAudioProcessorEditor::resized()
     FlangerGroup->setBounds (376, 224, 88, 232);
     DelayGroup->setBounds (192, 224, 184, 232);
     AmpEnvelopeGroup2->setBounds (0, 224, 192, 232);
-    LFOIsPoly->setBounds (80, 408, 24, 24);
     FilterGroup->setBounds (496, 0, 216, 232);
     AmpEnvelopeGroup->setBounds (304, 0, 192, 232);
     GenerateGroup->setBounds (0, 0, 304, 232);
@@ -974,27 +947,82 @@ void AudeaAudioProcessorEditor::resized()
     DelayMixLabel->setBounds (224, 352, 32, 32);
     DelayFeedbackLabel->setBounds (296, 352, 32, 32);
     DelayRateRightLabel->setBounds (232, 288, 96, 32);
-    LFODestinationBox->setBounds (32, 280, 120, 24);
-    LFOAmountSlider->setBounds (24, 344, 39, 40);
-    LFODestinationLabel->setBounds (40, 248, 96, 32);
-    LFOAmountLabel->setBounds (16, 312, 64, 32);
-    LFORateLabel->setBounds (112, 312, 48, 32);
-    LFORateBox->setBounds (104, 352, 64, 24);
-    LFOIsMono->setBounds (32, 408, 24, 24);
-    LFOIsRetrigger->setBounds (128, 408, 24, 24);
-    LFOMonoLabel->setBounds (24, 384, 48, 32);
-    LFOPolyLabel->setBounds (72, 384, 40, 32);
-    LFORetriggerLabel->setBounds (120, 384, 56, 32);
+    LFODestinationBox->setBounds (32, 288, 120, 24);
+    LFOAmountSlider->setBounds (24, 360, 39, 40);
+    LFODestinationLabel->setBounds (48, 248, 96, 32);
+    LFOAmountLabel->setBounds (16, 328, 64, 32);
+    LFORateLabel->setBounds (112, 328, 48, 32);
+    LFORateBox->setBounds (104, 368, 64, 24);
+    LFOIsRetrigger->setBounds (112, 416, 24, 24);
+    LFORetriggerLabel->setBounds (48, 408, 56, 32);
     ReverbWidthLabel->setBounds (656, 296, 40, 24);
     ReverbWidthSlider->setBounds (656, 320, 39, 40);
     GlobalVolumeLabel->setBounds (0, 456, 72, 24);
     GlobalPanLabel->setBounds (368, 456, 72, 24);
-    GlobalVolumeSlider->setBounds (64, 464, 104, 80);
-    GlobalPanSlider->setBounds (408, 456, 104, 80);
+    GlobalVolumeSlider->setBounds (56, 464, 104, 80);
+    GlobalPanSlider->setBounds (408, 464, 104, 80);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
     //[/UserResized]
+}
+
+void AudeaAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+{
+    //[UsercomboBoxChanged_Pre]
+	AudeaAudioProcessor * ourProcessor = getProcessor();
+	float id = comboBoxThatHasChanged->getSelectedId();
+    //[/UsercomboBoxChanged_Pre]
+
+    if (comboBoxThatHasChanged == OscOneBox)
+    {
+        //[UserComboBoxCode_OscOneBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::Osc1WaveForm, id);
+        //[/UserComboBoxCode_OscOneBox]
+    }
+    else if (comboBoxThatHasChanged == OscTwoBox)
+    {
+        //[UserComboBoxCode_OscTwoBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::Osc2WaveForm, id);
+        //[/UserComboBoxCode_OscTwoBox]
+    }
+    else if (comboBoxThatHasChanged == OscThreeBox)
+    {
+        //[UserComboBoxCode_OscThreeBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::Osc3WaveForm, id);
+        //[/UserComboBoxCode_OscThreeBox]
+    }
+    else if (comboBoxThatHasChanged == FilterTypeBox)
+    {
+        //[UserComboBoxCode_FilterTypeBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FilterType, id);
+        //[/UserComboBoxCode_FilterTypeBox]
+    }
+    else if (comboBoxThatHasChanged == DelayRateLeftBox)
+    {
+        //[UserComboBoxCode_DelayRateLeftBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::DelayLenLeft, id);
+        //[/UserComboBoxCode_DelayRateLeftBox]
+    }
+    else if (comboBoxThatHasChanged == DelayRateRightBox)
+    {
+        //[UserComboBoxCode_DelayRateRightBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::DelayLenRight, id);
+        //[/UserComboBoxCode_DelayRateRightBox]
+    }
+    else if (comboBoxThatHasChanged == LFODestinationBox)
+    {
+        //[UserComboBoxCode_LFODestinationBox] -- add your combo box handling code here..
+        //[/UserComboBoxCode_LFODestinationBox]
+    }
+    else if (comboBoxThatHasChanged == LFORateBox)
+    {
+        //[UserComboBoxCode_LFORateBox] -- add your combo box handling code here..
+        //[/UserComboBoxCode_LFORateBox]
+    }
+
+    //[UsercomboBoxChanged_Post]
+    //[/UsercomboBoxChanged_Post]
 }
 
 void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
@@ -1003,12 +1031,7 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 	AudeaAudioProcessor* ourProcessor = getProcessor();
     //[/UserbuttonClicked_Pre]
 
-    if (buttonThatWasClicked == LFOIsPoly)
-    {
-        //[UserButtonCode_LFOIsPoly] -- add your button handler code here..
-        //[/UserButtonCode_LFOIsPoly]
-    }
-    else if (buttonThatWasClicked == OscTwoIsOn)
+    if (buttonThatWasClicked == OscTwoIsOn)
     {
         //[UserButtonCode_OscTwoIsOn] -- add your button handler code here..
 		if (buttonThatWasClicked->getToggleState())
@@ -1071,11 +1094,6 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 			ourProcessor->setParameter(AudeaAudioProcessor::DelayIsOn, 0.0f);
         //[/UserButtonCode_DelayIsOn]
     }
-    else if (buttonThatWasClicked == LFOIsMono)
-    {
-        //[UserButtonCode_LFOIsMono] -- add your button handler code here..
-        //[/UserButtonCode_LFOIsMono]
-    }
     else if (buttonThatWasClicked == LFOIsRetrigger)
     {
         //[UserButtonCode_LFOIsRetrigger] -- add your button handler code here..
@@ -1084,64 +1102,6 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 
     //[UserbuttonClicked_Post]
     //[/UserbuttonClicked_Post]
-}
-
-void AudeaAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
-{
-    //[UsercomboBoxChanged_Pre]
-	AudeaAudioProcessor * ourProcessor = getProcessor();
-	float id = comboBoxThatHasChanged->getSelectedId();
-    //[/UsercomboBoxChanged_Pre]
-
-    if (comboBoxThatHasChanged == OscOneBox)
-    {
-        //[UserComboBoxCode_OscOneBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc1WaveForm, id);
-        //[/UserComboBoxCode_OscOneBox]
-    }
-    else if (comboBoxThatHasChanged == OscTwoBox)
-    {
-        //[UserComboBoxCode_OscTwoBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc2WaveForm, id);
-        //[/UserComboBoxCode_OscTwoBox]
-    }
-    else if (comboBoxThatHasChanged == OscThreeBox)
-    {
-        //[UserComboBoxCode_OscThreeBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc3WaveForm, id);
-        //[/UserComboBoxCode_OscThreeBox]
-    }
-    else if (comboBoxThatHasChanged == FilterTypeBox)
-    {
-        //[UserComboBoxCode_FilterTypeBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FilterType, id);
-        //[/UserComboBoxCode_FilterTypeBox]
-    }
-    else if (comboBoxThatHasChanged == DelayRateLeftBox)
-    {
-        //[UserComboBoxCode_DelayRateLeftBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DelayLenLeft, id);
-        //[/UserComboBoxCode_DelayRateLeftBox]
-    }
-    else if (comboBoxThatHasChanged == DelayRateRightBox)
-    {
-        //[UserComboBoxCode_DelayRateRightBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DelayLenRight, id);
-        //[/UserComboBoxCode_DelayRateRightBox]
-    }
-    else if (comboBoxThatHasChanged == LFODestinationBox)
-    {
-        //[UserComboBoxCode_LFODestinationBox] -- add your combo box handling code here..
-        //[/UserComboBoxCode_LFODestinationBox]
-    }
-    else if (comboBoxThatHasChanged == LFORateBox)
-    {
-        //[UserComboBoxCode_LFORateBox] -- add your combo box handling code here..
-        //[/UserComboBoxCode_LFORateBox]
-    }
-
-    //[UsercomboBoxChanged_Post]
-    //[/UsercomboBoxChanged_Post]
 }
 
 void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
@@ -1429,9 +1389,6 @@ BEGIN_JUCER_METADATA
   <GROUPCOMPONENT name="AmpEnvelopeGroup" id="1f18ab0c32b8d2ef" memberName="AmpEnvelopeGroup2"
                   virtualName="" explicitFocusOrder="0" pos="0 224 192 232" outlinecol="669c1900"
                   textcol="ffff6843" title="LFO"/>
-  <TOGGLEBUTTON name="LFOIsPoly" id="76273b49dd86d6b3" memberName="LFOIsPoly"
-                virtualName="" explicitFocusOrder="0" pos="80 408 24 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <GROUPCOMPONENT name="FilterGroup" id="34a14c2689008b75" memberName="FilterGroup"
                   virtualName="" explicitFocusOrder="0" pos="496 0 216 232" outlinecol="669c1900"
                   textcol="ffff6843" title="Filter"/>
@@ -1745,49 +1702,37 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFODestinationBox" id="9bcda03ffed93fb9" memberName="LFODestinationBox"
-            virtualName="" explicitFocusOrder="0" pos="32 280 120 24" editable="0"
-            layout="33" items="" textWhenNonSelected="" textWhenNoItems="(no choices)"/>
+            virtualName="" explicitFocusOrder="0" pos="32 288 120 24" editable="0"
+            layout="33" items="None&#10;FilterCutoff&#10;Volume&#10;Pan"
+            textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="LFOAmountSlider" id="5f882442e23151cd" memberName="LFOAmountSlider"
-          virtualName="" explicitFocusOrder="0" pos="24 344 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="24 360 39 40" min="0"
           max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="LFODestinationLabel" id="d6929965cd407937" memberName="LFODestinationLabel"
-         virtualName="" explicitFocusOrder="0" pos="40 248 96 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="48 248 96 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Destination" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFOAmountLabel" id="7f50080a208b8bbf" memberName="LFOAmountLabel"
-         virtualName="" explicitFocusOrder="0" pos="16 312 64 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="16 328 64 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Amount" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFORateLabel" id="5ff6d628d761acfc" memberName="LFORateLabel"
-         virtualName="" explicitFocusOrder="0" pos="112 312 48 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="112 328 48 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFORateBox" id="a255da4f656aae8d" memberName="LFORateBox"
-            virtualName="" explicitFocusOrder="0" pos="104 352 64 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="104 368 64 24" editable="0"
             layout="33" items="1/1&#10;1/2&#10;1/3&#10;1/4&#10;1/6&#10;1/8&#10;1/12&#10;1/16&#10;1/24&#10;1/32"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <TOGGLEBUTTON name="LFOIsMono" id="69c5ebe6e1570e06" memberName="LFOIsMono"
-                virtualName="" explicitFocusOrder="0" pos="32 408 24 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="LFOIsRetrigger" id="5bd2fc7e50873000" memberName="LFOIsRetrigger"
-                virtualName="" explicitFocusOrder="0" pos="128 408 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="112 416 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
-  <LABEL name="LFOMonoLabel" id="a61e7d76ccac9329" memberName="LFOMonoLabel"
-         virtualName="" explicitFocusOrder="0" pos="24 384 48 32" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Mono" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
-  <LABEL name="LFOPolyLabel" id="8264c7192d3851c0" memberName="LFOPolyLabel"
-         virtualName="" explicitFocusOrder="0" pos="72 384 40 32" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Poly" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
   <LABEL name="LFORetriggerLabel" id="5ad6ae6975863a09" memberName="LFORetriggerLabel"
-         virtualName="" explicitFocusOrder="0" pos="120 384 56 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="48 408 56 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Retrigger" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
@@ -1811,11 +1756,11 @@ BEGIN_JUCER_METADATA
          editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
          fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
-          virtualName="" explicitFocusOrder="0" pos="64 464 104 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="56 464 104 80" min="0"
           max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
-          virtualName="" explicitFocusOrder="0" pos="408 456 104 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>

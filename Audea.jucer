@@ -19,6 +19,8 @@
               file="Source/AudeaLookAndFeel.h"/>
       </GROUP>
       <GROUP id="{0DF08EAD-4D98-8BA2-A784-A19D9109C666}" name="Helpers">
+        <FILE id="NhO6tV" name="LFO.cpp" compile="1" resource="0" file="Source/LFO.cpp"/>
+        <FILE id="KwxJnt" name="LFO.h" compile="0" resource="0" file="Source/LFO.h"/>
         <FILE id="ajlEx9" name="EffectLFO.cpp" compile="1" resource="0" file="Source/EffectLFO.cpp"/>
         <FILE id="txFUbS" name="EffectLFO.h" compile="0" resource="0" file="Source/EffectLFO.h"/>
         <FILE id="twplbO" name="VariableDelayLine.cpp" compile="1" resource="0"

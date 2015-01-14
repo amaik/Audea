@@ -38,7 +38,7 @@ protected:
 	double sampleRate;
 	float *Q;
 public:
-	Filter(float *Q = nullptr, float samplerate = 41000) : 
+	Filter(float *Q = nullptr, float samplerate = 48000) : 
 		Q(Q)
 	{
 		sampleRate = samplerate;

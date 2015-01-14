@@ -114,6 +114,10 @@ public:
 		ReverbMix,
 		ReverbSize,
 		ReverbWidth,
+		LFODestination,
+		LFORate,
+		LFOIsRetrigger,
+		LFOAmount,
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -149,6 +153,14 @@ public:
 		demisemiquaver
 	};
 
+	enum LFODestinations
+	{
+		None = 0,
+		FilterCtf,
+		Volume,
+		Pan
+	};
+
 	bool NeedsUIUpdate(){ return UIUpdateFlag; };
 	void RequestUIUpdate(){ UIUpdateFlag = true; };
 	void ClearUIUpdateFlag(){ UIUpdateFlag = false; };
@@ -171,7 +183,7 @@ private:
 	Delay* delay = nullptr;
 	Flanger* flanger = nullptr;
 	Chorus* chorus = nullptr;
-	Filter *filter = nullptr;
+	Filter *filter;// = new LowPassFilter(&UserParams[FilterRes]);
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 
 

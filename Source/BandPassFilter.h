@@ -16,7 +16,7 @@ class BandPassFilter : public Filter
 {
 
 public:
-	BandPassFilter(float *Q = nullptr, float samplerate = 41000) :
+	BandPassFilter(float *Q = nullptr, float samplerate = 48000) :
 		Filter(Q,samplerate)
 	{
 	}

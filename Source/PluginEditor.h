@@ -37,8 +37,8 @@
 */
 class AudeaAudioProcessorEditor  : public AudioProcessorEditor,
                                    public Timer,
-                                   public ButtonListener,
                                    public ComboBoxListener,
+                                   public ButtonListener,
                                    public SliderListener
 {
 public:
@@ -57,8 +57,8 @@ public:
 
     void paint (Graphics& g);
     void resized();
-    void buttonClicked (Button* buttonThatWasClicked);
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
+    void buttonClicked (Button* buttonThatWasClicked);
     void sliderValueChanged (Slider* sliderThatWasMoved);
 
 
@@ -75,7 +75,6 @@ private:
     ScopedPointer<GroupComponent> FlangerGroup;
     ScopedPointer<GroupComponent> DelayGroup;
     ScopedPointer<GroupComponent> AmpEnvelopeGroup2;
-    ScopedPointer<ToggleButton> LFOIsPoly;
     ScopedPointer<GroupComponent> FilterGroup;
     ScopedPointer<GroupComponent> AmpEnvelopeGroup;
     ScopedPointer<GroupComponent> GenerateGroup;
@@ -154,10 +153,7 @@ private:
     ScopedPointer<Label> LFOAmountLabel;
     ScopedPointer<Label> LFORateLabel;
     ScopedPointer<ComboBox> LFORateBox;
-    ScopedPointer<ToggleButton> LFOIsMono;
     ScopedPointer<ToggleButton> LFOIsRetrigger;
-    ScopedPointer<Label> LFOMonoLabel;
-    ScopedPointer<Label> LFOPolyLabel;
     ScopedPointer<Label> LFORetriggerLabel;
     ScopedPointer<Label> ReverbWidthLabel;
     ScopedPointer<Slider> ReverbWidthSlider;
