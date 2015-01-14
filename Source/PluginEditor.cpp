@@ -856,6 +856,9 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
 
 void AudeaAudioProcessorEditor::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     ReverbGroup->setBounds (640, 224, 72, 232);
     ChorusGroup->setBounds (552, 224, 88, 232);
     DistortionGroup->setBounds (464, 224, 88, 232);
