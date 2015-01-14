@@ -35,12 +35,13 @@ protected:
 	double sinw0;
 	double cosw0;
 	double alpha;
-	double sampleRate = 48000;
+	double sampleRate;
 	float *Q;
 public:
-	Filter(float *Q = nullptr) : 
+	Filter(float *Q = nullptr, float samplerate = 41000) : 
 		Q(Q)
 	{
+		sampleRate = samplerate;
 	}
 
 	void computeVariables(FilterEnvelope *env);

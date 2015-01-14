@@ -159,8 +159,12 @@ private:
     ScopedPointer<Label> LFOMonoLabel;
     ScopedPointer<Label> LFOPolyLabel;
     ScopedPointer<Label> LFORetriggerLabel;
-    ScopedPointer<Label> ReverbDecayLabel;
-    ScopedPointer<Slider> ReverbDecaySlider;
+    ScopedPointer<Label> ReverbWidthLabel;
+    ScopedPointer<Slider> ReverbWidthSlider;
+    ScopedPointer<Label> GlobalVolumeLabel;
+    ScopedPointer<Label> GlobalPanLabel;
+    ScopedPointer<Slider> GlobalVolumeSlider;
+    ScopedPointer<Slider> GlobalPanSlider;
 
 
     //==============================================================================

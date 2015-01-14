@@ -16,8 +16,8 @@ class LowPassFilter : public Filter
 {
 
 public:
-	LowPassFilter(float *Q = nullptr) :
-		Filter(Q)
+	LowPassFilter(float *Q = nullptr,float samplerate = 41000) :
+		Filter(Q, samplerate)
 	{
 	}
 	~LowPassFilter();

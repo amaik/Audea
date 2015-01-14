@@ -16,6 +16,6 @@ void WaveShaper::process(float *left, float *right)
 {
 	double a = sin(((*drive + 1) / 101) * (double_Pi / 2));
 	double k = 2 * a / (1 - a);
-	*left = ((1 + k) * *left) / (1 + k * abs(*left));
-	*right = ((1 + k) * *right) / (1 + k * abs(*right));
+	*left = ((1 + k) * *left) / (1 + k * abs(*left))    * (1 - (*drive / 117));
+	*right = ((1 + k) * *right) / (1 + k * abs(*right)) * (1 - (*drive / 117));
 }

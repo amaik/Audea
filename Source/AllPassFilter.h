@@ -16,8 +16,8 @@ class AllPassFilter : public Filter
 {
 
 public:
-	AllPassFilter(float *Q = nullptr) :
-		Filter(Q)
+	AllPassFilter(float *Q = nullptr, float samplerate = 41000) :
+		Filter(Q,samplerate)
 	{
 	}
 	~AllPassFilter();

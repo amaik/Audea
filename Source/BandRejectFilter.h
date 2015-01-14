@@ -16,8 +16,8 @@ class BandRejectFilter : public Filter
 {
 
 public:
-	BandRejectFilter(float *Q = nullptr) :
-		Filter(Q)
+	BandRejectFilter(float *Q = nullptr, float samplerate = 41000) :
+		Filter(Q,samplerate)
 	{
 	}
 	~BandRejectFilter();
