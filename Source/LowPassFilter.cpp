@@ -24,9 +24,14 @@ double LowPassFilter::computeB2()
 	return (1 - cosw0)/2;
 }
 
+double LowPassFilter::computeA0()
+{
+	return 1 + alpha;
+}
+
 double LowPassFilter::computeA1()
 {
-	return -2 * cosw0;
+	return (-2) * cosw0;
 }
 
 double LowPassFilter::computeA2()

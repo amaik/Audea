@@ -24,6 +24,7 @@ public:
 	double computeB0() override;
 	double computeB1() override;
 	double computeB2() override;
+	double computeA0() override;
 	double computeA1() override;
 	double computeA2() override;
 };

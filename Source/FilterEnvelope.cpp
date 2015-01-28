@@ -28,17 +28,23 @@ void FilterEnvelope::initSegments()
 float FilterEnvelope::getNextCutoffFrequency()
 {
 	double ret = *cutoffFrequency + cutoffFrequencyBuffer;
+	if (ret > 20000)
+		ret = 20000;
 	switch (envState)
 	{
 	case Attack: 
 		cutoffFrequencyBuffer += attackIncr;
-		if (--attackNumSamples <= 0)
+		if (--attackNumSamples <= 0){
+			attackNumSamples = 0;
 			envState = Decay;
+		}
 		break;
 	case Decay: 
 		cutoffFrequencyBuffer -= decayIncr;
-		if (--decayNumSamples <= 0)
+		if (--decayNumSamples <= 0){
+			decayNumSamples = 0;
 			envState = Sustain;
+		}
 		break;
 	case Sustain: 
 		if (isRelease)
@@ -47,8 +53,10 @@ float FilterEnvelope::getNextCutoffFrequency()
 	case Release: 
 		if (isRelease)
 		 cutoffFrequencyBuffer -= releaseIncr;
-		if (--releaseNumSamples <= 0)
+		if (--releaseNumSamples <= 0){
+			releaseNumSamples = 0;
 			isRelease = false;
+		}
 		break;
 	}
 	return ret;

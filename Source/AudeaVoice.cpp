@@ -82,7 +82,7 @@ void AudeaVoice::stopNote(float /*velocity*/, bool allowTailOff)
 	else
 	{
 		// we're being told to stop playing immediately, so reset everything..
-
+		fil->resetFilter();
 		clearCurrentNote();
 	}
 }
@@ -109,12 +109,13 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				
 				//Compute the coefficients for the Filter
 				fil->computeVariables(filEnv);
+				currentSample = fil->processFilter(currentSample);
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
 					//Filter has to be processed before the sample is written to the buffer
 					if (i == 0)
-						outputBuffer.addSample(i, startSample, currentSample/*fil->processFilterLeft(currentSample)*/);
+						outputBuffer.addSample(i, startSample, currentSample);
 					else if (i == 1)
-						outputBuffer.addSample(i, startSample, currentSample/*fil->processFilterRight(currentSample)*/);
+						outputBuffer.addSample(i, startSample, currentSample);
 					else
 						outputBuffer.addSample(i, startSample, currentSample);
 				}
@@ -146,12 +147,13 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				
 				//Compute the coefficients of the filter
 				fil->computeVariables(filEnv);
+				currentSample = fil->processFilter(currentSample);
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
 					//Filter has to be processed before the sample is written to the buffer
 					if (i == 0)
-						outputBuffer.addSample(i, startSample, fil->processFilterLeft(currentSample));
+						outputBuffer.addSample(i, startSample, currentSample);
 					else if (i == 1)
-						outputBuffer.addSample(i, startSample, fil->processFilterRight(currentSample));
+						outputBuffer.addSample(i, startSample, currentSample);
 					else
 						outputBuffer.addSample(i, startSample, currentSample);
 

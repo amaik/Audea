@@ -26,6 +26,10 @@ double HighPassFilter::computeB2()
 	return (1 + cosw0) / 2;
 }
 
+double HighPassFilter::computeA0()
+{
+	return 1 + alpha;
+}
 double HighPassFilter::computeA1()
 {
 	return -2 * cosw0;

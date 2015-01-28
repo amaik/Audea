@@ -14,6 +14,11 @@
 
 class LFO
 {
+	//Wave settings
+	float index = 0;
+	float increment = 0;
+	float frequency = 0.15;
+	float samplerate = 0;
 
 	enum destination
 	{
@@ -23,7 +28,26 @@ class LFO
 		Pan
 	};
 
-public:
+	float *amount;
+
+
+public:	
+	//Constructor - Desctructor
+	LFO(float frq, int smplrate, float* amt);
+	~LFO();
+	
+	//public methods and fields
+	int destination = 0;
+	void calculateIncrement();
+	float getNextVolumeOffset();
+	float getNextPanOffset();
+	int getNextCutoffFrqOffset();
+
+	//Getters Setters
+	void setFrequency(float frq){ frequency = frq; }
+	float getFrequency(){ return frequency; }
+	void setSamplerate(int smplrate){ samplerate = smplrate; }
+	int getSamplerate(){ return samplerate; }
 
 };
 

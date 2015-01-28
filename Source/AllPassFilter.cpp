@@ -26,6 +26,11 @@ double AllPassFilter::computeB2()
 	return 1 + alpha;
 }
 
+double AllPassFilter::computeA0()
+{
+	return 1 + alpha;
+}
+
 double AllPassFilter::computeA1()
 {
 	return -2 * cosw0;

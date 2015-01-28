@@ -26,6 +26,10 @@ double BandRejectFilter::computeB2()
 	return 1;
 }
 
+double BandRejectFilter::computeA0()
+{
+	return 1 + alpha;
+}
 double BandRejectFilter::computeA1()
 {
 	return -2 * cosw0;

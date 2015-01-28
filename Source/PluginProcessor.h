@@ -118,6 +118,9 @@ public:
 		LFORate,
 		LFOIsRetrigger,
 		LFOAmount,
+		GlobalPan,
+		GlobalGain,
+
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -183,7 +186,7 @@ private:
 	Delay* delay = nullptr;
 	Flanger* flanger = nullptr;
 	Chorus* chorus = nullptr;
-	Filter *filter;// = new LowPassFilter(&UserParams[FilterRes]);
+	Filter *filter = nullptr;// = new LowPassFilter(&UserParams[FilterRes]);
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 
 

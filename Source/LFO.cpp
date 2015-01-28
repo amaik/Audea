@@ -9,3 +9,6 @@
 */
 
 #include "LFO.h"
+
+LFO(float frq, int smplrate, float* amt);
+~LFO();

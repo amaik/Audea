@@ -352,22 +352,22 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FilterTypeBox->addListener (this);
 
     addAndMakeVisible (FilterCutoffSlider = new Slider ("FilterCutoffSlider"));
-    FilterCutoffSlider->setRange (1, 20000, 1);
+    FilterCutoffSlider->setRange (40, 20000, 1);
     FilterCutoffSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterCutoffSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FilterCutoffSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
     FilterCutoffSlider->addListener (this);
     FilterCutoffSlider->setSkewFactor (0.5);
 
     addAndMakeVisible (FilterResonanceSlider = new Slider ("FilterResonanceSlider"));
     FilterResonanceSlider->setRange (0.5, 5, 0.01);
     FilterResonanceSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterResonanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FilterResonanceSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
     FilterResonanceSlider->addListener (this);
 
     addAndMakeVisible (FilterEnvelopeSlider = new Slider ("FilterEnvelopeSlider"));
     FilterEnvelopeSlider->setRange (0, 5000, 1);
     FilterEnvelopeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterEnvelopeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FilterEnvelopeSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
     FilterEnvelopeSlider->addListener (this);
 
     addAndMakeVisible (FilterCutoffLabel = new Label ("FilterCutoffLabel",
@@ -623,7 +623,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFODestinationBox->addListener (this);
 
     addAndMakeVisible (LFOAmountSlider = new Slider ("LFOAmountSlider"));
-    LFOAmountSlider->setRange (0, 10, 0);
+    LFOAmountSlider->setRange (0, 1, 0.01);
     LFOAmountSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     LFOAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     LFOAmountSlider->addListener (this);
@@ -672,19 +672,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFORateBox->addItem (TRANS("1/32"), 10);
     LFORateBox->addListener (this);
 
-    addAndMakeVisible (LFOIsRetrigger = new ToggleButton ("LFOIsRetrigger"));
-    LFOIsRetrigger->setButtonText (String::empty);
-    LFOIsRetrigger->addListener (this);
-
-    addAndMakeVisible (LFORetriggerLabel = new Label ("LFORetriggerLabel",
-                                                      TRANS("Retrigger")));
-    LFORetriggerLabel->setFont (Font (11.20f, Font::bold));
-    LFORetriggerLabel->setJustificationType (Justification::centredLeft);
-    LFORetriggerLabel->setEditable (false, false, false);
-    LFORetriggerLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    LFORetriggerLabel->setColour (TextEditor::textColourId, Colours::black);
-    LFORetriggerLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
     addAndMakeVisible (ReverbWidthLabel = new Label ("ReverbWidthLabel",
                                                      TRANS("Width")));
     ReverbWidthLabel->setFont (Font (15.00f, Font::bold));
@@ -721,13 +708,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     GlobalPanLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (GlobalVolumeSlider = new Slider ("GlobalVolumeSlider"));
-    GlobalVolumeSlider->setRange (0, 1.5, 0.01);
+    GlobalVolumeSlider->setRange (0, 2, 0.01);
     GlobalVolumeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     GlobalVolumeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalVolumeSlider->addListener (this);
 
     addAndMakeVisible (GlobalPanSlider = new Slider ("GlobalPanSlider"));
-    GlobalPanSlider->setRange (0, 1, 0.01);
+    GlobalPanSlider->setRange (-1, 1, 0.01);
     GlobalPanSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     GlobalPanSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalPanSlider->addListener (this);
@@ -838,8 +825,6 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     LFOAmountLabel = nullptr;
     LFORateLabel = nullptr;
     LFORateBox = nullptr;
-    LFOIsRetrigger = nullptr;
-    LFORetriggerLabel = nullptr;
     ReverbWidthLabel = nullptr;
     ReverbWidthSlider = nullptr;
     GlobalVolumeLabel = nullptr;
@@ -947,14 +932,12 @@ void AudeaAudioProcessorEditor::resized()
     DelayMixLabel->setBounds (224, 352, 32, 32);
     DelayFeedbackLabel->setBounds (296, 352, 32, 32);
     DelayRateRightLabel->setBounds (232, 288, 96, 32);
-    LFODestinationBox->setBounds (32, 288, 120, 24);
-    LFOAmountSlider->setBounds (24, 360, 39, 40);
-    LFODestinationLabel->setBounds (48, 248, 96, 32);
-    LFOAmountLabel->setBounds (16, 328, 64, 32);
-    LFORateLabel->setBounds (112, 328, 48, 32);
-    LFORateBox->setBounds (104, 368, 64, 24);
-    LFOIsRetrigger->setBounds (112, 416, 24, 24);
-    LFORetriggerLabel->setBounds (48, 408, 56, 32);
+    LFODestinationBox->setBounds (32, 304, 120, 24);
+    LFOAmountSlider->setBounds (24, 384, 39, 40);
+    LFODestinationLabel->setBounds (48, 264, 96, 32);
+    LFOAmountLabel->setBounds (16, 344, 64, 32);
+    LFORateLabel->setBounds (112, 344, 48, 32);
+    LFORateBox->setBounds (104, 392, 64, 24);
     ReverbWidthLabel->setBounds (656, 296, 40, 24);
     ReverbWidthSlider->setBounds (656, 320, 39, 40);
     GlobalVolumeLabel->setBounds (0, 456, 72, 24);
@@ -1093,11 +1076,6 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 		else
 			ourProcessor->setParameter(AudeaAudioProcessor::DelayIsOn, 0.0f);
         //[/UserButtonCode_DelayIsOn]
-    }
-    else if (buttonThatWasClicked == LFOIsRetrigger)
-    {
-        //[UserButtonCode_LFOIsRetrigger] -- add your button handler code here..
-        //[/UserButtonCode_LFOIsRetrigger]
     }
 
     //[UserbuttonClicked_Post]
@@ -1286,11 +1264,13 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == GlobalVolumeSlider)
     {
         //[UserSliderCode_GlobalVolumeSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::GlobalGain, sliderThatWasMoved->getValue());
         //[/UserSliderCode_GlobalVolumeSlider]
     }
     else if (sliderThatWasMoved == GlobalPanSlider)
     {
         //[UserSliderCode_GlobalPanSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::GlobalPan, sliderThatWasMoved->getValue());
         //[/UserSliderCode_GlobalPanSlider]
     }
 
@@ -1347,6 +1327,9 @@ void AudeaAudioProcessorEditor::timerCallback()
 		ReverbMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbMix));
 		ReverbSizeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbSize));
 		ReverbWidthSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbWidth));
+		GlobalVolumeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::GlobalGain));
+		GlobalPanSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::GlobalPan));
+
 
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
@@ -1547,16 +1530,16 @@ BEGIN_JUCER_METADATA
             layout="33" items="Lowpass&#10;Bandpass&#10;Highpass&#10;BandReject&#10;Allpass"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="FilterCutoffSlider" id="290abad0411db05d" memberName="FilterCutoffSlider"
-          virtualName="" explicitFocusOrder="0" pos="520 72 39 40" min="1"
-          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          virtualName="" explicitFocusOrder="0" pos="520 72 39 40" min="40"
+          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
           virtualName="" explicitFocusOrder="0" pos="576 72 39 40" min="0.5"
-          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
           virtualName="" explicitFocusOrder="0" pos="640 72 39 40" min="0"
-          max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FilterCutoffLabel" id="f6e337c9abe5937" memberName="FilterCutoffLabel"
          virtualName="" explicitFocusOrder="0" pos="512 40 48 24" textCol="ffb2ff8b"
@@ -1702,40 +1685,32 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFODestinationBox" id="9bcda03ffed93fb9" memberName="LFODestinationBox"
-            virtualName="" explicitFocusOrder="0" pos="32 288 120 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="32 304 120 24" editable="0"
             layout="33" items="None&#10;FilterCutoff&#10;Volume&#10;Pan"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="LFOAmountSlider" id="5f882442e23151cd" memberName="LFOAmountSlider"
-          virtualName="" explicitFocusOrder="0" pos="24 360 39 40" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          virtualName="" explicitFocusOrder="0" pos="24 384 39 40" min="0"
+          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="LFODestinationLabel" id="d6929965cd407937" memberName="LFODestinationLabel"
-         virtualName="" explicitFocusOrder="0" pos="48 248 96 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="48 264 96 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Destination" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFOAmountLabel" id="7f50080a208b8bbf" memberName="LFOAmountLabel"
-         virtualName="" explicitFocusOrder="0" pos="16 328 64 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="16 344 64 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Amount" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="LFORateLabel" id="5ff6d628d761acfc" memberName="LFORateLabel"
-         virtualName="" explicitFocusOrder="0" pos="112 328 48 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="112 344 48 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="LFORateBox" id="a255da4f656aae8d" memberName="LFORateBox"
-            virtualName="" explicitFocusOrder="0" pos="104 368 64 24" editable="0"
+            virtualName="" explicitFocusOrder="0" pos="104 392 64 24" editable="0"
             layout="33" items="1/1&#10;1/2&#10;1/3&#10;1/4&#10;1/6&#10;1/8&#10;1/12&#10;1/16&#10;1/24&#10;1/32"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <TOGGLEBUTTON name="LFOIsRetrigger" id="5bd2fc7e50873000" memberName="LFOIsRetrigger"
-                virtualName="" explicitFocusOrder="0" pos="112 416 24 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
-  <LABEL name="LFORetriggerLabel" id="5ad6ae6975863a09" memberName="LFORetriggerLabel"
-         virtualName="" explicitFocusOrder="0" pos="48 408 56 32" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Retrigger" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="11.199999999999999" bold="1" italic="0" justification="33"/>
   <LABEL name="ReverbWidthLabel" id="9d1ccd10ad6d1c44" memberName="ReverbWidthLabel"
          virtualName="" explicitFocusOrder="0" pos="656 296 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Width" editableSingleClick="0"
@@ -1757,10 +1732,10 @@ BEGIN_JUCER_METADATA
          fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
           virtualName="" explicitFocusOrder="0" pos="56 464 104 80" min="0"
-          max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="2" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
-          virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="-1"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>

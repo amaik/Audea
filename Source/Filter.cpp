@@ -27,17 +27,11 @@ void Filter::computeVariables(FilterEnvelope *env)
 
 void Filter::resetFilter()
 {
-	x_n_1_Left = 0;
-	x_n_2_Left = 0;
+	x_n_1  = 0;
+	x_n_2  = 0;
 
-	y_n_1_Left = 0;
-	y_n_2_Left = 0;
-
-	x_n_1_Right = 0;
-	x_n_2_Right = 0;
-
-	y_n_1_Right = 0;
-	y_n_2_Right = 0;
+	y_n_1  = 0;
+	y_n_2  = 0;
 
 	w0 = 0;
 	sinw0 = 0;
@@ -47,40 +41,24 @@ void Filter::resetFilter()
 
 }
 
-float Filter::processFilterLeft(float leftSample)
+float Filter::processFilter(float sample)
 {
 	/*y[n] = (b0 / a0)*x[n] + (b1 / a0)*x[n - 1] + (b2 / a0)*x[n - 2]
 		- (a1 / a0)*y[n - 1] - (a2 / a0)*y[n - 2]*/
-	float leftUnprocessed = leftSample;
+	float unprocessed = sample;
 	
-	float leftProcessed = (computeB0() * leftUnprocessed) + (computeB1() * x_n_1_Left) + (computeB2() * x_n_2_Left)
-		- (computeA1() * y_n_1_Left) - (computeA2() * y_n_2_Left);
+	float processed = (computeB0()/computeA0() * unprocessed) 
+		+ (computeB1()/computeA0() * x_n_1)
+		+ (computeB2()/computeA0() * x_n_2)
+		- (computeA1()/computeA0() * y_n_1) 
+		- (computeA2()/computeA0() * y_n_2);
 
-	x_n_2_Left = x_n_1_Left;
-	x_n_1_Left = leftUnprocessed;
+	x_n_2 = x_n_1;
+	x_n_1 = unprocessed;
 
-	y_n_2_Left = y_n_1_Left;
-	y_n_1_Left = leftProcessed;
+	y_n_2 = y_n_1;
+	y_n_1 = processed;
 
 
-	return leftProcessed;
-}
-
-float Filter::processFilterRight(float rightSample)
-{
-	/*y[n] = (b0 / a0)*x[n] + (b1 / a0)*x[n - 1] + (b2 / a0)*x[n - 2]
-	- (a1 / a0)*y[n - 1] - (a2 / a0)*y[n - 2]*/
-	float rightUnprocessed = rightSample;
-
-	float rightProcessed = (computeB0() * rightUnprocessed) + (computeB1() * x_n_1_Right) + (computeB2() * x_n_2_Right)
-		- (computeA1() * y_n_1_Right) - (computeA2() * y_n_2_Right);
-
-	x_n_2_Right = x_n_1_Right;
-	x_n_1_Right = rightUnprocessed;
-
-	y_n_2_Right = y_n_1_Right;
-	y_n_1_Right = rightProcessed;
-	
-	
-	return rightProcessed;
+	return processed;
 }

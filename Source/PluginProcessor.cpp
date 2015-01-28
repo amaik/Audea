@@ -59,6 +59,8 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[ReverbMix] = 0.0f;
 	UserParams[ReverbSize] = 0.0f;
 	UserParams[ReverbWidth] = 0.0f;
+	UserParams[GlobalGain] = 1.0f;
+	UserParams[GlobalPan] = 0.0f;
 
 
 	UIUpdateFlag = true; //Request UI update
@@ -162,7 +164,7 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 		break;
 	case FilterEnvAmt:	UserParams[FilterEnvAmt] = newValue;
 		break;
-	case FilterEnvAttack:	UserParams[FilterEnvAmt] = newValue;
+	case FilterEnvAttack:	UserParams[FilterEnvAttack] = newValue;
 		break;
 	case FilterEnvDecay:	UserParams[FilterEnvDecay] = newValue;
 		break;
@@ -214,6 +216,10 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case ReverbWidth: UserParams[ReverbWidth] = newValue;
 		reverb->setWidth(newValue);
 		break;
+	case GlobalGain:  UserParams[GlobalGain] = newValue;
+		break;
+	case GlobalPan:	UserParams[GlobalPan] = newValue;
+		break;
 	}
 	UIUpdateFlag = true;
 }
@@ -263,6 +269,8 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case ReverbMix:			return "Reverb Mix";
 	case ReverbSize:		return "Reverb RoomSize";
 	case ReverbWidth:		return "Reverb DecayTime";
+	case GlobalGain:		return "Global Volume Amount";
+	case GlobalPan:			return "Global Pan Amount";
 	//OtherParams...
 	default:return String::empty;
 	}
@@ -382,9 +390,10 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
 	float *left = buffer.getWritePointer(0);
 	float *right = buffer.getWritePointer(1);
-	//if (*left != 0)
+
 		for (long i = 0; i < numSamples; i++)
 		{
+			//Apply the Effects to the signal
 			if (UserParams[DelayIsOn])
 				delay->process(&left[i], &right[i]);
 			if (UserParams[FlangerIsOn])
@@ -395,6 +404,19 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 				chorus->process(&left[i], &right[i]);
 			if (UserParams[ReverbIsOn])
 				reverb->process(&left[i], &right[i]);
+
+			//Apply Gain and Pan
+			right[i] *= UserParams[GlobalGain];
+			left[i] *= UserParams[GlobalPan];
+
+
+			//For Debugging check if value in buffer overflows
+			if (right[i] >1 || right[i] < -1){
+				right[i] /= right[i];
+			}
+			if (left[i] >1 || left[i] < -1){
+				left[i] /= left[i];
+			}
 		}
 
 	

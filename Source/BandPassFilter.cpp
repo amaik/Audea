@@ -24,6 +24,10 @@ double BandPassFilter::computeB2()
 	return -sinw0 / 2;
 }
 
+double BandPassFilter::computeA0()
+{
+	return 1 + alpha;
+}
 double BandPassFilter::computeA1()
 {
 	return -2 * cosw0;

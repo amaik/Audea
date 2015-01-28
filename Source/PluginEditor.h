@@ -153,8 +153,6 @@ private:
     ScopedPointer<Label> LFOAmountLabel;
     ScopedPointer<Label> LFORateLabel;
     ScopedPointer<ComboBox> LFORateBox;
-    ScopedPointer<ToggleButton> LFOIsRetrigger;
-    ScopedPointer<Label> LFORetriggerLabel;
     ScopedPointer<Label> ReverbWidthLabel;
     ScopedPointer<Slider> ReverbWidthSlider;
     ScopedPointer<Label> GlobalVolumeLabel;
