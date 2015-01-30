@@ -60,7 +60,10 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[ReverbSize] = 0.0f;
 	UserParams[ReverbWidth] = 0.0f;
 	UserParams[GlobalGain] = 1.0f;
-	UserParams[GlobalPan] = 0.0f;
+	UserParams[GlobalPan] = 0.5f;
+	UserParams[LFOAmount] = 0.0f;
+	UserParams[LFODestination] = LFO::None;
+	UserParams[LFORate] = NoteLenIds::one;
 
 
 	UIUpdateFlag = true; //Request UI update
@@ -81,6 +84,8 @@ AudeaAudioProcessor::~AudeaAudioProcessor()
 		delete chorus;
 	if (reverb != nullptr)
 		delete reverb;
+	if (lfo != nullptr)
+		delete lfo;
 }
 
 //==============================================================================
@@ -156,7 +161,7 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case AmpEnvRelease:	UserParams[AmpEnvRelease] = newValue;
 		break;
 	case FilterType:	UserParams[FilterType] = newValue;
-		changeFilterType(newValue);
+		changeFilterType((int)newValue);
 		break;
 	case FilterCutoff:	UserParams[FilterCutoff] = newValue;
 		break;
@@ -220,6 +225,14 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 		break;
 	case GlobalPan:	UserParams[GlobalPan] = newValue;
 		break;
+	case LFOAmount: UserParams[LFOAmount] = newValue;
+		break;
+	case LFODestination:UserParams[LFODestination] = newValue;
+		lfo->setDestination((int)newValue);
+		break;
+	case LFORate: UserParams[LFORate] = newValue;
+		changeLFORate((int)newValue);
+		break;
 	}
 	UIUpdateFlag = true;
 }
@@ -271,8 +284,11 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case ReverbWidth:		return "Reverb DecayTime";
 	case GlobalGain:		return "Global Volume Amount";
 	case GlobalPan:			return "Global Pan Amount";
-	//OtherParams...
-	default:return String::empty;
+	case LFOAmount:			return "LFO Amount";
+	case LFODestination:	return "LFO Destination";
+	case LFORate:			return "LFO Frequency Rate";
+
+	default:				return String::empty;
 	}
 }
 
@@ -390,6 +406,7 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 
 	float *left = buffer.getWritePointer(0);
 	float *right = buffer.getWritePointer(1);
+	float panAmt = 0.0f, gainAmt = 0.0f;
 
 		for (long i = 0; i < numSamples; i++)
 		{
@@ -405,9 +422,25 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			if (UserParams[ReverbIsOn])
 				reverb->process(&left[i], &right[i]);
 
-			//Apply Gain and Pan
-			right[i] *= UserParams[GlobalGain];
-			left[i] *= UserParams[GlobalPan];
+
+			//Apply Filter - Compute the coefficients for the Filter
+			filter->computeVariables(filEnv);
+			right[i] = filter->processFilterRight(right[i]);
+			left[i] = filter->processFilterLeft(left[i]);
+
+			//Apply Gain
+			gainAmt = UserParams[GlobalGain] + lfo->getNextVolumeOffset();
+			if (gainAmt > 1.5) gainAmt = 1.5;
+			if (gainAmt < 0.0) gainAmt = 0.0;
+			right[i] *= gainAmt;
+			left[i] *= gainAmt;
+
+			//Apply Pan
+			panAmt = UserParams[GlobalPan] + lfo->getNextPanOffset();
+			if (panAmt > 1) panAmt = 1;
+			if (panAmt < 0) panAmt = 0;
+			left[i] *= 1 - panAmt;
+			right[i] *= panAmt;
 
 
 			//For Debugging check if value in buffer overflows
@@ -418,8 +451,7 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 				left[i] /= left[i];
 			}
 		}
-
-	
+		
 
 
 	// In case we have more outputs than inputs, this code clears any output
@@ -533,7 +565,7 @@ void AudeaAudioProcessor::updateOscillatorVoices()
 	if (UserParams[OscVoices] < currNumVoices)
 	{
 		int diff = currNumVoices - (int)UserParams[OscVoices];
-		for (int i = 0; i < diff; ++i)
+		for (int i = 1; i <= diff; ++i)
 			synth.removeVoice(currNumVoices - i);
 	}
 	//voices didn't change, shouldnt happen
@@ -546,14 +578,13 @@ void AudeaAudioProcessor::updateOscillatorVoices()
 		for (int i = 0; i < diff; ++i)
 		{
 			Envelope *env = new Envelope(&UserParams[AmpEnvAttack], &UserParams[AmpEnvDecay], &UserParams[AmpEnvSustain], &UserParams[AmpEnvRelease]);
-			FilterEnvelope *flEnv = new FilterEnvelope(&UserParams[FilterEnvAttack], &UserParams[FilterEnvDecay], &UserParams[FilterEnvSustain], &UserParams[FilterEnvRelease], &UserParams[FilterCutoff], &UserParams[FilterEnvAmt]);
 			AudeaVoice *voice = new AudeaVoice(
 									&UserParams[Osc1Amp],
 									&UserParams[Osc2Amp],
 									&UserParams[Osc3Amp],
 									&UserParams[Osc2Tune],
 									&UserParams[Osc3Tune],
-									env, filter, flEnv
+									env, filter, filEnv,&currentNotePlaying
 								);
 			
 			switch ((int)UserParams[Osc1WaveForm]){
@@ -603,108 +634,127 @@ void AudeaAudioProcessor::changeFilterType(int filterId)
 	switch (filterId)
 	{
 	case BandPass:delete filter;
-		filter = new BandPassFilter(&UserParams[FilterRes]);
+		filter = new BandPassFilter(&UserParams[FilterRes],getSampleRate());
 		break;
 	case LowPass:delete filter;
-		filter = new LowPassFilter(&UserParams[FilterRes]);
+		filter = new LowPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
 	case HighPass:delete filter;
-		filter = new HighPassFilter(&UserParams[FilterRes]);
+		filter = new HighPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
 	case BandReject:delete filter;
-		filter = new BandRejectFilter(&UserParams[FilterRes]);
+		filter = new BandRejectFilter(&UserParams[FilterRes], getSampleRate());
 		break;
 	case Allpass:delete filter;
-		filter = new AllPassFilter(&UserParams[FilterRes]);
+		filter = new AllPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
 	}
+	int numVoices = synth.getNumVoices();
+	for (int i = numVoices; --i >= 0;)
+		static_cast<AudeaVoice*>(synth.getVoice(i))->setFilter(filter);
 }
 
-void AudeaAudioProcessor::changeDelayLength(int DelayLenRight, bool left){
-
-	float bpm;
-	playHead = getPlayHead();
-
-	if (playHead == nullptr){
-		bpm = 140.0f;
-	}
-	else{
-		playHead->getCurrentPosition(currentPositionInfo);
-		bpm = currentPositionInfo.bpm;
-		if (bpm == 0)
-			bpm = 140.f;
-	}
-
-	float mpm = bpm / 4;                                    //measures per minute
+void AudeaAudioProcessor::changeLFORate(int rate)
+{
+	setBpm();
+	float mpm =(float) bpm / 4;                                    //measures per minute
 	float secondsPerMeasure = 60 / mpm;
-	float samples = getSampleRate();
 
-	switch (DelayLenRight){
+	switch (rate){
+	case oneLfo:
+			lfo->setFrequency(1 / secondsPerMeasure);
+		break;
+	case halfLfo:
+			lfo->setFrequency(1 / (secondsPerMeasure / 2));
+		break;
+	case thirdLfo:
+		lfo->setFrequency(1 / (secondsPerMeasure / 3));
+		break;
+	case quarterLfo:
+			lfo->setFrequency(1 / (secondsPerMeasure / 4));
+		break;
+	case sixthLfo:
+		lfo->setFrequency(1 / (secondsPerMeasure / 6));
+		break;
+	case eightsLfo:
+			lfo->setFrequency(1 / (secondsPerMeasure / 8));
+		break;
+	case twelthLfo:
+		lfo->setFrequency(1 / (secondsPerMeasure / 12));
+		break;
+	case sixteenthLfo:
+			lfo->setFrequency(1 / (secondsPerMeasure / 16));
+		break;
+	case twentyforthLfo:
+		lfo->setFrequency(1 / (secondsPerMeasure / 24));
+		break;
+	case demisemiquaverLfo:
+			lfo->setFrequency(1 / (secondsPerMeasure / 32));
+		break;
+	}
+
+}
+
+void AudeaAudioProcessor::changeDelayLength(int DelayLen, bool left){
+	setBpm();
+	float mpm = (float) bpm / 4;                                    //measures per minute
+	float secondsPerMeasure = 60 / mpm;
+	float samples =(float) getSampleRate();
+
+	switch (DelayLen){
 	case one:
 		if (left)
-			delay->setDelayBufferLengthLeft(secondsPerMeasure * samples);
+			delay->setDelayBufferLengthLeft((int)(secondsPerMeasure * samples));
 		else
-			delay->setDelayBufferLengthRight(secondsPerMeasure * samples);
+			delay->setDelayBufferLengthRight((int)(secondsPerMeasure * samples));
 		break;
 	case half:
 		if (left)
-			delay->setDelayBufferLengthLeft((secondsPerMeasure / 2) * samples);
+			delay->setDelayBufferLengthLeft((int)((secondsPerMeasure / 2) * samples));
 		else
-			delay->setDelayBufferLengthRight((secondsPerMeasure / 2) * samples);
+			delay->setDelayBufferLengthRight((int)((secondsPerMeasure / 2) * samples));
 		break;
 	case quarter:
 		if (left)
-			delay->setDelayBufferLengthLeft((secondsPerMeasure / 4) * samples);
+			delay->setDelayBufferLengthLeft((int)((secondsPerMeasure / 4) * samples));
 		else
-			delay->setDelayBufferLengthRight((secondsPerMeasure / 4) * samples);
+			delay->setDelayBufferLengthRight((int)((secondsPerMeasure / 4) * samples));
 		break;
 	case eights:
 		if (left)
-			delay->setDelayBufferLengthLeft((secondsPerMeasure / 8) * samples);
+			delay->setDelayBufferLengthLeft((int)((secondsPerMeasure / 8) * samples));
 		else
-			delay->setDelayBufferLengthRight((secondsPerMeasure / 8) * samples);
+			delay->setDelayBufferLengthRight((int)((secondsPerMeasure / 8) * samples));
 		break;
 	case sixteenth:
 		if (left)
-			delay->setDelayBufferLengthLeft((secondsPerMeasure / 16) * samples);
+			delay->setDelayBufferLengthLeft((int)((secondsPerMeasure / 16) * samples));
 		else
-			delay->setDelayBufferLengthRight((secondsPerMeasure / 16) * samples);
+			delay->setDelayBufferLengthRight((int)((secondsPerMeasure / 16) * samples));
 		break;
 	case demisemiquaver:
 		if (left)
-			delay->setDelayBufferLengthLeft((secondsPerMeasure / 32) * samples);
+			delay->setDelayBufferLengthLeft((int)((secondsPerMeasure / 32) * samples));
 		else
-			delay->setDelayBufferLengthRight((secondsPerMeasure / 32) * samples);
+			delay->setDelayBufferLengthRight((int)((secondsPerMeasure / 32) * samples));
 		break;
 	}
 }
 
 void AudeaAudioProcessor::init()
 {
-	float bpm;
-	playHead = getPlayHead();
-
-	if (playHead == nullptr){
-		bpm = 140.0f;
-	}
-	else{
-		playHead->getCurrentPosition(currentPositionInfo);
-		bpm = currentPositionInfo.bpm;
-		if (bpm == 0)
-			bpm = 140.f;
-	}
-
-	float mpm = bpm / 4;                                    //measures per minute
+	setBpm();
+	float mpm = (float) bpm / 4;                                    //measures per minute
 	float secondsPerMeasure = 60 / mpm;
-	float samples = getSampleRate();
+	float samples = (float)getSampleRate();
 
 	filter = new LowPassFilter(&UserParams[FilterRes],samples);
-
+	lfo = new LFO(1 / secondsPerMeasure,(int) samples, &UserParams[LFOAmount]);
+	filEnv = new FilterEnvelope(&UserParams[FilterEnvAttack], &UserParams[FilterEnvDecay], &UserParams[FilterEnvSustain], &UserParams[FilterEnvRelease], &UserParams[FilterCutoff], &UserParams[FilterEnvAmt], lfo);
 	//Initialise the synthesisers
 	for (int i = (int)UserParams[OscVoices]; --i >= 0;)
 	{
 		Envelope *env = new Envelope(&UserParams[AmpEnvAttack], &UserParams[AmpEnvDecay], &UserParams[AmpEnvSustain], &UserParams[AmpEnvRelease]);
-		FilterEnvelope *filEnv = new FilterEnvelope(&UserParams[FilterEnvAttack], &UserParams[FilterEnvDecay], &UserParams[FilterEnvSustain], &UserParams[FilterEnvRelease], &UserParams[FilterCutoff], &UserParams[FilterEnvAmt]);
 		synth.addVoice(
 			new AudeaVoice(
 			&UserParams[Osc1Amp],
@@ -712,19 +762,34 @@ void AudeaAudioProcessor::init()
 			&UserParams[Osc3Amp],
 			&UserParams[Osc2Tune],
 			&UserParams[Osc3Tune],
-			env, filter, filEnv)
+			env, filter, filEnv,&currentNotePlaying)
 			);
 	}
 	synth.addSound(new AudeaSound());
 	
 	//Initialise the effects
-	delay = new Delay((secondsPerMeasure)* samples, (secondsPerMeasure)* samples,&UserParams[DelayMix],&UserParams[DelayFeedback]);
+	delay = new Delay((int)(secondsPerMeasure* samples), (int)(secondsPerMeasure* samples),&UserParams[DelayMix],&UserParams[DelayFeedback]);
 	flanger = new Flanger(samples,&UserParams[FlangerMix],&UserParams[FlangerFeedback]);
 	chorus = new Chorus(samples, &UserParams[ChorusMix]);
 	reverb = new AudeaReverb(samples, UserParams[ReverbMix], UserParams[ReverbWidth], UserParams[ReverbSize]);
+	
 
 }
 
+void AudeaAudioProcessor::setBpm()
+{
+	playHead = getPlayHead();
+
+	if (playHead == nullptr){
+		bpm = 140;
+	}
+	else{
+		playHead->getCurrentPosition(currentPositionInfo);
+		bpm = currentPositionInfo.bpm;
+		if (bpm == 0)
+			bpm = 140;
+	}
+}
 
 //==============================================================================
 // This creates new instances of the plugin..

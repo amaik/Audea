@@ -28,9 +28,17 @@ void AudeaVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 	double cyclesPerSample = cyclesPerSecond / getSampleRate();
 
 	env->initSegments();
-	filEnv->initSegments();
-	fil->resetFilter();
-	
+
+	*currNotePlaying++;
+	//Only iniate Filter if this is the first note 
+	if (*currNotePlaying == 1)
+	{
+		filEnv->initSegments();
+		filEnv->resetLFO();
+		fil->resetFilter();
+	}
+
+
 	osc1Params.sawValue = -1;
 	osc1Params.sawIncr = 2 / samplesPerCycle;
 	osc1Params.sineAngle = 0.0;
@@ -75,13 +83,19 @@ void AudeaVoice::stopNote(float /*velocity*/, bool allowTailOff)
 
 		env->StartRelease();
 		env->setEnvState(Envelope::Release);
+		*currNotePlaying--;
+		//Only start Filter Release if this was the last note
+		if (*currNotePlaying == 0)
+		{
+			filEnv->StartRelease();
+			filEnv->setEnvState(FilterEnvelope::Release);
+		}
 
-		filEnv->StartRelease();
-		filEnv->setEnvState(FilterEnvelope::Release);
 	}
 	else
 	{
 		// we're being told to stop playing immediately, so reset everything..
+		*currNotePlaying--;
 		fil->resetFilter();
 		clearCurrentNote();
 	}
@@ -107,21 +121,10 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				currentSample *= level * env->getNextMultiplier();
 				if (osc3Params.isOn) currentSample *= 0.75f;
 				
-				//Compute the coefficients for the Filter
-				fil->computeVariables(filEnv);
-				currentSample = fil->processFilter(currentSample);
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
-					//Filter has to be processed before the sample is written to the buffer
-					if (i == 0)
-						outputBuffer.addSample(i, startSample, currentSample);
-					else if (i == 1)
-						outputBuffer.addSample(i, startSample, currentSample);
-					else
-						outputBuffer.addSample(i, startSample, currentSample);
+					outputBuffer.addSample(i, startSample, currentSample);
 				}
-
 				++startSample;
-
 				if (!env->isStartRelease())
 				{
 					clearCurrentNote();
@@ -145,18 +148,9 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				currentSample *= level * env->getNextMultiplier();
 				if (osc3Params.isOn) currentSample *= 0.75f;
 				
-				//Compute the coefficients of the filter
-				fil->computeVariables(filEnv);
-				currentSample = fil->processFilter(currentSample);
-				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
-					//Filter has to be processed before the sample is written to the buffer
-					if (i == 0)
-						outputBuffer.addSample(i, startSample, currentSample);
-					else if (i == 1)
-						outputBuffer.addSample(i, startSample, currentSample);
-					else
-						outputBuffer.addSample(i, startSample, currentSample);
 
+				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
+						outputBuffer.addSample(i, startSample, currentSample);
 				}
 				++startSample;
 			}

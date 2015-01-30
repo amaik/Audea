@@ -59,7 +59,12 @@ float FilterEnvelope::getNextCutoffFrequency()
 		}
 		break;
 	}
-	return ret;
+
+	//Apply LFO changes
+	ret += lfo->getNextCutoffFrqOffset();
+	if(ret > 20000) ret = 20000;
+	if(ret < 40) ret = 40;
+	return (float)ret;
 }
 
 bool FilterEnvelope::isStartRelease()

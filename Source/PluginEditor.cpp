@@ -708,13 +708,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     GlobalPanLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (GlobalVolumeSlider = new Slider ("GlobalVolumeSlider"));
-    GlobalVolumeSlider->setRange (0, 2, 0.01);
+    GlobalVolumeSlider->setRange (0, 1.5, 0.01);
     GlobalVolumeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     GlobalVolumeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalVolumeSlider->addListener (this);
 
     addAndMakeVisible (GlobalPanSlider = new Slider ("GlobalPanSlider"));
-    GlobalPanSlider->setRange (-1, 1, 0.01);
+    GlobalPanSlider->setRange (0, 1, 0.01);
     GlobalPanSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     GlobalPanSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalPanSlider->addListener (this);
@@ -954,7 +954,7 @@ void AudeaAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
 {
     //[UsercomboBoxChanged_Pre]
 	AudeaAudioProcessor * ourProcessor = getProcessor();
-	float id = comboBoxThatHasChanged->getSelectedId();
+	float id =(float) comboBoxThatHasChanged->getSelectedId();
     //[/UsercomboBoxChanged_Pre]
 
     if (comboBoxThatHasChanged == OscOneBox)
@@ -996,11 +996,13 @@ void AudeaAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
     else if (comboBoxThatHasChanged == LFODestinationBox)
     {
         //[UserComboBoxCode_LFODestinationBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::LFODestination, id);
         //[/UserComboBoxCode_LFODestinationBox]
     }
     else if (comboBoxThatHasChanged == LFORateBox)
     {
         //[UserComboBoxCode_LFORateBox] -- add your combo box handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::LFORate, id);
         //[/UserComboBoxCode_LFORateBox]
     }
 
@@ -1217,60 +1219,61 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == FlangerFeedbackSlider)
     {
         //[UserSliderCode_FlangerFeedbackSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FlangerFeedback, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerFeedback, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerFeedbackSlider]
     }
     else if (sliderThatWasMoved == FlangerDelaySlider)
     {
         //[UserSliderCode_FlangerDelaySlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FlangerDelay, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerDelay, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerDelaySlider]
     }
     else if (sliderThatWasMoved == DistortionAmountSlider)
     {
         //[UserSliderCode_DistortionAmountSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DistortionAmt, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::DistortionAmt, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_DistortionAmountSlider]
     }
     else if (sliderThatWasMoved == FlangerMixSlider)
     {
         //[UserSliderCode_FlangerMixSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FlangerMix, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerMix, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerMixSlider]
     }
     else if (sliderThatWasMoved == DelayMixSlider)
     {
         //[UserSliderCode_DelayMixSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DelayMix, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::DelayMix, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_DelayMixSlider]
     }
     else if (sliderThatWasMoved == DelayFeedbackSlider)
     {
         //[UserSliderCode_DelayFeedbackSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DelayFeedback, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::DelayFeedback, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_DelayFeedbackSlider]
     }
     else if (sliderThatWasMoved == LFOAmountSlider)
     {
         //[UserSliderCode_LFOAmountSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::LFOAmount, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_LFOAmountSlider]
     }
     else if (sliderThatWasMoved == ReverbWidthSlider)
     {
         //[UserSliderCode_ReverbWidthSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ReverbWidth, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbWidth, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ReverbWidthSlider]
     }
     else if (sliderThatWasMoved == GlobalVolumeSlider)
     {
         //[UserSliderCode_GlobalVolumeSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::GlobalGain, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::GlobalGain, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_GlobalVolumeSlider]
     }
     else if (sliderThatWasMoved == GlobalPanSlider)
     {
         //[UserSliderCode_GlobalPanSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::GlobalPan, sliderThatWasMoved->getValue());
+		ourProcessor->setParameter(AudeaAudioProcessor::GlobalPan, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_GlobalPanSlider]
     }
 
@@ -1287,12 +1290,12 @@ void AudeaAudioProcessorEditor::timerCallback()
 
 	if (ourProcessor->NeedsUIUpdate())
 	{//load your UI components with internal state information form plug-in - example:
-		OscTwoIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc2IsOn),false);
-		OscThreeIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc3IsOn), false);
+		OscTwoIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc2IsOn), juce::dontSendNotification);
+		OscThreeIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc3IsOn), juce::dontSendNotification);
 		OscVoicesSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::OscVoices));
-		OscOneBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::Osc1WaveForm),false);
-		OscTwoBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::Osc2WaveForm), false);
-		OscThreeBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::Osc3WaveForm), false);
+		OscOneBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc1WaveForm), juce::dontSendNotification);
+		OscTwoBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc2WaveForm), juce::dontSendNotification);
+		OscThreeBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc3WaveForm), juce::dontSendNotification);
 		OscTwoAmpSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc2Amp));
 		OscThreeAmpSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc3Amp));
 		OscTwoTuneSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc2Tune));
@@ -1302,7 +1305,7 @@ void AudeaAudioProcessorEditor::timerCallback()
 		AmpEnvDecaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::AmpEnvDecay));
 		AmpEnvSustainSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::AmpEnvSustain));
 		AmpEnvReleaseSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::AmpEnvRelease));
-		FilterTypeBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::FilterType), false);
+		FilterTypeBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::FilterType), juce::dontSendNotification);
 		FilterCutoffSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FilterCutoff));
 		FilterResonanceSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FilterRes));
 		FilterEnvelopeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FilterEnvAmt));
@@ -1312,24 +1315,26 @@ void AudeaAudioProcessorEditor::timerCallback()
 		FilterEnvReleaseSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FilterEnvRelease));
 		DelayFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DelayFeedback));
 		DelayMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DelayMix));
-		DelayRateRightBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::DelayLenRight), false);
-		DelayRateLeftBox->setSelectedId(ourProcessor->getParameter(AudeaAudioProcessor::DelayLenLeft), false);
+		DelayRateRightBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::DelayLenRight), juce::dontSendNotification);
+		DelayRateLeftBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::DelayLenLeft), juce::dontSendNotification);
 		FlangerMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerMix));
 		FlangerFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerFeedback));
 		FlangerDelaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerDelay));
-		FlangerIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::FlangerIsOn), false);
-		ChorusIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ChorusIsOn), false);
+		FlangerIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::FlangerIsOn), juce::dontSendNotification);
+		ChorusIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ChorusIsOn), juce::dontSendNotification);
 		ChorusMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ChorusMix));
 		ChorusRateSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ChorusRate));
-		DistortionIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::DistortionIsOn), false);
+		DistortionIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::DistortionIsOn), juce::dontSendNotification);
 		DistortionAmountSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DistortionAmt));
-		ReverbIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ReverbIsOn), false);
+		ReverbIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::ReverbIsOn), juce::dontSendNotification);
 		ReverbMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbMix));
 		ReverbSizeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbSize));
 		ReverbWidthSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::ReverbWidth));
 		GlobalVolumeSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::GlobalGain));
 		GlobalPanSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::GlobalPan));
-
+		LFOAmountSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::LFOAmount));
+		LFORateBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::LFORate), juce::dontSendNotification);
+		LFODestinationBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::LFODestination), juce::dontSendNotification);
 
 		//repeat for "OtherParams"..
 		ourProcessor->ClearUIUpdateFlag();
@@ -1732,10 +1737,10 @@ BEGIN_JUCER_METADATA
          fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
           virtualName="" explicitFocusOrder="0" pos="56 464 104 80" min="0"
-          max="2" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
-          virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="-1"
+          virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
 </JUCER_COMPONENT>

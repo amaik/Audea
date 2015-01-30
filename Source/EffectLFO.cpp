@@ -17,7 +17,7 @@ void EffectLFO::calculateIncrement()
 
 float EffectLFO::getNextSample()
 {	
-	if (index >= double_Pi)
+	if (index >= 2 * double_Pi)
 		index = 0;
 	float out = sin(index);
 	index += increment;

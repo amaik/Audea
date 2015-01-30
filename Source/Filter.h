@@ -17,11 +17,17 @@ class Filter
 {
 protected:
 	//Delayed Signals
-	float x_n_1 = 0;
-	float x_n_2 = 0;
+	float x_n_1_Left = 0;
+	float x_n_2_Left = 0;
 
-	float y_n_1 = 0;
-	float y_n_2 = 0;
+	float y_n_1_Left = 0;
+	float y_n_2_Left = 0;
+
+	float x_n_1_Right = 0;
+	float x_n_2_Right = 0;
+
+	float y_n_1_Right = 0;
+	float y_n_2_Right = 0;
 
 
 	//variables
@@ -40,7 +46,8 @@ public:
 
 	void computeVariables(FilterEnvelope *env);
 	void resetFilter();
-	float processFilter(float sample);
+	float processFilterLeft(float sample);
+	float processFilterRight(float sample);
 	/*  The Formula for computing the Filter 
 	y[n] = (b0/a0)*x[n] + (b1/a0)*x[n-1] + (b2/a0)*x[n-2]- (a1/a0)*y[n-1] - (a2/a0)*y[n-2]
 	a0 is set to 1 in this case

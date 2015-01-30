@@ -35,6 +35,8 @@ protected:
 	double twoPI = double_Pi * 2;
 	static float defaultTuning;
 	static float defaultAmp;
+	int *currNotePlaying;
+
 	//oscillator Params
 	struct oscParams
 	{
@@ -73,7 +75,7 @@ protected:
 public:
 	//constructors
 	AudeaVoice( float *ampOsc1,float *ampOsc2,float *ampOsc3, float *tuningOsc2,
-		float *tuningOsc3, Envelope *ev, Filter *fl, FilterEnvelope *flEnv)
+		float *tuningOsc3, Envelope *ev, Filter *fl, FilterEnvelope *flEnv,int *currNtPlay)
 	{
 		defaultTuning = 0.0f;
 		defaultAmp = 1.0f;
@@ -97,6 +99,8 @@ public:
 		fil = fl;
 
 		filEnv = flEnv;
+
+		currNotePlaying = currNtPlay;
 	}
 	~AudeaVoice(){
 		delete env;
@@ -124,6 +128,8 @@ public:
 	//Helper, Getter , Setter
 	float getScatteredRand();
 	double getTunedFrequency(double frequency, float tuning);
+	void setFilter(Filter *filter){ fil = filter; }
+
 	void setOsc2IsOn(bool b){ osc2Params.isOn = b; }
 	void setOsc3IsOn(bool b){ osc3Params.isOn = b; }
 	void setOsc2Tune(float *tune){ osc2Params.tuning = tune; }

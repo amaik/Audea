@@ -19,8 +19,8 @@ class EffectLFO
 private:
 	float index = 0;
 	float increment = 0;
-	float frequency = 0.15;
-	float samplerate = 0;
+	float frequency = 0.15f;
+	int samplerate = 0;
 
 public:
 	EffectLFO(float frq,int smplrate )

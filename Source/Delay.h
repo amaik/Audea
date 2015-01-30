@@ -33,7 +33,7 @@ public:
 	void process(float* left, float *right);
 
 
-	float getLenght(){ return LeftLength; }
+	int getLenght(){ return LeftLength; }
 
 	void setDelayBufferLengthRight(int newlength);
 	void setDelayBufferLengthLeft(int newlength);

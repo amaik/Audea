@@ -12,10 +12,10 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Envelope.h"
+#include "ModulatorHeader.h"
 #include "FilterHeader.h"
-#include "FilterEnvelope.h"
 #include "EffectHeader.h"
+
 
 
 //==============================================================================
@@ -116,11 +116,9 @@ public:
 		ReverbWidth,
 		LFODestination,
 		LFORate,
-		LFOIsRetrigger,
 		LFOAmount,
 		GlobalPan,
 		GlobalGain,
-
 		/*OtherParams..,*/
 		totalNumParam 
 	};
@@ -145,7 +143,7 @@ public:
 		Allpass
 	};
 
-	enum DelayLenIds
+	enum NoteLenIds
 	{
 		PlaceHolder3 = 0,
 		one,
@@ -156,13 +154,21 @@ public:
 		demisemiquaver
 	};
 
-	enum LFODestinations
+	enum LFORateIds
 	{
-		None = 0,
-		FilterCtf,
-		Volume,
-		Pan
+		PlaceHolder4 = 0,
+		oneLfo,
+		halfLfo,
+		thirdLfo,
+		quarterLfo,
+		sixthLfo,
+		eightsLfo,
+		twelthLfo,
+		sixteenthLfo,
+		twentyforthLfo,
+		demisemiquaverLfo
 	};
+
 
 	bool NeedsUIUpdate(){ return UIUpdateFlag; };
 	void RequestUIUpdate(){ UIUpdateFlag = true; };
@@ -174,29 +180,36 @@ public:
 private:
 	//Private Data
 	float UserParams[totalNumParam];
+	double bpm;
 	bool UIUpdateFlag;
 	bool isInited = false;
+	int currentNotePlaying = 0;
 	
 	AudioPlayHead* playHead;
 	AudioPlayHead::CurrentPositionInfo currentPositionInfo;
-	Synthesiser synth;
+	juce::Synthesiser synth;
 
 	//Effects
 	AudeaReverb* reverb = nullptr;
 	Delay* delay = nullptr;
 	Flanger* flanger = nullptr;
 	Chorus* chorus = nullptr;
-	Filter *filter = nullptr;// = new LowPassFilter(&UserParams[FilterRes]);
+	Filter *filter = nullptr;
+	FilterEnvelope *filEnv = nullptr;
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 
-
+	//Modulator
+	LFO* lfo = nullptr;
 
 	//Helper Methods
 	void changeOscillatorWaveForm(int oscID, int wvForm);
 	void updateOscillatorVoices();
 	void changeFilterType(int filterId);
 	void init();
-	void changeDelayLength(int DelayLenRight, bool left);
+	void setBpm();
+	void changeDelayLength(int DelayLen, bool left);
+	void changeLFORate(int rate);
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudeaAudioProcessor)
 };

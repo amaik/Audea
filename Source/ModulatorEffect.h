@@ -35,7 +35,7 @@ protected:
 public:	
 	//void setMix(float newMix){ Mix = newMix; };
 	void setDepth(float newDepth){ depth = newDepth; };
-	void updateRange(){ delayRange = (depth * samplesPerMillisecond) / 2; };
+	void updateRange(){ delayRange =(int) (depth * samplesPerMillisecond) / 2; };
 
 	void process(float* left, float *right);
 

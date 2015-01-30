@@ -10,6 +10,7 @@
 
 #ifndef FILTERENVELOPE_H_INCLUDED
 #define FILTERENVELOPE_H_INCLUDED
+#include "LFO.h"
 
 class FilterEnvelope
 {
@@ -21,8 +22,8 @@ class FilterEnvelope
 	
 	float *cutoffFrequency;
 	float *envAmt;
-	//float *Q;
 
+	LFO *lfo;
 	double cutoffFrequencyBuffer = 0.0f;
 	double frequencyDifference = 0.0f;
 
@@ -44,14 +45,14 @@ class FilterEnvelope
 
 public:
 	//Constructors
-	FilterEnvelope(float *attackTime = nullptr, float *decayTime = nullptr, float *sustainLevel = nullptr, float *releaseTime = nullptr, float *cutoff = nullptr, float *envAmt = nullptr /*,float *Q = nullptr*/)
+	FilterEnvelope(float *attackTime = nullptr, float *decayTime = nullptr, float *sustainLevel = nullptr, float *releaseTime = nullptr, float *cutoff = nullptr, float *envAmt = nullptr , LFO *lfo = nullptr)
 		: attackTime(attackTime),
 		decayTime(decayTime),
 		sustainLevel(sustainLevel),
 		releaseTime(releaseTime),
 		cutoffFrequency(cutoff),
-		envAmt(envAmt)/*,
-		Q(Q)*/
+		envAmt(envAmt),
+		lfo(lfo)
 	{
 
 	};
@@ -66,6 +67,7 @@ public:
 	void StopRelease();
 	void setEnvState(int id);
 	int getEnvState();
+	void resetLFO(){ lfo->reset(); }
 
 	//Setters, Getters, Misc
 	void setSampleRate(double smRate) { sampleRate = smRate; }
