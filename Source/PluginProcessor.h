@@ -195,6 +195,7 @@ private:
 	Flanger* flanger = nullptr;
 	Chorus* chorus = nullptr;
 	Filter *filter = nullptr;
+	Filter* oldFilter = nullptr;
 	FilterEnvelope *filEnv = nullptr;
 	WaveShaper *wvShaper = new WaveShaper(&UserParams[DistortionAmt]);
 
@@ -209,6 +210,7 @@ private:
 	void setBpm();
 	void changeDelayLength(int DelayLen, bool left);
 	void changeLFORate(int rate);
+	void deleteFilter();
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudeaAudioProcessor)

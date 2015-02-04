@@ -52,12 +52,13 @@ float Filter::processFilterRight(float sample)
 	/*y[n] = (b0 / a0)*x[n] + (b1 / a0)*x[n - 1] + (b2 / a0)*x[n - 2]
 		- (a1 / a0)*y[n - 1] - (a2 / a0)*y[n - 2]*/
 	float unprocessed = sample;
-	
-	float processed = (computeB0()/computeA0() * unprocessed) 
-		+ (computeB1() /computeA0() * x_n_1_Right)
-		+ (computeB2() / computeA0() * x_n_2_Right)
-		- (computeA1() / computeA0() * y_n_1_Right)
-		- (computeA2() / computeA0() * y_n_2_Right);
+	double a0 = computeA0();
+
+	float processed = (computeB0()/a0 * unprocessed) 
+		+ (computeB1() /a0 * x_n_1_Right)
+		+ (computeB2() /a0 * x_n_2_Right)
+		- (computeA1() /a0 * y_n_1_Right)
+		- (computeA2() /a0 * y_n_2_Right);
 
 	x_n_2_Right = x_n_1_Right;
 	x_n_1_Right = unprocessed;
@@ -74,12 +75,13 @@ float Filter::processFilterLeft(float sample)
 	/*y[n] = (b0 / a0)*x[n] + (b1 / a0)*x[n - 1] + (b2 / a0)*x[n - 2]
 	- (a1 / a0)*y[n - 1] - (a2 / a0)*y[n - 2]*/
 	float unprocessed = sample;
+	double a0 = computeA0();
 
-	float processed = (computeB0() / computeA0() * unprocessed)
-		+ (computeB1() / computeA0() * x_n_1_Left)
-		+ (computeB2() / computeA0() * x_n_2_Left)
-		- (computeA1() / computeA0() * y_n_1_Left)
-		- (computeA2() / computeA0() * y_n_2_Left);
+	float processed = (computeB0() /a0 * unprocessed)
+		+ (computeB1() /a0 * x_n_1_Left)
+		+ (computeB2() /a0 * x_n_2_Left)
+		- (computeA1() /a0 * y_n_1_Left)
+		- (computeA2() /a0 * y_n_2_Left);
 
 	x_n_2_Left = x_n_1_Left;
 	x_n_1_Left = unprocessed;

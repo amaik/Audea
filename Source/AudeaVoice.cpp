@@ -29,7 +29,7 @@ void AudeaVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 
 	env->initSegments();
 
-	*currNotePlaying++;
+	(*currNotePlaying)++;
 	//Only iniate Filter if this is the first note 
 	if (*currNotePlaying == 1)
 	{
@@ -70,7 +70,7 @@ void AudeaVoice::stopNote(float /*velocity*/, bool allowTailOff)
 
 		env->StartRelease();
 		env->setEnvState(Envelope::Release);
-		*currNotePlaying--;
+		(*currNotePlaying)--;
 		//Only start Filter Release if this was the last note
 		if (*currNotePlaying == 0)
 		{
@@ -82,7 +82,7 @@ void AudeaVoice::stopNote(float /*velocity*/, bool allowTailOff)
 	else
 	{
 		// we're being told to stop playing immediately, so reset everything..
-		*currNotePlaying--;
+		(*currNotePlaying)--;
 		fil->resetFilter();
 		clearCurrentNote();
 	}

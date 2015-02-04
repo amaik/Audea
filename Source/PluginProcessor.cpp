@@ -400,7 +400,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			if (UserParams[ReverbIsOn])
 				reverb->process(&left[i], &right[i]);
 
-
+			if (left[i] != 0)
+				int leBreakPoint = 0;
 			//Apply Filter - Compute the coefficients for the Filter
 			filter->computeVariables(filEnv);
 			right[i] = filter->processFilterRight(right[i]);
@@ -420,6 +421,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			left[i] *= 1 - panAmt;
 			right[i] *= panAmt;
 
+			//Delete old Filter
+			deleteFilter();
 
 			//For Debugging check if value in buffer overflows
 			if (right[i] >1 || right[i] < -1){
@@ -577,19 +580,19 @@ void AudeaAudioProcessor::changeFilterType(int filterId)
 {
 	switch (filterId)
 	{
-	case BandPass:delete filter;
+	case BandPass:oldFilter = filter;
 		filter = new BandPassFilter(&UserParams[FilterRes],getSampleRate());
 		break;
-	case LowPass:delete filter;
+	case LowPass:oldFilter = filter;
 		filter = new LowPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
-	case HighPass:delete filter;
+	case HighPass:oldFilter = filter;
 		filter = new HighPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
-	case BandReject:delete filter;
+	case BandReject:oldFilter = filter;
 		filter = new BandRejectFilter(&UserParams[FilterRes], getSampleRate());
 		break;
-	case Allpass:delete filter;
+	case Allpass:oldFilter = filter;
 		filter = new AllPassFilter(&UserParams[FilterRes], getSampleRate());
 		break;
 	}
@@ -730,6 +733,15 @@ void AudeaAudioProcessor::setBpm()
 		bpm = currentPositionInfo.bpm;
 		if (bpm == 0)
 			bpm = 140;
+	}
+}
+
+void AudeaAudioProcessor::deleteFilter()
+{
+	if (oldFilter != nullptr)
+	{
+		delete oldFilter;
+		oldFilter = nullptr;
 	}
 }
 
