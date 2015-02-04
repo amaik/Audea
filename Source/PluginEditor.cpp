@@ -689,7 +689,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     //[/UserPreSize]
 
-    setSize (800, 700);
+    setSize (800, 620);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -800,17 +800,18 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff18140f));
+    g.fillAll (Colour (0xff401f09));
 
     //[UserPaint] Add your own custom painting code here..
+	String picpath = "C:/Users/Felix Rolshausen/Dropbox/Medienprojekt Audea/GuiPrototypes/Bilder Medienprojekt/BackgroundPure.jpg";
+	File* backgroundimage = new File(picpath);
+	Image backgroundimg = ImageFileFormat::loadFrom(*backgroundimage);
+	g.drawImageAt(backgroundimg, 0, 0);
     //[/UserPaint]
 }
 
 void AudeaAudioProcessorEditor::resized()
 {
-    //[UserPreResize] Add your own custom resize code here..
-    //[/UserPreResize]
-
     ReverbGroup->setBounds (640, 224, 72, 232);
     ChorusGroup->setBounds (552, 224, 88, 232);
     DistortionGroup->setBounds (464, 224, 88, 232);
@@ -1278,8 +1279,8 @@ BEGIN_JUCER_METADATA
                  componentName="" parentClasses="public AudioProcessorEditor, public Timer"
                  constructorParams="AudeaAudioProcessor* ownerFilter" variableInitialisers="AudioProcessorEditor(ownerFilter),&#10;midiKeyboard(ownerFilter-&gt;keyboardState,MidiKeyboardComponent::horizontalKeyboard)"
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="0" initialWidth="800" initialHeight="700">
-  <BACKGROUND backgroundColour="ff18140f"/>
+                 fixedSize="0" initialWidth="800" initialHeight="620">
+  <BACKGROUND backgroundColour="ff401f09"/>
   <GROUPCOMPONENT name="ReverbGroup" id="acdcfe1f8849f242" memberName="ReverbGroup"
                   virtualName="" explicitFocusOrder="0" pos="640 224 72 232" outlinecol="669c1900"
                   textcol="ffff6843" title="Reverb"/>
