@@ -59,19 +59,6 @@ void AudeaVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesiser
 		osc2Params.phase = 0;
 		osc2Params.phaseIncr = (twoPI / getSampleRate()) * cyclesPerSecond;
 	}
-
-	if (osc3Params.isOn){
-		cyclesPerSecond = getTunedFrequency(MidiMessage::getMidiNoteInHertz(midiNoteNumber), *osc3Params.tuning);
-		samplesPerCycle = getSampleRate() / cyclesPerSecond;
-		cyclesPerSample = cyclesPerSecond / getSampleRate();
-		osc3Params.sawValue = -1;
-		osc3Params.sawIncr = 2 / samplesPerCycle;
-		osc3Params.sineAngle = 0.0;
-		osc3Params.sineIncr = cyclesPerSample * 2.0 * double_Pi;
-		osc3Params.squareMidPoint = twoPI * 1 / 2;
-		osc3Params.phase = 0;
-		osc3Params.phaseIncr = (twoPI / getSampleRate()) * cyclesPerSecond;
-	}
 }
 
 void AudeaVoice::stopNote(float /*velocity*/, bool allowTailOff)
@@ -115,12 +102,7 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				if(osc2Params.isOn){
 					currentSample += (this->*oscTwoGenerator)(&osc2Params);
 				}
-				if (osc3Params.isOn){
-					currentSample += (this->*oscThreeGenerator)(&osc3Params);
-				}
 				currentSample *= level * env->getNextMultiplier();
-				if (osc3Params.isOn) currentSample *= 0.75f;
-				
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
 					outputBuffer.addSample(i, startSample, currentSample);
 				}
@@ -142,12 +124,7 @@ void AudeaVoice::renderNextBlock(juce::AudioSampleBuffer& outputBuffer, int star
 				if (osc2Params.isOn){
 					currentSample += (this->*oscTwoGenerator)(&osc2Params);
 				}
-				if (osc3Params.isOn){
-					currentSample += (this->*oscThreeGenerator)(&osc3Params);
-				}
 				currentSample *= level * env->getNextMultiplier();
-				if (osc3Params.isOn) currentSample *= 0.75f;
-				
 
 				for (int i = outputBuffer.getNumChannels(); --i >= 0;){
 						outputBuffer.addSample(i, startSample, currentSample);

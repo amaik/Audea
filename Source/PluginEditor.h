@@ -82,16 +82,11 @@ private:
     ScopedPointer<Label> OscOneLabel;
     ScopedPointer<Label> OscTwoLabel;
     ScopedPointer<ComboBox> OscTwoBox;
-    ScopedPointer<Label> OscThreeLabel;
-    ScopedPointer<ComboBox> OscThreeBox;
     ScopedPointer<ToggleButton> OscTwoIsOn;
-    ScopedPointer<ToggleButton> OscThreeIsOn;
     ScopedPointer<Label> OscVoicesLabel;
     ScopedPointer<Slider> OscVoicesSlider;
     ScopedPointer<Slider> OscTwoAmpSlider;
-    ScopedPointer<Slider> OscThreeAmpSlider;
     ScopedPointer<Slider> OscTwoTuneSlider;
-    ScopedPointer<Slider> OscThreeTuneSlider;
     ScopedPointer<Slider> OscOneAmpSlider;
     ScopedPointer<Label> AmpLabel;
     ScopedPointer<Label> TuneLabel;

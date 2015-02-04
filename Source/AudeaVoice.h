@@ -55,13 +55,10 @@ protected:
 
 	oscParams osc1Params;
 	oscParams osc2Params;
-	oscParams osc3Params;
-
 
 	//oscillator function pointers
 	float(AudeaVoice::*oscOneGenerator)(oscParams*) = NULL;
 	float(AudeaVoice::*oscTwoGenerator)(oscParams*) = NULL;
-	float(AudeaVoice::*oscThreeGenerator)(oscParams*) = NULL;
 
 	//Envelopes - Pointers to the Heap, has to be deleted
 	Envelope *env;
@@ -74,26 +71,22 @@ protected:
 
 public:
 	//constructors
-	AudeaVoice( float *ampOsc1,float *ampOsc2,float *ampOsc3, float *tuningOsc2,
-		float *tuningOsc3, Envelope *ev, Filter *fl, FilterEnvelope *flEnv,int *currNtPlay)
+	AudeaVoice( float *ampOsc1,float *ampOsc2, float *tuningOsc2,
+		 Envelope *ev, Filter *fl, FilterEnvelope *flEnv,int *currNtPlay)
 	{
 		defaultTuning = 0.0f;
 		defaultAmp = 1.0f;
 		osc1Params.amp = ampOsc1;
 		osc2Params.amp = ampOsc2;
-		osc3Params.amp = ampOsc3;
 		
 		osc2Params.tuning = tuningOsc2;
-		osc3Params.tuning = tuningOsc3;
-
+		
 		osc1Params.isOn = true;
 		osc2Params.isOn = false;
-		osc3Params.isOn = false;
-
+		
 		oscOneGenerator = &AudeaVoice::generateSine;
 		oscTwoGenerator = &AudeaVoice::generateSine;
-		oscThreeGenerator = &AudeaVoice::generateSine;
-
+		
 		env = ev;
 
 		fil = fl;
@@ -131,12 +124,9 @@ public:
 	void setFilter(Filter *filter){ fil = filter; }
 
 	void setOsc2IsOn(bool b){ osc2Params.isOn = b; }
-	void setOsc3IsOn(bool b){ osc3Params.isOn = b; }
 	void setOsc2Tune(float *tune){ osc2Params.tuning = tune; }
-	void setOsc3Tune(float *tune){ osc3Params.tuning = tune; }
 	void setOsc1Amp(float *value){ osc1Params.amp = value; }
 	void setOsc2Amp(float *value){ osc2Params.amp = value; }
-	void setOsc3Amp(float *value){ osc3Params.amp = value; }
 	void setOsc1WvForm(int id){
 		switch (id){
 		case Sine:		oscOneGenerator = &AudeaVoice::generateSine;
@@ -162,20 +152,6 @@ public:
 		case Square:	oscTwoGenerator = &AudeaVoice::generateSquare;
 			break;
 		case Noise:		oscTwoGenerator = &AudeaVoice::generateNoise;
-			break;
-		}
-	}
-	void setOsc3WvForm(int id){
-		switch (id){
-		case Sine:		oscThreeGenerator = &AudeaVoice::generateSine;
-			break;
-		case Triangle:	oscThreeGenerator = &AudeaVoice::generateTriangle;
-			break;
-		case Saw:		oscThreeGenerator = &AudeaVoice::generateSaw;
-			break;
-		case Square:	oscThreeGenerator = &AudeaVoice::generateSquare;
-			break;
-		case Noise:		oscThreeGenerator = &AudeaVoice::generateNoise;
 			break;
 		}
 	}

@@ -23,12 +23,9 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[Osc1WaveForm] = 1.0f;
 	UserParams[Osc1WaveForm] = 1.0f;
 	UserParams[Osc2IsOn] = 0.0f; //default off
-	UserParams[Osc3IsOn] = 0.0f; //default off
 	UserParams[Osc2Tune] = 0.0f;
-	UserParams[Osc3Tune] = 0.0f;
 	UserParams[Osc1Amp] = 1.0f;
 	UserParams[Osc2Amp] = 0.0f;
-	UserParams[Osc3Amp] = 0.0f;
 	UserParams[AmpEnvAttack] = 0.0f;
 	UserParams[AmpEnvDecay] = 0.0f;
 	UserParams[AmpEnvSustain] = 1.0f;
@@ -121,24 +118,13 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case Osc2WaveForm:  UserParams[Osc2WaveForm] = newValue;
 						changeOscillatorWaveForm(2,(int) newValue);
 		break;
-	case Osc3WaveForm:	UserParams[Osc3WaveForm] = newValue;
-						changeOscillatorWaveForm(3, (int)newValue);
-		break;
 	case Osc2IsOn:		UserParams[Osc2IsOn] = newValue;
 		for (int i = synth.getNumVoices(); --i >= 0;)
 			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc2IsOn(newValue == 1.0f);
 		break;
-	case Osc3IsOn:		UserParams[Osc3IsOn] = newValue;
-		for (int i = synth.getNumVoices(); --i >= 0;)
-			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3IsOn(newValue == 1.0f);
-		break;
 	case Osc2Tune:		UserParams[Osc2Tune] = newValue;
 		for (int i = synth.getNumVoices(); --i >= 0;)
 			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc2Tune(&UserParams[Osc2Tune]);
-		break;
-	case Osc3Tune:		UserParams[Osc3Tune] = newValue;
-		for (int i = synth.getNumVoices(); --i >= 0;)
-			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3Tune(&UserParams[Osc3Tune]);
 		break;
 	case Osc1Amp:		UserParams[Osc1Amp] = newValue;
 		for (int i = synth.getNumVoices(); --i >= 0;)
@@ -147,10 +133,6 @@ void AudeaAudioProcessor::setParameter (int index, float newValue)
 	case Osc2Amp:		UserParams[Osc2Amp] = newValue;
 		for (int i = synth.getNumVoices(); --i >= 0;)
 			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc2Amp(&UserParams[Osc2Amp]);
-		break;
-	case Osc3Amp:		UserParams[Osc3Amp] = newValue;
-		for (int i = synth.getNumVoices(); --i >= 0;)
-			static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3Amp(&UserParams[Osc3Amp]);
 		break;
 	case AmpEnvAttack:	UserParams[AmpEnvAttack]  =	newValue;
 		break;
@@ -245,14 +227,10 @@ const String AudeaAudioProcessor::getParameterName (int index)
 	case OscVoices:			return "Oscillator Voices";
 	case Osc1WaveForm:		return "Oscillator 1 Waveform";
 	case Osc2WaveForm:		return "Oscillator 2 Waveform";
-	case Osc3WaveForm:		return "Oscillator 3 Waveform";
 	case Osc2IsOn:			return "Oscillator 2 Bypass";
-	case Osc3IsOn:			return "Oscillator 3 Bypass";
 	case Osc2Tune:			return "Oscillator 2 Tune";
-	case Osc3Tune:			return "Oscillator 3 Tune";
 	case Osc1Amp:			return "Oscillator 1 Volume";
 	case Osc2Amp:			return "Oscillator 2 Volume";
-	case Osc3Amp:			return "Oscillator 3 Volume";
 	case AmpEnvAttack:		return "Amplitude Envelope Attack";
 	case AmpEnvDecay:		return "Amplitude Envelope Decay";
 	case AmpEnvSustain:		return "Amplitude Envelope Sustain";
@@ -533,26 +511,6 @@ case 2:
 		break;
 	}
 	break;
-case 3:
-	switch (wvForm){
-	case Sine:		for (int i = numVoices; --i >= 0;)
-		static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3WvForm(AudeaVoice::Sine);
-		break;
-	case Triangle:  for (int i = numVoices; --i >= 0;)
-		static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3WvForm(AudeaVoice::Triangle);
-		break;
-	case Square:	for (int i = numVoices; --i >= 0;)
-		static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3WvForm(AudeaVoice::Square);
-		break;
-	case Saw:		for (int i = numVoices; --i >= 0;)
-		static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3WvForm(AudeaVoice::Saw);
-		break;
-	case Noise:		for (int i = numVoices; --i >= 0;)
-		static_cast<AudeaVoice*>(synth.getVoice(i))->setOsc3WvForm(AudeaVoice::Noise);
-		break;
-	}
-	break;
-
 	}
 
 }
@@ -581,9 +539,7 @@ void AudeaAudioProcessor::updateOscillatorVoices()
 			AudeaVoice *voice = new AudeaVoice(
 									&UserParams[Osc1Amp],
 									&UserParams[Osc2Amp],
-									&UserParams[Osc3Amp],
 									&UserParams[Osc2Tune],
-									&UserParams[Osc3Tune],
 									env, filter, filEnv,&currentNotePlaying
 								);
 			
@@ -609,18 +565,6 @@ void AudeaAudioProcessor::updateOscillatorVoices()
 			case Saw:		voice->setOsc2WvForm(AudeaVoice::Saw);
 							break;
 			case Noise:		voice->setOsc2WvForm(AudeaVoice::Noise);
-							break;
-			}
-			switch ((int)UserParams[Osc3WaveForm]){
-			case Sine:		voice->setOsc3WvForm(AudeaVoice::Sine);
-							break;
-			case Triangle:	voice->setOsc3WvForm(AudeaVoice::Triangle);
-							break;
-			case Square:	voice->setOsc3WvForm(AudeaVoice::Square);
-							break;
-			case Saw:		voice->setOsc3WvForm(AudeaVoice::Saw);
-							break;
-			case Noise:		voice->setOsc3WvForm(AudeaVoice::Noise);
 							break;
 			}
 			synth.addVoice(voice);
@@ -759,9 +703,7 @@ void AudeaAudioProcessor::init()
 			new AudeaVoice(
 			&UserParams[Osc1Amp],
 			&UserParams[Osc2Amp],
-			&UserParams[Osc3Amp],
 			&UserParams[Osc2Tune],
-			&UserParams[Osc3Tune],
 			env, filter, filEnv,&currentNotePlaying)
 			);
 	}

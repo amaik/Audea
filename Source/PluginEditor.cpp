@@ -120,35 +120,9 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     OscTwoBox->addItem (TRANS("Noise"), 5);
     OscTwoBox->addListener (this);
 
-    addAndMakeVisible (OscThreeLabel = new Label ("OscThreeLabel",
-                                                  TRANS("OSC 3")));
-    OscThreeLabel->setFont (Font (15.00f, Font::bold));
-    OscThreeLabel->setJustificationType (Justification::centredLeft);
-    OscThreeLabel->setEditable (false, false, false);
-    OscThreeLabel->setColour (Label::backgroundColourId, Colour (0x00000000));
-    OscThreeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    OscThreeLabel->setColour (TextEditor::textColourId, Colours::black);
-    OscThreeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (OscThreeBox = new ComboBox ("OscThreeBox"));
-    OscThreeBox->setEditableText (false);
-    OscThreeBox->setJustificationType (Justification::centredLeft);
-    OscThreeBox->setTextWhenNothingSelected (TRANS("Sine"));
-    OscThreeBox->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    OscThreeBox->addItem (TRANS("Sine"), 1);
-    OscThreeBox->addItem (TRANS("Triangle"), 2);
-    OscThreeBox->addItem (TRANS("Square"), 3);
-    OscThreeBox->addItem (TRANS("Saw"), 4);
-    OscThreeBox->addItem (TRANS("Noise"), 5);
-    OscThreeBox->addListener (this);
-
     addAndMakeVisible (OscTwoIsOn = new ToggleButton ("OscTwoIsOn"));
     OscTwoIsOn->setButtonText (String::empty);
     OscTwoIsOn->addListener (this);
-
-    addAndMakeVisible (OscThreeIsOn = new ToggleButton ("OscThreeIsOn"));
-    OscThreeIsOn->setButtonText (String::empty);
-    OscThreeIsOn->addListener (this);
 
     addAndMakeVisible (OscVoicesLabel = new Label ("OscVoicesLabel",
                                                    TRANS("Voices")));
@@ -171,23 +145,11 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     OscTwoAmpSlider->setTextBoxStyle (Slider::NoTextBox, false, 20, 20);
     OscTwoAmpSlider->addListener (this);
 
-    addAndMakeVisible (OscThreeAmpSlider = new Slider ("OscThreeAmpSlider"));
-    OscThreeAmpSlider->setRange (0, 1, 0.01);
-    OscThreeAmpSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    OscThreeAmpSlider->setTextBoxStyle (Slider::NoTextBox, false, 20, 20);
-    OscThreeAmpSlider->addListener (this);
-
     addAndMakeVisible (OscTwoTuneSlider = new Slider ("OscTwoTuneSlider"));
     OscTwoTuneSlider->setRange (-24, 24, 1);
     OscTwoTuneSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     OscTwoTuneSlider->setTextBoxStyle (Slider::TextBoxLeft, false, 28, 20);
     OscTwoTuneSlider->addListener (this);
-
-    addAndMakeVisible (OscThreeTuneSlider = new Slider ("OscThreeTuneSlider"));
-    OscThreeTuneSlider->setRange (-24, 24, 1);
-    OscThreeTuneSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    OscThreeTuneSlider->setTextBoxStyle (Slider::TextBoxLeft, false, 28, 20);
-    OscThreeTuneSlider->addListener (this);
 
     addAndMakeVisible (OscOneAmpSlider = new Slider ("OscOneAmpSlider"));
     OscOneAmpSlider->setRange (0, 1, 0.01);
@@ -354,20 +316,20 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     addAndMakeVisible (FilterCutoffSlider = new Slider ("FilterCutoffSlider"));
     FilterCutoffSlider->setRange (40, 20000, 1);
     FilterCutoffSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterCutoffSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
+    FilterCutoffSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterCutoffSlider->addListener (this);
     FilterCutoffSlider->setSkewFactor (0.5);
 
     addAndMakeVisible (FilterResonanceSlider = new Slider ("FilterResonanceSlider"));
     FilterResonanceSlider->setRange (0.5, 5, 0.01);
     FilterResonanceSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterResonanceSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
+    FilterResonanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterResonanceSlider->addListener (this);
 
     addAndMakeVisible (FilterEnvelopeSlider = new Slider ("FilterEnvelopeSlider"));
     FilterEnvelopeSlider->setRange (0, 5000, 1);
     FilterEnvelopeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    FilterEnvelopeSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 80, 20);
+    FilterEnvelopeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterEnvelopeSlider->addListener (this);
 
     addAndMakeVisible (FilterCutoffLabel = new Label ("FilterCutoffLabel",
@@ -399,13 +361,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ReverbMixSlider = new Slider ("ReverbMixSlider"));
     ReverbMixSlider->setRange (0, 1, 0.01);
-    ReverbMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ReverbMixSlider->setSliderStyle (Slider::LinearHorizontal);
     ReverbMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbMixSlider->addListener (this);
 
     addAndMakeVisible (ReverbSizeSlider = new Slider ("ReverbSizeSlider"));
     ReverbSizeSlider->setRange (0, 1, 0.01);
-    ReverbSizeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ReverbSizeSlider->setSliderStyle (Slider::LinearHorizontal);
     ReverbSizeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbSizeSlider->addListener (this);
 
@@ -438,13 +400,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ChorusRateSlider = new Slider ("ChorusRateSlider"));
     ChorusRateSlider->setRange (1.25, 25, 0.1);
-    ChorusRateSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ChorusRateSlider->setSliderStyle (Slider::LinearHorizontal);
     ChorusRateSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ChorusRateSlider->addListener (this);
 
     addAndMakeVisible (ChorusMixSlider = new Slider ("ChorusMixSlider"));
     ChorusMixSlider->setRange (0, 0.5, 0.01);
-    ChorusMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ChorusMixSlider->setSliderStyle (Slider::LinearHorizontal);
     ChorusMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ChorusMixSlider->addListener (this);
 
@@ -459,7 +421,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerFeedbackSlider = new Slider ("FlangerFeedbackSlider"));
     FlangerFeedbackSlider->setRange (0, 0.99, 0.01);
-    FlangerFeedbackSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FlangerFeedbackSlider->setSliderStyle (Slider::LinearHorizontal);
     FlangerFeedbackSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerFeedbackSlider->addListener (this);
 
@@ -483,7 +445,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerDelaySlider = new Slider ("FlangerDelaySlider"));
     FlangerDelaySlider->setRange (1, 10, 0.1);
-    FlangerDelaySlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FlangerDelaySlider->setSliderStyle (Slider::LinearHorizontal);
     FlangerDelaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerDelaySlider->addListener (this);
 
@@ -501,7 +463,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DistortionAmountSlider = new Slider ("DistortionAmountSlider"));
     DistortionAmountSlider->setRange (0, 99, 0.1);
-    DistortionAmountSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    DistortionAmountSlider->setSliderStyle (Slider::LinearHorizontal);
     DistortionAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DistortionAmountSlider->addListener (this);
 
@@ -529,7 +491,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FlangerMixSlider = new Slider ("FlangerMixSlider"));
     FlangerMixSlider->setRange (0, 0.5, 0.01);
-    FlangerMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FlangerMixSlider->setSliderStyle (Slider::LinearHorizontal);
     FlangerMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FlangerMixSlider->addListener (this);
 
@@ -683,7 +645,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (ReverbWidthSlider = new Slider ("ReverbWidthSlider"));
     ReverbWidthSlider->setRange (0, 1, 0.01);
-    ReverbWidthSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    ReverbWidthSlider->setSliderStyle (Slider::LinearHorizontal);
     ReverbWidthSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     ReverbWidthSlider->addListener (this);
 
@@ -754,16 +716,11 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     OscOneLabel = nullptr;
     OscTwoLabel = nullptr;
     OscTwoBox = nullptr;
-    OscThreeLabel = nullptr;
-    OscThreeBox = nullptr;
     OscTwoIsOn = nullptr;
-    OscThreeIsOn = nullptr;
     OscVoicesLabel = nullptr;
     OscVoicesSlider = nullptr;
     OscTwoAmpSlider = nullptr;
-    OscThreeAmpSlider = nullptr;
     OscTwoTuneSlider = nullptr;
-    OscThreeTuneSlider = nullptr;
     OscOneAmpSlider = nullptr;
     AmpLabel = nullptr;
     TuneLabel = nullptr;
@@ -867,16 +824,11 @@ void AudeaAudioProcessorEditor::resized()
     OscOneLabel->setBounds (24, 16, 72, 24);
     OscTwoLabel->setBounds (24, 80, 72, 24);
     OscTwoBox->setBounds (24, 112, 72, 24);
-    OscThreeLabel->setBounds (24, 144, 72, 24);
-    OscThreeBox->setBounds (24, 176, 72, 24);
     OscTwoIsOn->setBounds (0, 112, 24, 24);
-    OscThreeIsOn->setBounds (0, 176, 24, 24);
     OscVoicesLabel->setBounds (216, 16, 64, 24);
     OscVoicesSlider->setBounds (200, 40, 88, 40);
     OscTwoAmpSlider->setBounds (112, 104, 48, 32);
-    OscThreeAmpSlider->setBounds (112, 168, 48, 32);
     OscTwoTuneSlider->setBounds (192, 104, 72, 32);
-    OscThreeTuneSlider->setBounds (192, 168, 72, 32);
     OscOneAmpSlider->setBounds (112, 40, 48, 32);
     AmpLabel->setBounds (112, 16, 47, 24);
     TuneLabel->setBounds (200, 80, 47, 24);
@@ -969,12 +921,6 @@ void AudeaAudioProcessorEditor::comboBoxChanged (ComboBox* comboBoxThatHasChange
 		ourProcessor->setParameter(AudeaAudioProcessor::Osc2WaveForm, id);
         //[/UserComboBoxCode_OscTwoBox]
     }
-    else if (comboBoxThatHasChanged == OscThreeBox)
-    {
-        //[UserComboBoxCode_OscThreeBox] -- add your combo box handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc3WaveForm, id);
-        //[/UserComboBoxCode_OscThreeBox]
-    }
     else if (comboBoxThatHasChanged == FilterTypeBox)
     {
         //[UserComboBoxCode_FilterTypeBox] -- add your combo box handling code here..
@@ -1024,15 +970,6 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 		else
 			ourProcessor->setParameter(AudeaAudioProcessor::Osc2IsOn, 0.0f);
         //[/UserButtonCode_OscTwoIsOn]
-    }
-    else if (buttonThatWasClicked == OscThreeIsOn)
-    {
-        //[UserButtonCode_OscThreeIsOn] -- add your button handler code here..
-		if (buttonThatWasClicked->getToggleState())
-			ourProcessor->setParameter(AudeaAudioProcessor::Osc3IsOn, 1.0f);
-		else
-			ourProcessor->setParameter(AudeaAudioProcessor::Osc3IsOn, 0.0f);
-        //[/UserButtonCode_OscThreeIsOn]
     }
     else if (buttonThatWasClicked == FlangerIsOn)
     {
@@ -1102,23 +1039,11 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 		ourProcessor->setParameter(AudeaAudioProcessor::Osc2Amp,(float) sliderThatWasMoved->getValue());
         //[/UserSliderCode_OscTwoAmpSlider]
     }
-    else if (sliderThatWasMoved == OscThreeAmpSlider)
-    {
-        //[UserSliderCode_OscThreeAmpSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc3Amp,(float) sliderThatWasMoved->getValue());
-        //[/UserSliderCode_OscThreeAmpSlider]
-    }
     else if (sliderThatWasMoved == OscTwoTuneSlider)
     {
         //[UserSliderCode_OscTwoTuneSlider] -- add your slider handling code here..
 		ourProcessor->setParameter(AudeaAudioProcessor::Osc2Tune,(float) sliderThatWasMoved->getValue());
         //[/UserSliderCode_OscTwoTuneSlider]
-    }
-    else if (sliderThatWasMoved == OscThreeTuneSlider)
-    {
-        //[UserSliderCode_OscThreeTuneSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::Osc3Tune,(float) sliderThatWasMoved->getValue());
-        //[/UserSliderCode_OscThreeTuneSlider]
     }
     else if (sliderThatWasMoved == OscOneAmpSlider)
     {
@@ -1291,15 +1216,11 @@ void AudeaAudioProcessorEditor::timerCallback()
 	if (ourProcessor->NeedsUIUpdate())
 	{//load your UI components with internal state information form plug-in - example:
 		OscTwoIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc2IsOn), juce::dontSendNotification);
-		OscThreeIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::Osc3IsOn), juce::dontSendNotification);
 		OscVoicesSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::OscVoices));
 		OscOneBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc1WaveForm), juce::dontSendNotification);
 		OscTwoBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc2WaveForm), juce::dontSendNotification);
-		OscThreeBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::Osc3WaveForm), juce::dontSendNotification);
 		OscTwoAmpSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc2Amp));
-		OscThreeAmpSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc3Amp));
 		OscTwoTuneSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc2Tune));
-		OscThreeTuneSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc3Tune));
 		OscOneAmpSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::Osc1Amp));
 		AmpEnvAttackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::AmpEnvAttack));
 		AmpEnvDecaySlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::AmpEnvDecay));
@@ -1404,20 +1325,8 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="24 112 72 24" editable="0"
             layout="33" items="Sine&#10;Triangle&#10;Square&#10;Saw&#10;Noise"
             textWhenNonSelected="Sine" textWhenNoItems="(no choices)"/>
-  <LABEL name="OscThreeLabel" id="a7d5854077b1ec9e" memberName="OscThreeLabel"
-         virtualName="" explicitFocusOrder="0" pos="24 144 72 24" bkgCol="0"
-         textCol="ffb2ff8b" edTextCol="ff000000" edBkgCol="0" labelText="OSC 3"
-         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
-         fontname="Default font" fontsize="15" bold="1" italic="0" justification="33"/>
-  <COMBOBOX name="OscThreeBox" id="c3eda3b88ca10927" memberName="OscThreeBox"
-            virtualName="" explicitFocusOrder="0" pos="24 176 72 24" editable="0"
-            layout="33" items="Sine&#10;Triangle&#10;Square&#10;Saw&#10;Noise"
-            textWhenNonSelected="Sine" textWhenNoItems="(no choices)"/>
   <TOGGLEBUTTON name="OscTwoIsOn" id="5c67889c9b18a785" memberName="OscTwoIsOn"
                 virtualName="" explicitFocusOrder="0" pos="0 112 24 24" buttonText=""
-                connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
-  <TOGGLEBUTTON name="OscThreeIsOn" id="c9adbddbb706dd06" memberName="OscThreeIsOn"
-                virtualName="" explicitFocusOrder="0" pos="0 176 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <LABEL name="OscVoicesLabel" id="ad98ae9f583cce49" memberName="OscVoicesLabel"
          virtualName="" explicitFocusOrder="0" pos="216 16 64 24" textCol="ffb2ff8b"
@@ -1432,16 +1341,8 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="112 104 48 32" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="20" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="OscThreeAmpSlider" id="b4ae512fc2b37548" memberName="OscThreeAmpSlider"
-          virtualName="" explicitFocusOrder="0" pos="112 168 48 32" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="20" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoTuneSlider" id="ac82cf89dc2fc12c" memberName="OscTwoTuneSlider"
           virtualName="" explicitFocusOrder="0" pos="192 104 72 32" min="-24"
-          max="24" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxLeft"
-          textBoxEditable="1" textBoxWidth="28" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="OscThreeTuneSlider" id="436a66f4321d169b" memberName="OscThreeTuneSlider"
-          virtualName="" explicitFocusOrder="0" pos="192 168 72 32" min="-24"
           max="24" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxLeft"
           textBoxEditable="1" textBoxWidth="28" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscOneAmpSlider" id="a081a349e74fa1fb" memberName="OscOneAmpSlider"
@@ -1536,15 +1437,15 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="FilterCutoffSlider" id="290abad0411db05d" memberName="FilterCutoffSlider"
           virtualName="" explicitFocusOrder="0" pos="520 72 39 40" min="40"
-          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
+          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
           virtualName="" explicitFocusOrder="0" pos="576 72 39 40" min="0.5"
-          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
+          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
           virtualName="" explicitFocusOrder="0" pos="640 72 39 40" min="0"
-          max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
+          max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FilterCutoffLabel" id="f6e337c9abe5937" memberName="FilterCutoffLabel"
          virtualName="" explicitFocusOrder="0" pos="512 40 48 24" textCol="ffb2ff8b"
@@ -1563,11 +1464,11 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
           virtualName="" explicitFocusOrder="0" pos="656 384 39 40" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
           virtualName="" explicitFocusOrder="0" pos="656 256 39 40" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
          virtualName="" explicitFocusOrder="0" pos="656 360 40 24" textCol="ffb2ff8b"
@@ -1586,12 +1487,11 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
           virtualName="" explicitFocusOrder="0" pos="576 288 39 40" min="1.25"
-          max="25" int="0.10000000000000001" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          max="25" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ChorusMixSlider" id="e459f174052e0ff2" memberName="ChorusMixSlider"
           virtualName="" explicitFocusOrder="0" pos="576 376 39 40" min="0"
-          max="0.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
          virtualName="" explicitFocusOrder="0" pos="576 256 40 24" textCol="ffb2ff8b"
@@ -1600,7 +1500,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
           virtualName="" explicitFocusOrder="0" pos="400 264 39 40" min="0"
-          max="0.98999999999999999" int="0.01" style="RotaryVerticalDrag"
+          max="0.98999999999999999" int="0.01" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FlangerDelayLabel" id="272eb6964a7114f0" memberName="FlangerDelayLabel"
@@ -1615,9 +1515,8 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
           virtualName="" explicitFocusOrder="0" pos="400 328 39 40" min="1"
-          max="10" int="0.10000000000000001" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          max="10" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
                 virtualName="" explicitFocusOrder="0" pos="384 232 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
@@ -1629,9 +1528,8 @@ BEGIN_JUCER_METADATA
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
           virtualName="" explicitFocusOrder="0" pos="488 328 39 40" min="0"
-          max="99" int="0.10000000000000001" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          max="99" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="DistortionIsOn" id="6cc597398b435cf2" memberName="DistortionIsOn"
                 virtualName="" explicitFocusOrder="0" pos="472 232 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
@@ -1647,7 +1545,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
           virtualName="" explicitFocusOrder="0" pos="400 384 39 40" min="0"
-          max="0.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
           virtualName="" explicitFocusOrder="0" pos="224 384 39 40" min="0"
@@ -1723,7 +1621,7 @@ BEGIN_JUCER_METADATA
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
           virtualName="" explicitFocusOrder="0" pos="656 320 39 40" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="GlobalVolumeLabel" id="80c153321d0b3d2c" memberName="GlobalVolumeLabel"
          virtualName="" explicitFocusOrder="0" pos="0 456 72 24" bkgCol="0"
