@@ -399,8 +399,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			if (UserParams[ReverbIsOn])
 				reverb->process(&left[i], &right[i]);
 
-			if (left[i] != 0)
-				int leBreakPoint = 0;
+			//if (left[i] != 0)
+				//int leBreakPoint = 0;
 			//Apply Filter - Compute the coefficients for the Filter
 			filter->computeVariables(filEnv);
 			right[i] = filter->processFilterRight(right[i]);
@@ -562,20 +562,24 @@ void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 	{
 		forEachXmlChildElement((*pRoot), pChild)
 		{
-			if (pChild->hasTagName("Bypass"))
+			if (pChild->hasTagName("MasterBypass"))
 			{
 				String text = pChild->getAllSubText();
 				setParameter(MasterBypass, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("StereoWidth"))
+			else if (pChild->hasTagName("OscVoices"))
 			{
 				String text = pChild->getAllSubText();
-				setParameter(StereoWidth, text.getFloatValue());
+				setParameter(OscVoices, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc1WaveForm"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc1WaveForm, text.getFloatValue());
 			}
 		}
 		delete pRoot;
 		UIUpdateFlag = true;//Request UI update
-
 	}
 }
 
