@@ -577,6 +577,36 @@ void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 				String text = pChild->getAllSubText();
 				setParameter(Osc1WaveForm, text.getFloatValue());
 			}
+			else if (pChild->hasTagName("Osc2WaveForm"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2WaveForm, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2Tune"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2Tune, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2IsOn"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2IsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc1Amp"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc1Amp, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2Amp"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2Amp, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("AmpEnvAttack"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(AmpEnvAttack, text.getFloatValue());
+			}
 		}
 		delete pRoot;
 		UIUpdateFlag = true;//Request UI update
