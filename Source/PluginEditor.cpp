@@ -681,6 +681,14 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     GlobalPanSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalPanSlider->addListener (this);
 
+    addAndMakeVisible (SavePresetButton = new TextButton ("SavePresetButton"));
+    SavePresetButton->setButtonText (TRANS("Save Preset"));
+    SavePresetButton->addListener (this);
+
+    addAndMakeVisible (LoadPresetButton = new TextButton ("LoadPresetButton"));
+    LoadPresetButton->setButtonText (TRANS("Load Preset"));
+    LoadPresetButton->addListener (this);
+
 
     //[UserPreSize]
 
@@ -695,6 +703,8 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     //[Constructor] You can add your own custom stuff here..
 	getProcessor()->RequestUIUpdate();//UI update must be done each time a new editor is constructed
 	startTimer(200);//starts timer with interval of 200ms
+	backGroundImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(backGroundImgPath);
+
     //[/Constructor]
 }
 
@@ -788,6 +798,8 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     GlobalPanLabel = nullptr;
     GlobalVolumeSlider = nullptr;
     GlobalPanSlider = nullptr;
+    SavePresetButton = nullptr;
+    LoadPresetButton = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -803,15 +815,16 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colour (0xff401f09));
 
     //[UserPaint] Add your own custom painting code here..
-	String picpath = "C:/Users/Felix Rolshausen/Dropbox/Medienprojekt Audea/GuiPrototypes/Bilder Medienprojekt/BackgroundPure.jpg";
-	File* backgroundimage = new File(picpath);
-	Image backgroundimg = ImageFileFormat::loadFrom(*backgroundimage);
-	g.drawImageAt(backgroundimg, 0, 0);
+	Image backgroundImg = ImageFileFormat::loadFrom(backGroundImgFile);
+	g.drawImageAt(backgroundImg, 0, 0);
     //[/UserPaint]
 }
 
 void AudeaAudioProcessorEditor::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     ReverbGroup->setBounds (640, 224, 72, 232);
     ChorusGroup->setBounds (552, 224, 88, 232);
     DistortionGroup->setBounds (464, 224, 88, 232);
@@ -897,6 +910,8 @@ void AudeaAudioProcessorEditor::resized()
     GlobalPanLabel->setBounds (368, 456, 72, 24);
     GlobalVolumeSlider->setBounds (56, 464, 104, 80);
     GlobalPanSlider->setBounds (408, 464, 104, 80);
+    SavePresetButton->setBounds (544, 504, 150, 24);
+    LoadPresetButton->setBounds (544, 472, 150, 24);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -1016,6 +1031,16 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
 		else
 			ourProcessor->setParameter(AudeaAudioProcessor::DelayIsOn, 0.0f);
         //[/UserButtonCode_DelayIsOn]
+    }
+    else if (buttonThatWasClicked == SavePresetButton)
+    {
+        //[UserButtonCode_SavePresetButton] -- add your button handler code here..
+        //[/UserButtonCode_SavePresetButton]
+    }
+    else if (buttonThatWasClicked == LoadPresetButton)
+    {
+        //[UserButtonCode_LoadPresetButton] -- add your button handler code here..
+        //[/UserButtonCode_LoadPresetButton]
     }
 
     //[UserbuttonClicked_Post]
@@ -1642,6 +1667,12 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="408 464 104 80" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <TEXTBUTTON name="SavePresetButton" id="d275c33d0d3e1621" memberName="SavePresetButton"
+              virtualName="" explicitFocusOrder="0" pos="544 504 150 24" buttonText="Save Preset"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
+  <TEXTBUTTON name="LoadPresetButton" id="9c176d2ed7323d52" memberName="LoadPresetButton"
+              virtualName="" explicitFocusOrder="0" pos="544 472 150 24" buttonText="Load Preset"
+              connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA

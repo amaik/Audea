@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
+#include <TCHAR.H>
 //[/Headers]
 
 
@@ -66,6 +67,12 @@ public:
 private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	MidiKeyboardComponent midiKeyboard;
+
+	//Location of the DLL
+	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
+	//Constants
+	File backGroundImgFile;
+	String backGroundImgPath = "Resources/BackgroundPure.jpg";
     //[/UserVariables]
 
     //==============================================================================
@@ -154,6 +161,8 @@ private:
     ScopedPointer<Label> GlobalPanLabel;
     ScopedPointer<Slider> GlobalVolumeSlider;
     ScopedPointer<Slider> GlobalPanSlider;
+    ScopedPointer<TextButton> SavePresetButton;
+    ScopedPointer<TextButton> LoadPresetButton;
 
 
     //==============================================================================
