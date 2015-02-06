@@ -20,8 +20,7 @@ AudeaAudioProcessor::AudeaAudioProcessor()
 	UserParams[MasterBypass] = 0.0f;//default to not bypassed
 	UserParams[OscVoices] = 4.0f;
 	UserParams[Osc1WaveForm] = 1.0f;
-	UserParams[Osc1WaveForm] = 1.0f;
-	UserParams[Osc1WaveForm] = 1.0f;
+	UserParams[Osc2WaveForm] = 1.0f;
 	UserParams[Osc2IsOn] = 0.0f; //default off
 	UserParams[Osc2Tune] = 0.0f;
 	UserParams[Osc1Amp] = 1.0f;
@@ -400,8 +399,8 @@ void AudeaAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& m
 			if (UserParams[ReverbIsOn])
 				reverb->process(&left[i], &right[i]);
 
-			if (left[i] != 0)
-				int leBreakPoint = 0;
+			//if (left[i] != 0)
+				//int leBreakPoint = 0;
 			//Apply Filter - Compute the coefficients for the Filter
 			filter->computeVariables(filEnv);
 			right[i] = filter->processFilterRight(right[i]);
@@ -457,17 +456,161 @@ AudioProcessorEditor* AudeaAudioProcessor::createEditor()
 }
 
 //==============================================================================
-void AudeaAudioProcessor::getStateInformation (MemoryBlock& /*destData*/)
+void AudeaAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+	
+	//Save UserParams/Data to file
+	XmlElement root("Root");
+	XmlElement *el;
+	el = root.createNewChildElement("MasterBypass");
+	el->addTextElement(String(UserParams[MasterBypass]));
+	el = root.createNewChildElement("OscVoices");
+	el->addTextElement(String(UserParams[OscVoices]));
+	el = root.createNewChildElement("Osc1WaveForm");
+	el->addTextElement(String(UserParams[Osc1WaveForm]));
+	el = root.createNewChildElement("Osc2WaveForm");
+	el->addTextElement(String(UserParams[Osc2WaveForm]));
+	el = root.createNewChildElement("Osc2Tune");
+	el->addTextElement(String(UserParams[Osc2Tune]));
+	el = root.createNewChildElement("Osc2IsOn");
+	el->addTextElement(String(UserParams[Osc2IsOn]));
+	el = root.createNewChildElement("Osc1Amp");
+	el->addTextElement(String(UserParams[Osc1Amp]));
+	el = root.createNewChildElement("Osc2Amp");
+	el->addTextElement(String(UserParams[Osc2Amp]));
+	el = root.createNewChildElement("AmpEnvAttack");
+	el->addTextElement(String(UserParams[AmpEnvAttack]));
+	el = root.createNewChildElement("AmpEnvDecay");
+	el->addTextElement(String(UserParams[AmpEnvDecay]));
+	el = root.createNewChildElement("AmpEnvSustain");
+	el->addTextElement(String(UserParams[AmpEnvSustain]));
+	el = root.createNewChildElement("AmpEnvRelease");
+	el->addTextElement(String(UserParams[AmpEnvRelease]));
+	el = root.createNewChildElement("FilterType");
+	el->addTextElement(String(UserParams[FilterType]));
+	el = root.createNewChildElement("FilterCutoff");
+	el->addTextElement(String(UserParams[FilterCutoff]));
+	el = root.createNewChildElement("FilterRes");
+	el->addTextElement(String(UserParams[FilterRes]));
+	el = root.createNewChildElement("FilterEnvAmt");
+	el->addTextElement(String(UserParams[FilterEnvAmt]));
+	el = root.createNewChildElement("FilterEnvAttack");
+	el->addTextElement(String(UserParams[FilterEnvAttack]));
+	el = root.createNewChildElement("FilterEnvDecay");
+	el->addTextElement(String(UserParams[FilterEnvDecay]));
+	el = root.createNewChildElement("FilterEnvSustain");
+	el->addTextElement(String(UserParams[FilterEnvSustain]));
+	el = root.createNewChildElement("FilterEnvRelease");
+	el->addTextElement(String(UserParams[FilterEnvRelease]));
+	el = root.createNewChildElement("DelayMix");
+	el->addTextElement(String(UserParams[DelayMix]));
+	el = root.createNewChildElement("DelayFeedback");
+	el->addTextElement(String(UserParams[DelayFeedback]));
+	el = root.createNewChildElement("DelayLenRight");
+	el->addTextElement(String(UserParams[DelayLenRight]));
+	el = root.createNewChildElement("DelayLenLeft");
+	el->addTextElement(String(UserParams[DelayLenLeft]));
+	el = root.createNewChildElement("DelayIsOn");
+	el->addTextElement(String(UserParams[DelayIsOn]));
+	el = root.createNewChildElement("FlangerMix");
+	el->addTextElement(String(UserParams[FlangerMix]));
+	el = root.createNewChildElement("FlangerFeedback");
+	el->addTextElement(String(UserParams[FlangerFeedback]));
+	el = root.createNewChildElement("FlangerDelay");
+	el->addTextElement(String(UserParams[FlangerDelay]));
+	el = root.createNewChildElement("FlangerIsOn");
+	el->addTextElement(String(UserParams[FlangerIsOn]));
+	el = root.createNewChildElement("ChorusRate");
+	el->addTextElement(String(UserParams[ChorusRate]));
+	el = root.createNewChildElement("ChorusMix");
+	el->addTextElement(String(UserParams[ChorusMix]));
+	el = root.createNewChildElement("ChorusIsOn");
+	el->addTextElement(String(UserParams[ChorusIsOn]));
+	el = root.createNewChildElement("DistortionIsOn");
+	el->addTextElement(String(UserParams[DistortionIsOn]));
+	el = root.createNewChildElement("DistortionAmt");
+	el->addTextElement(String(UserParams[DistortionAmt]));
+	el = root.createNewChildElement("ReverbIsOn");
+	el->addTextElement(String(UserParams[ReverbIsOn]));
+	el = root.createNewChildElement("ReverbMix");
+	el->addTextElement(String(UserParams[ReverbMix]));
+	el = root.createNewChildElement("ReverbSize");
+	el->addTextElement(String(UserParams[ReverbSize]));
+	el = root.createNewChildElement("ReverbWidth");
+	el->addTextElement(String(UserParams[ReverbWidth]));
+	el = root.createNewChildElement("GlobalGain");
+	el->addTextElement(String(UserParams[GlobalGain]));
+	el = root.createNewChildElement("GlobalPan");
+	el->addTextElement(String(UserParams[GlobalPan]));
+	el = root.createNewChildElement("LFOAmount");
+	el->addTextElement(String(UserParams[LFOAmount]));
+	el = root.createNewChildElement("LFODestination");
+	el->addTextElement(String(UserParams[LFODestination]));
+	el = root.createNewChildElement("LFORate");
+	el->addTextElement(String(UserParams[LFORate]));
+	copyXmlToBinary(root, destData);
 }
 
-void AudeaAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
+void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+	//Load UserParams/Data from file
+	XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
+	if (pRoot != NULL)
+	{
+		forEachXmlChildElement((*pRoot), pChild)
+		{
+			if (pChild->hasTagName("MasterBypass"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(MasterBypass, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("OscVoices"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(OscVoices, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc1WaveForm"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc1WaveForm, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2WaveForm"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2WaveForm, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2Tune"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2Tune, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2IsOn"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2IsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc1Amp"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc1Amp, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("Osc2Amp"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(Osc2Amp, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("AmpEnvAttack"))
+			{
+				String text = pChild->getAllSubText();
+				setParameter(AmpEnvAttack, text.getFloatValue());
+			}
+		}
+		delete pRoot;
+		UIUpdateFlag = true;//Request UI update
+	}
 }
 
 //=====================HELPER METHODS===========================================
