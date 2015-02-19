@@ -461,7 +461,16 @@ void AudeaAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-	
+}
+
+void AudeaAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
+{
+	//Not implemented
+}
+
+//=====================HELPER METHODS===========================================
+void AudeaAudioProcessor::savePreset(File file)
+{
 	//Save UserParams/Data to file
 	XmlElement root("Root");
 	XmlElement *el;
@@ -551,13 +560,13 @@ void AudeaAudioProcessor::getStateInformation (MemoryBlock& destData)
 	el->addTextElement(String(UserParams[LFODestination]));
 	el = root.createNewChildElement("LFORate");
 	el->addTextElement(String(UserParams[LFORate]));
-	copyXmlToBinary(root, destData);
+	root.writeToFile(file,String(""));
 }
 
-void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void AudeaAudioProcessor::loadPreset(File file)
 {
 	//Load UserParams/Data from file
-	XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
+	XmlElement* pRoot = XmlDocument::parse(file);
 	if (pRoot != NULL)
 	{
 		forEachXmlChildElement((*pRoot), pChild)
@@ -740,7 +749,10 @@ void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 	}
 }
 
-//=====================HELPER METHODS===========================================
+
+
+
+
 void AudeaAudioProcessor::changeOscillatorWaveForm(int oscID, int wvForm)
 {
 	int numVoices = synth.getNumVoices();

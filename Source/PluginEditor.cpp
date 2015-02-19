@@ -538,6 +538,9 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
 
 void AudeaAudioProcessorEditor::resized()
 {
+    //[UserPreResize] Add your own custom resize code here..
+    //[/UserPreResize]
+
     ReverbGroup->setBounds (464, 448, 72, 232);
     ChorusGroup->setBounds (368, 448, 88, 232);
     DistortionGroup->setBounds (280, 448, 88, 232);
@@ -593,7 +596,8 @@ void AudeaAudioProcessorEditor::resized()
     ReverbWidthSlider->setBounds (480, 504, 39, 40);
     GlobalVolumeSlider->setBounds (84, 391, 104, 80);
     GlobalPanSlider->setBounds (617, 389, 104, 80);
-
+    SavePresetButton->setBounds (328, 384, 150, 24);
+    LoadPresetButton->setBounds (216, 344, 150, 24);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -717,11 +721,27 @@ void AudeaAudioProcessorEditor::buttonClicked (Button* buttonThatWasClicked)
     else if (buttonThatWasClicked == SavePresetButton)
     {
         //[UserButtonCode_SavePresetButton] -- add your button handler code here..
+		FileChooser myChooser("Please select the file...",
+				File::getSpecialLocation(File::userHomeDirectory),
+				"*.audea");
+		if (myChooser.browseForFileToOpen())
+		{
+			File file(myChooser.getResult());
+			ourProcessor->savePreset(file);
+		}
         //[/UserButtonCode_SavePresetButton]
     }
     else if (buttonThatWasClicked == LoadPresetButton)
     {
         //[UserButtonCode_LoadPresetButton] -- add your button handler code here..
+		FileChooser myChooser("Please select the preset you want to load...",
+			File::getSpecialLocation(File::userHomeDirectory),
+			"*.audea");
+		if (myChooser.browseForFileToOpen())
+		{
+			File file(myChooser.getResult());
+			ourProcessor->loadPreset(file);
+		}
         //[/UserButtonCode_LoadPresetButton]
     }
 
@@ -945,6 +965,7 @@ void AudeaAudioProcessorEditor::timerCallback()
 		DelayFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DelayFeedback));
 		DelayMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::DelayMix));
 		DelayRateRightBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::DelayLenRight), juce::dontSendNotification);
+		DelayIsOn->setToggleState(1.0f == ourProcessor->getParameter(AudeaAudioProcessor::DelayIsOn), juce::dontSendNotification);
 		DelayRateLeftBox->setSelectedId((int)ourProcessor->getParameter(AudeaAudioProcessor::DelayLenLeft), juce::dontSendNotification);
 		FlangerMixSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerMix));
 		FlangerFeedbackSlider->setValue(ourProcessor->getParameter(AudeaAudioProcessor::FlangerFeedback));
@@ -1210,10 +1231,10 @@ BEGIN_JUCER_METADATA
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TEXTBUTTON name="SavePresetButton" id="d275c33d0d3e1621" memberName="SavePresetButton"
-              virtualName="" explicitFocusOrder="0" pos="544 504 150 24" buttonText="Save Preset"
+              virtualName="" explicitFocusOrder="0" pos="328 384 150 24" buttonText="Save Preset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
   <TEXTBUTTON name="LoadPresetButton" id="9c176d2ed7323d52" memberName="LoadPresetButton"
-              virtualName="" explicitFocusOrder="0" pos="544 472 150 24" buttonText="Load Preset"
+              virtualName="" explicitFocusOrder="0" pos="216 344 150 24" buttonText="Load Preset"
               connectedEdges="0" needsCallback="1" radioGroupId="0"/>
 </JUCER_COMPONENT>
 
