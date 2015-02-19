@@ -35,7 +35,7 @@ public:
     void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor() override;
+    juce::AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
 
     //==============================================================================
@@ -169,6 +169,11 @@ public:
 	bool NeedsUIUpdate(){ return UIUpdateFlag; };
 	void RequestUIUpdate(){ UIUpdateFlag = true; };
 	void ClearUIUpdateFlag(){ UIUpdateFlag = false; };
+
+	void savePreset(File file);
+	void loadPreset(File file);
+
+
 	//this is kept up to date with the midid messages that arrice, and the UI component
 	//registers with it so ti can represent the incoming messages
 	MidiKeyboardState keyboardState;

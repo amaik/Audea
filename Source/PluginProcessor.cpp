@@ -461,7 +461,16 @@ void AudeaAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
-	
+}
+
+void AudeaAudioProcessor::setStateInformation (const void* /*data*/, int /*sizeInBytes*/)
+{
+	//Not implemented
+}
+
+//=====================HELPER METHODS===========================================
+void AudeaAudioProcessor::savePreset(File file)
+{
 	//Save UserParams/Data to file
 	XmlElement root("Root");
 	XmlElement *el;
@@ -551,61 +560,188 @@ void AudeaAudioProcessor::getStateInformation (MemoryBlock& destData)
 	el->addTextElement(String(UserParams[LFODestination]));
 	el = root.createNewChildElement("LFORate");
 	el->addTextElement(String(UserParams[LFORate]));
-	copyXmlToBinary(root, destData);
+	root.writeToFile(file,String(""));
 }
 
-void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void AudeaAudioProcessor::loadPreset(File file)
 {
 	//Load UserParams/Data from file
-	XmlElement* pRoot = getXmlFromBinary(data, sizeInBytes);
+	XmlElement* pRoot = XmlDocument::parse(file);
 	if (pRoot != NULL)
 	{
 		forEachXmlChildElement((*pRoot), pChild)
 		{
-			if (pChild->hasTagName("MasterBypass"))
-			{
+			if (pChild->hasTagName("MasterBypass")){
 				String text = pChild->getAllSubText();
 				setParameter(MasterBypass, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("OscVoices"))
-			{
+			else if (pChild->hasTagName("OscVoices")){
 				String text = pChild->getAllSubText();
 				setParameter(OscVoices, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc1WaveForm"))
-			{
+			else if (pChild->hasTagName("Osc1WaveForm")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc1WaveForm, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc2WaveForm"))
-			{
+			else if (pChild->hasTagName("Osc2WaveForm")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc2WaveForm, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc2Tune"))
-			{
+			else if (pChild->hasTagName("Osc2Tune")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc2Tune, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc2IsOn"))
-			{
+			else if (pChild->hasTagName("Osc2IsOn")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc2IsOn, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc1Amp"))
-			{
+			else if (pChild->hasTagName("Osc1Amp")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc1Amp, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("Osc2Amp"))
-			{
+			else if (pChild->hasTagName("Osc2Amp")){
 				String text = pChild->getAllSubText();
 				setParameter(Osc2Amp, text.getFloatValue());
 			}
-			else if (pChild->hasTagName("AmpEnvAttack"))
-			{
+			else if (pChild->hasTagName("AmpEnvAttack")){
 				String text = pChild->getAllSubText();
 				setParameter(AmpEnvAttack, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("AmpEnvDecay")){
+				String text = pChild->getAllSubText();
+				setParameter(AmpEnvDecay, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("AmpEnvSustain")){
+				String text = pChild->getAllSubText();
+				setParameter(AmpEnvSustain, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("AmpEnvRelease")){
+				String text = pChild->getAllSubText();
+				setParameter(AmpEnvRelease, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterType")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterType, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterCutoff")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterCutoff, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterRes")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterRes, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterEnvAmt")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterEnvAmt, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterEnvAttack")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterEnvAttack, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterEnvDecay")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterEnvDecay, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterEnvSustain")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterEnvSustain, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FilterEnvRelease")){
+				String text = pChild->getAllSubText();
+				setParameter(FilterEnvRelease, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DelayMix")){
+				String text = pChild->getAllSubText();
+				setParameter(DelayMix, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DelayFeedback")){
+				String text = pChild->getAllSubText();
+				setParameter(DelayFeedback, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DelayLenRight")){
+				String text = pChild->getAllSubText();
+				setParameter(DelayLenRight, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DelayLenLeft")){
+				String text = pChild->getAllSubText();
+				setParameter(DelayLenLeft, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DelayIsOn")){
+				String text = pChild->getAllSubText();
+				setParameter(DelayIsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FlangerMix")){
+				String text = pChild->getAllSubText();
+				setParameter(FlangerMix, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FlangerFeedback")){
+				String text = pChild->getAllSubText();
+				setParameter(FlangerFeedback, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FlangerDelay")){
+				String text = pChild->getAllSubText();
+				setParameter(FlangerDelay, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("FlangerIsOn")){
+				String text = pChild->getAllSubText();
+				setParameter(FlangerIsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ChorusRate")){
+				String text = pChild->getAllSubText();
+				setParameter(ChorusRate, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ChorusMix")){
+				String text = pChild->getAllSubText();
+				setParameter(ChorusMix, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ChorusIsOn")){
+				String text = pChild->getAllSubText();
+				setParameter(ChorusIsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DistortionIsOn")){
+				String text = pChild->getAllSubText();
+				setParameter(DistortionIsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("DistortionAmt")){
+				String text = pChild->getAllSubText();
+				setParameter(DistortionAmt, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ReverbIsOn")){
+				String text = pChild->getAllSubText();
+				setParameter(ReverbIsOn, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ReverbMix")){
+				String text = pChild->getAllSubText();
+				setParameter(ReverbMix, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ReverbSize")){
+				String text = pChild->getAllSubText();
+				setParameter(ReverbSize, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("ReverbWidth")){
+				String text = pChild->getAllSubText();
+				setParameter(ReverbWidth, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("GlobalGain")){
+				String text = pChild->getAllSubText();
+				setParameter(GlobalGain, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("GlobalPan")){
+				String text = pChild->getAllSubText();
+				setParameter(GlobalPan, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("LFOAmount")){
+				String text = pChild->getAllSubText();
+				setParameter(LFOAmount, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("LFODestination")){
+				String text = pChild->getAllSubText();
+				setParameter(LFODestination, text.getFloatValue());
+			}
+			else if (pChild->hasTagName("LFORate")){
+				String text = pChild->getAllSubText();
+				setParameter(LFORate, text.getFloatValue());
 			}
 		}
 		delete pRoot;
@@ -613,7 +749,10 @@ void AudeaAudioProcessor::setStateInformation (const void* data, int sizeInBytes
 	}
 }
 
-//=====================HELPER METHODS===========================================
+
+
+
+
 void AudeaAudioProcessor::changeOscillatorWaveForm(int oscID, int wvForm)
 {
 	int numVoices = synth.getNumVoices();
