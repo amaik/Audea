@@ -450,6 +450,11 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 	getProcessor()->RequestUIUpdate();//UI update must be done each time a new editor is constructed
 	startTimer(200);//starts timer with interval of 200ms
 	backGroundImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(backGroundImgPath);
+	lookAndFeel1 = new AudeaLookAndFeel1();
+	lookAndFeel2 = new AudeaLookAndFeel2();
+	LookAndFeel::setDefaultLookAndFeel(lookAndFeel2);
+	GlobalPanSlider->setLookAndFeel(lookAndFeel1);
+	GlobalVolumeSlider->setLookAndFeel(lookAndFeel1);
 
     //[/Constructor]
 }
@@ -546,9 +551,9 @@ void AudeaAudioProcessorEditor::resized()
     OscTwoBox->setBounds (87, 214, 56, 16);
     OscTwoIsOn->setBounds (80, 188, 24, 24);
     OscVoicesSlider->setBounds (98, 281, 64, 32);
-    OscTwoAmpSlider->setBounds (154, 208, 40, 24);
+    OscTwoAmpSlider->setBounds (165, 209, 40, 24);
     OscTwoTuneSlider->setBounds (187, 211, 63, 45);
-    OscOneAmpSlider->setBounds (158, 144, 40, 24);
+    OscOneAmpSlider->setBounds (166, 146, 40, 24);
     AmpEnvAttackSlider->setBounds (600, 120, 40, 120);
     AmpEnvDecaySlider->setBounds (632, 120, 40, 120);
     AmpEnvSustainSlider->setBounds (656, 120, 40, 120);
@@ -558,9 +563,9 @@ void AudeaAudioProcessorEditor::resized()
     FilterEnvSustainSlider->setBounds (320, 248, 40, 80);
     FilterEnvReleaseSlider->setBounds (344, 248, 40, 80);
     FilterTypeBox->setBounds (272, 96, 120, 16);
-    FilterCutoffSlider->setBounds (360, 189, 24, 24);
-    FilterResonanceSlider->setBounds (360, 156, 24, 24);
-    FilterEnvelopeSlider->setBounds (360, 125, 24, 24);
+    FilterCutoffSlider->setBounds (363, 190, 24, 24);
+    FilterResonanceSlider->setBounds (363, 159, 24, 24);
+    FilterEnvelopeSlider->setBounds (363, 128, 24, 24);
     ReverbMixSlider->setBounds (480, 528, 39, 40);
     ReverbSizeSlider->setBounds (488, 480, 39, 40);
     ReverbMixLabel->setBounds (480, 520, 40, 24);
@@ -581,19 +586,20 @@ void AudeaAudioProcessorEditor::resized()
     DistortionAmountLabel->setBounds (288, 464, 72, 24);
     FlangerMixLabel->setBounds (216, 520, 40, 24);
     FlangerMixSlider->setBounds (224, 528, 39, 40);
-    DelayMixSlider->setBounds (446, 298, 24, 24);
-    DelayFeedbackSlider->setBounds (525, 298, 24, 24);
+    DelayMixSlider->setBounds (450, 301, 24, 24);
+    DelayFeedbackSlider->setBounds (528, 300, 24, 24);
     DelayRateLeftBox->setBounds (440, 232, 104, 16);
     DelayRateRightBox->setBounds (440, 267, 104, 16);
     DelayIsOn->setBounds (520, 184, 24, 24);
     LFODestinationBox->setBounds (439, 116, 104, 16);
-    LFOAmountSlider->setBounds (460, 146, 24, 24);
+    LFOAmountSlider->setBounds (465, 150, 24, 24);
     LFORateBox->setBounds (518, 148, 48, 16);
     ReverbWidthLabel->setBounds (480, 504, 40, 24);
     ReverbWidthSlider->setBounds (480, 504, 39, 40);
-    GlobalVolumeSlider->setBounds (84, 391, 104, 80);
-    GlobalPanSlider->setBounds (617, 389, 104, 80);
-
+    GlobalVolumeSlider->setBounds (94, 389, 104, 92);
+    GlobalPanSlider->setBounds (626, 389, 104, 97);
+    SavePresetButton->setBounds (544, 504, 150, 24);
+    LoadPresetButton->setBounds (544, 472, 150, 24);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -1016,7 +1022,7 @@ BEGIN_JUCER_METADATA
           max="14" int="1" style="IncDecButtons" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoAmpSlider" id="518b8887fab7548c" memberName="OscTwoAmpSlider"
-          virtualName="" explicitFocusOrder="0" pos="154 208 40 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="165 209 40 24" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="20" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoTuneSlider" id="ac82cf89dc2fc12c" memberName="OscTwoTuneSlider"
@@ -1024,7 +1030,7 @@ BEGIN_JUCER_METADATA
           max="24" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="28" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscOneAmpSlider" id="a081a349e74fa1fb" memberName="OscOneAmpSlider"
-          virtualName="" explicitFocusOrder="0" pos="158 144 40 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="166 146 40 24" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="AmpEnvAttackSlider" id="4f8a01927368655c" memberName="AmpEnvAttackSlider"
@@ -1064,15 +1070,15 @@ BEGIN_JUCER_METADATA
             layout="33" items="Lowpass&#10;Bandpass&#10;Highpass&#10;BandReject&#10;Allpass"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="FilterCutoffSlider" id="290abad0411db05d" memberName="FilterCutoffSlider"
-          virtualName="" explicitFocusOrder="0" pos="360 189 24 24" min="40"
+          virtualName="" explicitFocusOrder="0" pos="363 190 24 24" min="40"
           max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
-          virtualName="" explicitFocusOrder="0" pos="360 156 24 24" min="0.5"
+          virtualName="" explicitFocusOrder="0" pos="363 159 24 24" min="0.5"
           max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
-          virtualName="" explicitFocusOrder="0" pos="360 125 24 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="363 128 24 24" min="0"
           max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
@@ -1161,11 +1167,11 @@ BEGIN_JUCER_METADATA
           max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="446 298 24 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="450 301 24 24" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayFeedbackSlider" id="f08fbb5aea530b08" memberName="DelayFeedbackSlider"
-          virtualName="" explicitFocusOrder="0" pos="525 298 24 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="528 300 24 24" min="0"
           max="0.98999999999999999" int="0.01" style="RotaryVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
@@ -1185,7 +1191,7 @@ BEGIN_JUCER_METADATA
             layout="33" items="None&#10;FilterCutoff&#10;Volume&#10;Pan"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="LFOAmountSlider" id="5f882442e23151cd" memberName="LFOAmountSlider"
-          virtualName="" explicitFocusOrder="0" pos="460 146 24 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="465 150 24 24" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="LFORateBox" id="a255da4f656aae8d" memberName="LFORateBox"
@@ -1202,11 +1208,11 @@ BEGIN_JUCER_METADATA
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
-          virtualName="" explicitFocusOrder="0" pos="84 391 104 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="94 389 104 92" min="0"
           max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
-          virtualName="" explicitFocusOrder="0" pos="617 389 104 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="626 389 104 97" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TEXTBUTTON name="SavePresetButton" id="d275c33d0d3e1621" memberName="SavePresetButton"

@@ -10,19 +10,14 @@
 
 #include "../JuceLibraryCode/JuceHeader.h";
 
-#ifndef AUDEALOOKANDFEEL_H_INCLUDED
-#define AUDEALOOKANDFEEL_H_INCLUDED
+#ifndef AUDEALOOKANDFEEL1_H_INCLUDED
+#define AUDEALOOKANDFEEL1_H_INCLUDED
 
-class AudeaLookAndFeel : public LookAndFeel_V3{
+class AudeaLookAndFeel1 : public LookAndFeel_V3{
 
 public:
-	AudeaLookAndFeel()
-	{
-		//rotarySliderImage = ;
-	}
-	;
-	~AudeaLookAndFeel();
-
+	AudeaLookAndFeel1();
+	~AudeaLookAndFeel1();
 
 	void drawRotarySlider(Graphics& g,
 							int x,
@@ -35,8 +30,12 @@ public:
 							Slider& slider);
 
 private:
-	Image rotarySliderImage;
-	File sliderImageFile;
+	//Location of the DLL
+	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
+	//Constants
+	String BigSliderImgPath = "Resources/SliderBig.png";
+	File BigSliderImgFile;
+	Image BigSliderImg;
 
 
 };

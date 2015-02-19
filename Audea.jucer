@@ -13,10 +13,14 @@
   <MAINGROUP id="MeAM4n" name="Audea">
     <GROUP id="{E58AD537-E8AB-25A0-FDFB-70B3795549EF}" name="Source">
       <GROUP id="{996E7D08-4AA2-25FA-5ED1-92FB63BC8279}" name="Gui">
-        <FILE id="ZSeeyk" name="AudeaLookAndFeel.cpp" compile="1" resource="0"
-              file="Source/AudeaLookAndFeel.cpp"/>
-        <FILE id="XRRUtg" name="AudeaLookAndFeel.h" compile="0" resource="0"
-              file="Source/AudeaLookAndFeel.h"/>
+        <FILE id="Py7p2y" name="AudeaLookAndFeel2.cpp" compile="1" resource="0"
+              file="Source/AudeaLookAndFeel2.cpp"/>
+        <FILE id="lljv7U" name="AudeaLookAndFeel2.h" compile="0" resource="0"
+              file="Source/AudeaLookAndFeel2.h"/>
+        <FILE id="ZSeeyk" name="AudeaLookAndFeel1.cpp" compile="1" resource="0"
+              file="Source/AudeaLookAndFeel1.cpp"/>
+        <FILE id="XRRUtg" name="AudeaLookAndFeel1.h" compile="0" resource="0"
+              file="Source/AudeaLookAndFeel1.h"/>
       </GROUP>
       <GROUP id="{0DF08EAD-4D98-8BA2-A784-A19D9109C666}" name="Helpers">
         <FILE id="ajlEx9" name="EffectLFO.cpp" compile="1" resource="0" file="Source/EffectLFO.cpp"/>

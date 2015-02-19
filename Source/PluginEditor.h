@@ -23,7 +23,8 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "PluginProcessor.h"
-#include <TCHAR.H>
+#include "AudeaLookAndFeel1.h"
+#include "AudeaLookAndFeel2.h"
 //[/Headers]
 
 
@@ -68,6 +69,8 @@ private:
     //[UserVariables]   -- You can add your own custom variables in this section.
 	MidiKeyboardComponent midiKeyboard;
 
+	AudeaLookAndFeel1* lookAndFeel1;
+	AudeaLookAndFeel2* lookAndFeel2;
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
 	//Constants
