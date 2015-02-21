@@ -46,10 +46,13 @@ private:
 	//Constants
 	String SmallSliderImgPath = "Resources/SliderSmall.png";
 	String SliderBarImgPath = "Resources/VertSlider.png";
+	String HorizontalSliderTenHunImgPath = "Resources/HorizontalSliderTenHun.png";
 	File SmallSliderImgFile;
 	File SliderBarImgFile;
+	File HorizontalSliderTenHunImgFile;
 	Image SliderBarImg;
 	Image SmallSliderImg;
+	Image HorizontalSliderTenHunImg;
 
 
 };

@@ -455,6 +455,11 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 	LookAndFeel::setDefaultLookAndFeel(lookAndFeel2);
 	GlobalPanSlider->setLookAndFeel(lookAndFeel1);
 	GlobalVolumeSlider->setLookAndFeel(lookAndFeel1);
+	FilterEnvAttackSlider->setLookAndFeel(lookAndFeel1);
+	FilterEnvDecaySlider->setLookAndFeel(lookAndFeel1);
+	FilterEnvSustainSlider->setLookAndFeel(lookAndFeel1);
+	FilterEnvReleaseSlider->setLookAndFeel(lookAndFeel1);
+	FlangerDelaySlider->setLookAndFeel(lookAndFeel1);
 
     //[/Constructor]
 }
@@ -543,9 +548,6 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
 
 void AudeaAudioProcessorEditor::resized()
 {
-    //[UserPreResize] Add your own custom resize code here..
-    //[/UserPreResize]
-
     ReverbGroup->setBounds (464, 448, 72, 232);
     ChorusGroup->setBounds (368, 448, 88, 232);
     DistortionGroup->setBounds (280, 448, 88, 232);
@@ -554,41 +556,41 @@ void AudeaAudioProcessorEditor::resized()
     OscTwoBox->setBounds (87, 214, 56, 16);
     OscTwoIsOn->setBounds (80, 188, 24, 24);
     OscVoicesSlider->setBounds (98, 281, 64, 32);
-    OscTwoAmpSlider->setBounds (165, 209, 40, 24);
-    OscTwoTuneSlider->setBounds (187, 211, 63, 45);
+    OscTwoAmpSlider->setBounds (165, 208, 40, 24);
+    OscTwoTuneSlider->setBounds (214, 212, 26, 51);
     OscOneAmpSlider->setBounds (166, 146, 40, 24);
-    AmpEnvAttackSlider->setBounds (600, 120, 40, 120);
-    AmpEnvDecaySlider->setBounds (632, 120, 40, 120);
-    AmpEnvSustainSlider->setBounds (656, 120, 40, 120);
-    AmpEnvReleaseSlider->setBounds (680, 120, 40, 120);
-    FilterEnvAttackSlider->setBounds (272, 248, 40, 80);
-    FilterEnvDecaySlider->setBounds (296, 248, 40, 80);
-    FilterEnvSustainSlider->setBounds (320, 248, 40, 80);
-    FilterEnvReleaseSlider->setBounds (344, 248, 40, 80);
+    AmpEnvAttackSlider->setBounds (598, 103, 40, 144);
+    AmpEnvDecaySlider->setBounds (624, 103, 40, 144);
+    AmpEnvSustainSlider->setBounds (650, 103, 40, 144);
+    AmpEnvReleaseSlider->setBounds (675, 103, 40, 144);
+    FilterEnvAttackSlider->setBounds (265, 228, 33, 97);
+    FilterEnvDecaySlider->setBounds (291, 228, 40, 97);
+    FilterEnvSustainSlider->setBounds (316, 228, 40, 97);
+    FilterEnvReleaseSlider->setBounds (341, 228, 40, 97);
     FilterTypeBox->setBounds (272, 96, 120, 16);
     FilterCutoffSlider->setBounds (363, 190, 24, 24);
     FilterResonanceSlider->setBounds (363, 159, 24, 24);
     FilterEnvelopeSlider->setBounds (363, 128, 24, 24);
-    ReverbMixSlider->setBounds (480, 528, 39, 40);
-    ReverbSizeSlider->setBounds (488, 480, 39, 40);
+    ReverbMixSlider->setBounds (480, 528, 168, 40);
+    ReverbSizeSlider->setBounds (488, 480, 136, 40);
     ReverbMixLabel->setBounds (480, 520, 40, 24);
-    ReverbSizeLabel->setBounds (480, 472, 40, 24);
+    ReverbSizeLabel->setBounds (480, 464, 40, 24);
     ChorusMixLabel->setBounds (392, 512, 40, 24);
-    ChorusRateSlider->setBounds (392, 480, 39, 40);
-    ChorusMixSlider->setBounds (392, 520, 39, 40);
+    ChorusRateSlider->setBounds (392, 480, 152, 40);
+    ChorusMixSlider->setBounds (392, 520, 168, 40);
     ChorusRateLabel->setBounds (392, 472, 40, 24);
-    FlangerFeedbackSlider->setBounds (208, 472, 39, 40);
+    FlangerFeedbackSlider->setBounds (208, 472, 160, 40);
     FlangerDelayLabel->setBounds (208, 496, 48, 24);
-    FlangerFeedbackLabel->setBounds (216, 456, 32, 32);
-    FlangerDelaySlider->setBounds (216, 496, 39, 40);
+    FlangerFeedbackLabel->setBounds (216, 448, 32, 32);
+    FlangerDelaySlider->setBounds (208, 504, 160, 32);
     FlangerIsOn->setBounds (256, 440, 24, 24);
     ChorusIsOn->setBounds (432, 448, 24, 24);
     ReverbIsOn->setBounds (520, 448, 24, 24);
-    DistortionAmountSlider->setBounds (304, 480, 39, 40);
+    DistortionAmountSlider->setBounds (304, 480, 144, 40);
     DistortionIsOn->setBounds (344, 440, 24, 24);
     DistortionAmountLabel->setBounds (288, 464, 72, 24);
     FlangerMixLabel->setBounds (216, 520, 40, 24);
-    FlangerMixSlider->setBounds (224, 528, 39, 40);
+    FlangerMixSlider->setBounds (224, 528, 144, 40);
     DelayMixSlider->setBounds (450, 301, 24, 24);
     DelayFeedbackSlider->setBounds (528, 300, 24, 24);
     DelayRateLeftBox->setBounds (440, 232, 104, 16);
@@ -598,11 +600,11 @@ void AudeaAudioProcessorEditor::resized()
     LFOAmountSlider->setBounds (465, 150, 24, 24);
     LFORateBox->setBounds (518, 148, 48, 16);
     ReverbWidthLabel->setBounds (480, 504, 40, 24);
-    ReverbWidthSlider->setBounds (480, 504, 39, 40);
-	GlobalVolumeSlider->setBounds (94, 389, 104, 92);
+    ReverbWidthSlider->setBounds (480, 504, 144, 40);
+    GlobalVolumeSlider->setBounds (94, 389, 104, 92);
     GlobalPanSlider->setBounds (626, 389, 104, 97);
-    SavePresetButton->setBounds (544, 504, 150, 24);
-    LoadPresetButton->setBounds (544, 472, 150, 24);
+    SavePresetButton->setBounds (328, 384, 150, 24);
+    LoadPresetButton->setBounds (216, 344, 150, 24);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -1042,11 +1044,11 @@ BEGIN_JUCER_METADATA
           max="14" int="1" style="IncDecButtons" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoAmpSlider" id="518b8887fab7548c" memberName="OscTwoAmpSlider"
-          virtualName="" explicitFocusOrder="0" pos="165 209 40 24" min="0"
+          virtualName="" explicitFocusOrder="0" pos="165 208 40 24" min="0"
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="20" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoTuneSlider" id="ac82cf89dc2fc12c" memberName="OscTwoTuneSlider"
-          virtualName="" explicitFocusOrder="0" pos="187 211 63 45" min="-24"
+          virtualName="" explicitFocusOrder="0" pos="214 212 26 51" min="-24"
           max="24" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="28" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscOneAmpSlider" id="a081a349e74fa1fb" memberName="OscOneAmpSlider"
@@ -1054,35 +1056,35 @@ BEGIN_JUCER_METADATA
           max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="AmpEnvAttackSlider" id="4f8a01927368655c" memberName="AmpEnvAttackSlider"
-          virtualName="" explicitFocusOrder="0" pos="600 120 40 120" min="0"
+          virtualName="" explicitFocusOrder="0" pos="598 103 40 144" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.69999999999999996"/>
   <SLIDER name="AmpEnvDecaySlider" id="876fe0c32f235f00" memberName="AmpEnvDecaySlider"
-          virtualName="" explicitFocusOrder="0" pos="632 120 40 120" min="0"
+          virtualName="" explicitFocusOrder="0" pos="624 103 40 144" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.69999999999999996"/>
   <SLIDER name="AmpEnvSustainSlider" id="bc13734e5ac8dc58" memberName="AmpEnvSustainSlider"
-          virtualName="" explicitFocusOrder="0" pos="656 120 40 120" min="0"
+          virtualName="" explicitFocusOrder="0" pos="650 103 40 144" min="0"
           max="1" int="0.01" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="AmpEnvReleaseSlider" id="3147e31e839bd086" memberName="AmpEnvReleaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="680 120 40 120" min="0"
+          virtualName="" explicitFocusOrder="0" pos="675 103 40 144" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.69999999999999996"/>
   <SLIDER name="FilterEnvAttackSlider" id="17c6e681fdd783f7" memberName="FilterEnvAttackSlider"
-          virtualName="" explicitFocusOrder="0" pos="272 248 40 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="265 228 33 97" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.59999999999999998"/>
   <SLIDER name="FilterEnvDecaySlider" id="4073d86d63ba585" memberName="FilterEnvDecaySlider"
-          virtualName="" explicitFocusOrder="0" pos="296 248 40 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="291 228 40 97" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.59999999999999998"/>
   <SLIDER name="FilterEnvSustainSlider" id="c9aba9c92603734c" memberName="FilterEnvSustainSlider"
-          virtualName="" explicitFocusOrder="0" pos="320 248 40 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="316 228 40 97" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvReleaseSlider" id="9eea865174507345" memberName="FilterEnvReleaseSlider"
-          virtualName="" explicitFocusOrder="0" pos="344 248 40 80" min="0"
+          virtualName="" explicitFocusOrder="0" pos="341 228 40 97" min="0"
           max="5000" int="1" style="LinearVertical" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.59999999999999998"/>
   <COMBOBOX name="FilterTypeBox" id="8076a0c91218e0e3" memberName="FilterTypeBox"
@@ -1102,11 +1104,11 @@ BEGIN_JUCER_METADATA
           max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="480 528 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="480 528 168 40" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
-          virtualName="" explicitFocusOrder="0" pos="488 480 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="488 480 136 40" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
@@ -1115,7 +1117,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
-         virtualName="" explicitFocusOrder="0" pos="480 472 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="480 464 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Size" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
@@ -1125,11 +1127,11 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
-          virtualName="" explicitFocusOrder="0" pos="392 480 39 40" min="1.25"
+          virtualName="" explicitFocusOrder="0" pos="392 480 152 40" min="1.25"
           max="25" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ChorusMixSlider" id="e459f174052e0ff2" memberName="ChorusMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="392 520 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="392 520 168 40" min="0"
           max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
@@ -1138,7 +1140,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
-          virtualName="" explicitFocusOrder="0" pos="208 472 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="208 472 160 40" min="0"
           max="0.98999999999999999" int="0.01" style="LinearHorizontal"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
@@ -1148,12 +1150,12 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <LABEL name="FlangerFeedbackLabel" id="fdc662dd4cb4641" memberName="FlangerFeedbackLabel"
-         virtualName="" explicitFocusOrder="0" pos="216 456 32 32" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="216 448 32 32" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="FB" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
-          virtualName="" explicitFocusOrder="0" pos="216 496 39 40" min="1"
+          virtualName="" explicitFocusOrder="0" pos="208 504 160 32" min="1"
           max="10" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
@@ -1166,7 +1168,7 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="520 448 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
-          virtualName="" explicitFocusOrder="0" pos="304 480 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="304 480 144 40" min="0"
           max="99" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="DistortionIsOn" id="6cc597398b435cf2" memberName="DistortionIsOn"
@@ -1183,7 +1185,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="224 528 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="224 528 144 40" min="0"
           max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
@@ -1224,7 +1226,7 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
-          virtualName="" explicitFocusOrder="0" pos="480 504 39 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="480 504 144 40" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"

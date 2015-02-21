@@ -14,8 +14,10 @@ AudeaLookAndFeel2::AudeaLookAndFeel2()
 {
 	SmallSliderImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(SmallSliderImgPath);
 	SliderBarImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(SliderBarImgPath);
+	HorizontalSliderTenHunImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(HorizontalSliderTenHunImgPath);
 	SmallSliderImg = ImageFileFormat::loadFrom(SmallSliderImgFile);
 	SliderBarImg = ImageFileFormat::loadFrom(SliderBarImgFile);
+	HorizontalSliderTenHunImg = ImageFileFormat::loadFrom(HorizontalSliderTenHunImgFile);
 
 };
 
@@ -31,7 +33,15 @@ void AudeaLookAndFeel2::drawRotarySlider(Graphics& g, int x, int y, int width, i
 	g.drawImageTransformed(SmallSliderImg, rotator.rotated((float)sliderPosProportional*(rotaryEndAngle / 2), (float)(SmallSliderImg.getWidth() / 2), (float)(SmallSliderImg.getHeight() / 2)), false);
 };
 
-void AudeaLookAndFeel2::drawLinearSlider(Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle, Slider& slider)
-{
-	g.drawImageAt(SliderBarImg, x, y);
+void AudeaLookAndFeel2::drawLinearSlider(Graphics& g, int x, int y, int width, int height, float sliderPos, float minSliderPos, float maxSliderPos, const Slider::SliderStyle style, Slider& slider)
+{	
+	if (style == Slider::LinearVertical)
+	{
+		g.drawImageAt(SliderBarImg, x, y);
+	}
+	else
+	{
+		g.drawImageAt(HorizontalSliderTenHunImg, x, y);
+	}
+	;
 };

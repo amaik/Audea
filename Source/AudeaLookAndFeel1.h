@@ -29,13 +29,31 @@ public:
 							float rotaryEndAngle,
 							Slider& slider);
 
+
+	void drawLinearSlider(Graphics &,
+		int x,
+		int y,
+		int width,
+		int height,
+		float sliderPos,
+		float minSliderPos,
+		float maxSliderPos,
+		const Slider::SliderStyle,
+		Slider &);
+
 private:
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
 	//Constants
 	String BigSliderImgPath = "Resources/SliderBig.png";
+	String HorizontalSliderOneTenImgPath = "Resources/HorizontalSliderOneTen.png";
+	String SmallVertSliderImgPath = "Resources/VertSliderSmall.png";
 	File BigSliderImgFile;
+	File HorizontalSliderOneTenImgFile;
+	File SmallVertSliderImgFile;
 	Image BigSliderImg;
+	Image HorizontalSliderOneTenImg;
+	Image SmallVertSliderImg;
 
 
 };
