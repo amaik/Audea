@@ -31,24 +31,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     : AudioProcessorEditor(ownerFilter),
       midiKeyboard(ownerFilter->keyboardState,MidiKeyboardComponent::horizontalKeyboard)
 {
-    addAndMakeVisible (ReverbMixSlider = new Slider ("ReverbMixSlider"));
-    ReverbMixSlider->setRange (0, 1, 0.01);
-    ReverbMixSlider->setSliderStyle (Slider::LinearHorizontal);
-    ReverbMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ReverbMixSlider->addListener (this);
-
-    addAndMakeVisible (ChorusMixSlider = new Slider ("ChorusMixSlider"));
-    ChorusMixSlider->setRange (0, 0.5, 0.01);
-    ChorusMixSlider->setSliderStyle (Slider::LinearHorizontal);
-    ChorusMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ChorusMixSlider->addListener (this);
-
-    addAndMakeVisible (DistortionAmountSlider = new Slider ("DistortionAmountSlider"));
-    DistortionAmountSlider->setRange (0, 99, 0.1);
-    DistortionAmountSlider->setSliderStyle (Slider::LinearHorizontal);
-    DistortionAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    DistortionAmountSlider->addListener (this);
-
     addAndMakeVisible (FlangerMixLabel = new Label ("FlangerMixLabel",
                                                     TRANS("Mix")));
     FlangerMixLabel->setFont (Font (15.00f, Font::bold));
@@ -58,44 +40,41 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FlangerMixLabel->setColour (TextEditor::textColourId, Colours::black);
     FlangerMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (ReverbMixLabel = new Label ("ReverbMixLabel",
+    addAndMakeVisible (FlangerDelayLabel = new Label ("FlangerDelayLabel",
+                                                      TRANS("Delay")));
+    FlangerDelayLabel->setFont (Font (15.00f, Font::bold));
+    FlangerDelayLabel->setJustificationType (Justification::centredLeft);
+    FlangerDelayLabel->setEditable (false, false, false);
+    FlangerDelayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    FlangerDelayLabel->setColour (TextEditor::textColourId, Colours::black);
+    FlangerDelayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (ChorusMixLabel = new Label ("ChorusMixLabel",
                                                    TRANS("Mix")));
-    ReverbMixLabel->setFont (Font (15.00f, Font::bold));
-    ReverbMixLabel->setJustificationType (Justification::centredLeft);
-    ReverbMixLabel->setEditable (false, false, false);
-    ReverbMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    ReverbMixLabel->setColour (TextEditor::textColourId, Colours::black);
-    ReverbMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    ChorusMixLabel->setFont (Font (15.00f, Font::bold));
+    ChorusMixLabel->setJustificationType (Justification::centredLeft);
+    ChorusMixLabel->setEditable (false, false, false);
+    ChorusMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ChorusMixLabel->setColour (TextEditor::textColourId, Colours::black);
+    ChorusMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (ReverbWidthSlider = new Slider ("ReverbWidthSlider"));
-    ReverbWidthSlider->setRange (0, 1, 0.01);
-    ReverbWidthSlider->setSliderStyle (Slider::LinearHorizontal);
-    ReverbWidthSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ReverbWidthSlider->addListener (this);
+    addAndMakeVisible (ReverbWidthLabel = new Label ("ReverbWidthLabel",
+                                                     TRANS("Width")));
+    ReverbWidthLabel->setFont (Font (15.00f, Font::bold));
+    ReverbWidthLabel->setJustificationType (Justification::centredLeft);
+    ReverbWidthLabel->setEditable (false, false, false);
+    ReverbWidthLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ReverbWidthLabel->setColour (TextEditor::textColourId, Colours::black);
+    ReverbWidthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (FlangerMixSlider = new Slider ("FlangerMixSlider"));
-    FlangerMixSlider->setRange (0, 0.5, 0.01);
-    FlangerMixSlider->setSliderStyle (Slider::LinearHorizontal);
-    FlangerMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    FlangerMixSlider->addListener (this);
-
-    addAndMakeVisible (ChorusRateSlider = new Slider ("ChorusRateSlider"));
-    ChorusRateSlider->setRange (1.25, 25, 0.1);
-    ChorusRateSlider->setSliderStyle (Slider::LinearHorizontal);
-    ChorusRateSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ChorusRateSlider->addListener (this);
-
-    addAndMakeVisible (FlangerDelaySlider = new Slider ("FlangerDelaySlider"));
-    FlangerDelaySlider->setRange (1, 10, 0.1);
-    FlangerDelaySlider->setSliderStyle (Slider::LinearHorizontal);
-    FlangerDelaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    FlangerDelaySlider->addListener (this);
-
-    addAndMakeVisible (ReverbSizeSlider = new Slider ("ReverbSizeSlider"));
-    ReverbSizeSlider->setRange (0, 1, 0.01);
-    ReverbSizeSlider->setSliderStyle (Slider::LinearHorizontal);
-    ReverbSizeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    ReverbSizeSlider->addListener (this);
+    addAndMakeVisible (FlangerFeedbackLabel = new Label ("FlangerFeedbackLabel",
+                                                         TRANS("FB")));
+    FlangerFeedbackLabel->setFont (Font (15.00f, Font::bold));
+    FlangerFeedbackLabel->setJustificationType (Justification::centredLeft);
+    FlangerFeedbackLabel->setEditable (false, false, false);
+    FlangerFeedbackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    FlangerFeedbackLabel->setColour (TextEditor::textColourId, Colours::black);
+    FlangerFeedbackLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (ChorusRateLabel = new Label ("ChorusRateLabel",
                                                     TRANS("Rate")));
@@ -106,20 +85,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ChorusRateLabel->setColour (TextEditor::textColourId, Colours::black);
     ChorusRateLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
-    addAndMakeVisible (FlangerFeedbackSlider = new Slider ("FlangerFeedbackSlider"));
-    FlangerFeedbackSlider->setRange (0, 0.99, 0.01);
-    FlangerFeedbackSlider->setSliderStyle (Slider::LinearHorizontal);
-    FlangerFeedbackSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
-    FlangerFeedbackSlider->addListener (this);
-
-    addAndMakeVisible (FlangerDelayLabel = new Label ("FlangerDelayLabel",
-                                                      TRANS("Delay")));
-    FlangerDelayLabel->setFont (Font (15.00f, Font::bold));
-    FlangerDelayLabel->setJustificationType (Justification::centredLeft);
-    FlangerDelayLabel->setEditable (false, false, false);
-    FlangerDelayLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    FlangerDelayLabel->setColour (TextEditor::textColourId, Colours::black);
-    FlangerDelayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    addAndMakeVisible (DistortionLabel = new Label ("DistortionLabel",
+                                                    TRANS("Distortion")));
+    DistortionLabel->setFont (Font (15.00f, Font::plain));
+    DistortionLabel->setJustificationType (Justification::centredLeft);
+    DistortionLabel->setEditable (false, false, false);
+    DistortionLabel->setColour (TextEditor::textColourId, Colours::black);
+    DistortionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (FlangerLabel = new Label ("FlangerLabel",
                                                  TRANS("Flanger")));
@@ -137,6 +109,48 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ChorusLabel->setColour (TextEditor::textColourId, Colours::black);
     ChorusLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
+    addAndMakeVisible (FlangerFeedbackSlider = new Slider ("FlangerFeedbackSlider"));
+    FlangerFeedbackSlider->setRange (0, 0.99, 0.01);
+    FlangerFeedbackSlider->setSliderStyle (Slider::LinearHorizontal);
+    FlangerFeedbackSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FlangerFeedbackSlider->addListener (this);
+
+    addAndMakeVisible (FlangerDelaySlider = new Slider ("FlangerDelaySlider"));
+    FlangerDelaySlider->setRange (1, 10, 0.1);
+    FlangerDelaySlider->setSliderStyle (Slider::LinearHorizontal);
+    FlangerDelaySlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FlangerDelaySlider->addListener (this);
+
+    addAndMakeVisible (FlangerMixSlider = new Slider ("FlangerMixSlider"));
+    FlangerMixSlider->setRange (0, 0.5, 0.01);
+    FlangerMixSlider->setSliderStyle (Slider::LinearHorizontal);
+    FlangerMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    FlangerMixSlider->addListener (this);
+
+    addAndMakeVisible (ReverbMixSlider = new Slider ("ReverbMixSlider"));
+    ReverbMixSlider->setRange (0, 1, 0.01);
+    ReverbMixSlider->setSliderStyle (Slider::LinearHorizontal);
+    ReverbMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ReverbMixSlider->addListener (this);
+
+    addAndMakeVisible (DistortionAmountSlider = new Slider ("DistortionAmountSlider"));
+    DistortionAmountSlider->setRange (0, 99, 0.1);
+    DistortionAmountSlider->setSliderStyle (Slider::LinearHorizontal);
+    DistortionAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    DistortionAmountSlider->addListener (this);
+
+    addAndMakeVisible (ChorusRateSlider = new Slider ("ChorusRateSlider"));
+    ChorusRateSlider->setRange (1.25, 25, 0.1);
+    ChorusRateSlider->setSliderStyle (Slider::LinearHorizontal);
+    ChorusRateSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ChorusRateSlider->addListener (this);
+
+    addAndMakeVisible (ChorusMixSlider = new Slider ("ChorusMixSlider"));
+    ChorusMixSlider->setRange (0, 0.5, 0.01);
+    ChorusMixSlider->setSliderStyle (Slider::LinearHorizontal);
+    ChorusMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ChorusMixSlider->addListener (this);
+
     addAndMakeVisible (ReverbLabel = new Label ("ReverbLabel",
                                                 TRANS("Reverb")));
     ReverbLabel->setFont (Font (15.00f, Font::plain));
@@ -144,23 +158,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     ReverbLabel->setEditable (false, false, false);
     ReverbLabel->setColour (TextEditor::textColourId, Colours::black);
     ReverbLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (DistortionLabel = new Label ("DistortionLabel",
-                                                    TRANS("Distortion")));
-    DistortionLabel->setFont (Font (15.00f, Font::plain));
-    DistortionLabel->setJustificationType (Justification::centredLeft);
-    DistortionLabel->setEditable (false, false, false);
-    DistortionLabel->setColour (TextEditor::textColourId, Colours::black);
-    DistortionLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (FlangerFeedbackLabel = new Label ("FlangerFeedbackLabel",
-                                                         TRANS("FB")));
-    FlangerFeedbackLabel->setFont (Font (15.00f, Font::bold));
-    FlangerFeedbackLabel->setJustificationType (Justification::centredLeft);
-    FlangerFeedbackLabel->setEditable (false, false, false);
-    FlangerFeedbackLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    FlangerFeedbackLabel->setColour (TextEditor::textColourId, Colours::black);
-    FlangerFeedbackLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (DistortionAmountLabel = new Label ("DistortionAmountLabel",
                                                           TRANS("Amount\n")));
@@ -170,6 +167,36 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     DistortionAmountLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
     DistortionAmountLabel->setColour (TextEditor::textColourId, Colours::black);
     DistortionAmountLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (ReverbWidthSlider = new Slider ("ReverbWidthSlider"));
+    ReverbWidthSlider->setRange (0, 1, 0.01);
+    ReverbWidthSlider->setSliderStyle (Slider::LinearHorizontal);
+    ReverbWidthSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ReverbWidthSlider->addListener (this);
+
+    addAndMakeVisible (ReverbSizeSlider = new Slider ("ReverbSizeSlider"));
+    ReverbSizeSlider->setRange (0, 1, 0.01);
+    ReverbSizeSlider->setSliderStyle (Slider::LinearHorizontal);
+    ReverbSizeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
+    ReverbSizeSlider->addListener (this);
+
+    addAndMakeVisible (ReverbSizeLabel = new Label ("ReverbSizeLabel",
+                                                    TRANS("Size")));
+    ReverbSizeLabel->setFont (Font (15.00f, Font::bold));
+    ReverbSizeLabel->setJustificationType (Justification::centredLeft);
+    ReverbSizeLabel->setEditable (false, false, false);
+    ReverbSizeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ReverbSizeLabel->setColour (TextEditor::textColourId, Colours::black);
+    ReverbSizeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+
+    addAndMakeVisible (ReverbMixLabel = new Label ("ReverbMixLabel",
+                                                   TRANS("Mix")));
+    ReverbMixLabel->setFont (Font (15.00f, Font::bold));
+    ReverbMixLabel->setJustificationType (Justification::centredLeft);
+    ReverbMixLabel->setEditable (false, false, false);
+    ReverbMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
+    ReverbMixLabel->setColour (TextEditor::textColourId, Colours::black);
+    ReverbMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (OscOneBox = new ComboBox ("OscOneBox"));
     OscOneBox->setEditableText (false);
@@ -308,24 +335,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     FilterEnvelopeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterEnvelopeSlider->addListener (this);
 
-    addAndMakeVisible (ReverbSizeLabel = new Label ("ReverbSizeLabel",
-                                                    TRANS("Size")));
-    ReverbSizeLabel->setFont (Font (15.00f, Font::bold));
-    ReverbSizeLabel->setJustificationType (Justification::centredLeft);
-    ReverbSizeLabel->setEditable (false, false, false);
-    ReverbSizeLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    ReverbSizeLabel->setColour (TextEditor::textColourId, Colours::black);
-    ReverbSizeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
-    addAndMakeVisible (ChorusMixLabel = new Label ("ChorusMixLabel",
-                                                   TRANS("Mix")));
-    ChorusMixLabel->setFont (Font (15.00f, Font::bold));
-    ChorusMixLabel->setJustificationType (Justification::centredLeft);
-    ChorusMixLabel->setEditable (false, false, false);
-    ChorusMixLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    ChorusMixLabel->setColour (TextEditor::textColourId, Colours::black);
-    ChorusMixLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
     addAndMakeVisible (FlangerIsOn = new ToggleButton ("FlangerIsOn"));
     FlangerIsOn->setButtonText (String::empty);
     FlangerIsOn->addListener (this);
@@ -418,15 +427,6 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     LFORateBox->addItem (TRANS("1/32"), 10);
     LFORateBox->addListener (this);
 
-    addAndMakeVisible (ReverbWidthLabel = new Label ("ReverbWidthLabel",
-                                                     TRANS("Width")));
-    ReverbWidthLabel->setFont (Font (15.00f, Font::bold));
-    ReverbWidthLabel->setJustificationType (Justification::centredLeft);
-    ReverbWidthLabel->setEditable (false, false, false);
-    ReverbWidthLabel->setColour (Label::textColourId, Colour (0xffb2ff8b));
-    ReverbWidthLabel->setColour (TextEditor::textColourId, Colours::black);
-    ReverbWidthLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-
     addAndMakeVisible (GlobalVolumeSlider = new Slider ("GlobalVolumeSlider"));
     GlobalVolumeSlider->setRange (0, 1.5, 0.01);
     GlobalVolumeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
@@ -515,25 +515,28 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     //[Destructor_pre]. You can add your own custom destruction code here..
     //[/Destructor_pre]
 
-    ReverbMixSlider = nullptr;
-    ChorusMixSlider = nullptr;
-    DistortionAmountSlider = nullptr;
     FlangerMixLabel = nullptr;
-    ReverbMixLabel = nullptr;
-    ReverbWidthSlider = nullptr;
-    FlangerMixSlider = nullptr;
-    ChorusRateSlider = nullptr;
-    FlangerDelaySlider = nullptr;
-    ReverbSizeSlider = nullptr;
-    ChorusRateLabel = nullptr;
-    FlangerFeedbackSlider = nullptr;
     FlangerDelayLabel = nullptr;
+    ChorusMixLabel = nullptr;
+    ReverbWidthLabel = nullptr;
+    FlangerFeedbackLabel = nullptr;
+    ChorusRateLabel = nullptr;
+    DistortionLabel = nullptr;
     FlangerLabel = nullptr;
     ChorusLabel = nullptr;
+    FlangerFeedbackSlider = nullptr;
+    FlangerDelaySlider = nullptr;
+    FlangerMixSlider = nullptr;
+    ReverbMixSlider = nullptr;
+    DistortionAmountSlider = nullptr;
+    ChorusRateSlider = nullptr;
+    ChorusMixSlider = nullptr;
     ReverbLabel = nullptr;
-    DistortionLabel = nullptr;
-    FlangerFeedbackLabel = nullptr;
     DistortionAmountLabel = nullptr;
+    ReverbWidthSlider = nullptr;
+    ReverbSizeSlider = nullptr;
+    ReverbSizeLabel = nullptr;
+    ReverbMixLabel = nullptr;
     OscOneBox = nullptr;
     OscTwoBox = nullptr;
     OscTwoIsOn = nullptr;
@@ -553,8 +556,6 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     FilterCutoffSlider = nullptr;
     FilterResonanceSlider = nullptr;
     FilterEnvelopeSlider = nullptr;
-    ReverbSizeLabel = nullptr;
-    ChorusMixLabel = nullptr;
     FlangerIsOn = nullptr;
     ChorusIsOn = nullptr;
     ReverbIsOn = nullptr;
@@ -567,7 +568,6 @@ AudeaAudioProcessorEditor::~AudeaAudioProcessorEditor()
     LFODestinationBox = nullptr;
     LFOAmountSlider = nullptr;
     LFORateBox = nullptr;
-    ReverbWidthLabel = nullptr;
     GlobalVolumeSlider = nullptr;
     GlobalPanSlider = nullptr;
     SavePresetButton = nullptr;
@@ -601,25 +601,28 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
 
 void AudeaAudioProcessorEditor::resized()
 {
-    ReverbMixSlider->setBounds (312, 451, 296, 40);
-    ChorusMixSlider->setBounds (312, 428, 296, 40);
-    DistortionAmountSlider->setBounds (311, 402, 297, 40);
-    FlangerMixLabel->setBounds (216, 456, 40, 24);
-    ReverbMixLabel->setBounds (217, 456, 87, 24);
-    ReverbWidthSlider->setBounds (311, 428, 296, 40);
-    FlangerMixSlider->setBounds (312, 454, 296, 37);
-    ChorusRateSlider->setBounds (311, 402, 297, 40);
-    FlangerDelaySlider->setBounds (311, 431, 296, 26);
-    ReverbSizeSlider->setBounds (311, 402, 297, 40);
-    ChorusRateLabel->setBounds (216, 412, 80, 24);
-    FlangerFeedbackSlider->setBounds (311, 407, 296, 35);
-    FlangerDelayLabel->setBounds (216, 432, 88, 24);
+    FlangerMixLabel->setBounds (218, 458, 40, 24);
+    FlangerDelayLabel->setBounds (221, 433, 88, 24);
+    ChorusMixLabel->setBounds (219, 435, 86, 24);
+    ReverbWidthLabel->setBounds (221, 438, 86, 24);
+    FlangerFeedbackLabel->setBounds (220, 411, 88, 32);
+    ChorusRateLabel->setBounds (220, 411, 80, 24);
+    DistortionLabel->setBounds (208, 367, 257, 48);
     FlangerLabel->setBounds (208, 367, 168, 48);
-    ChorusLabel->setBounds (210, 365, 184, 48);
-    ReverbLabel->setBounds (209, 365, 184, 56);
-    DistortionLabel->setBounds (209, 367, 257, 48);
-    FlangerFeedbackLabel->setBounds (216, 408, 88, 32);
-    DistortionAmountLabel->setBounds (218, 412, 72, 24);
+    ChorusLabel->setBounds (210, 368, 184, 48);
+    FlangerFeedbackSlider->setBounds (311, 407, 296, 35);
+    FlangerDelaySlider->setBounds (311, 431, 296, 26);
+    FlangerMixSlider->setBounds (312, 454, 296, 37);
+    ReverbMixSlider->setBounds (312, 454, 296, 40);
+    DistortionAmountSlider->setBounds (311, 407, 297, 40);
+    ChorusRateSlider->setBounds (311, 407, 297, 40);
+    ChorusMixSlider->setBounds (311, 431, 296, 40);
+    ReverbLabel->setBounds (208, 368, 184, 56);
+    DistortionAmountLabel->setBounds (222, 409, 72, 24);
+    ReverbWidthSlider->setBounds (311, 431, 296, 40);
+    ReverbSizeSlider->setBounds (311, 407, 297, 40);
+    ReverbSizeLabel->setBounds (220, 412, 79, 24);
+    ReverbMixLabel->setBounds (218, 458, 87, 24);
     OscOneBox->setBounds (87, 151, 56, 16);
     OscTwoBox->setBounds (87, 214, 56, 16);
     OscTwoIsOn->setBounds (80, 188, 24, 24);
@@ -639,12 +642,10 @@ void AudeaAudioProcessorEditor::resized()
     FilterCutoffSlider->setBounds (363, 190, 24, 24);
     FilterResonanceSlider->setBounds (363, 159, 24, 24);
     FilterEnvelopeSlider->setBounds (363, 128, 24, 24);
-    ReverbSizeLabel->setBounds (217, 412, 79, 24);
-    ChorusMixLabel->setBounds (218, 432, 86, 24);
     FlangerIsOn->setBounds (368, 376, 24, 24);
-    ChorusIsOn->setBounds (496, 376, 24, 24);
-    ReverbIsOn->setBounds (456, 376, 24, 24);
-    DistortionIsOn->setBounds (528, 376, 24, 24);
+    ChorusIsOn->setBounds (352, 376, 24, 24);
+    ReverbIsOn->setBounds (352, 376, 24, 24);
+    DistortionIsOn->setBounds (395, 376, 24, 24);
     DelayMixSlider->setBounds (450, 301, 24, 24);
     DelayFeedbackSlider->setBounds (528, 300, 24, 24);
     DelayRateLeftBox->setBounds (440, 232, 104, 16);
@@ -653,15 +654,14 @@ void AudeaAudioProcessorEditor::resized()
     LFODestinationBox->setBounds (439, 116, 104, 16);
     LFOAmountSlider->setBounds (465, 150, 24, 24);
     LFORateBox->setBounds (518, 148, 48, 16);
-    ReverbWidthLabel->setBounds (218, 432, 86, 24);
     GlobalVolumeSlider->setBounds (94, 389, 104, 92);
     GlobalPanSlider->setBounds (626, 389, 104, 97);
     SavePresetButton->setBounds (631, 485, 80, 14);
     LoadPresetButton->setBounds (94, 485, 80, 14);
     FlangerUIButton->setBounds (299, 478, 56, 38);
-    DistortionUIButton->setBounds (352, 478, 56, 40);
-    ChorusUIButton->setBounds (401, 478, 56, 38);
-    ReverbUIButton->setBounds (445, 477, 56, 40);
+    DistortionUIButton->setBounds (347, 477, 56, 40);
+    ChorusUIButton->setBounds (395, 477, 56, 38);
+    ReverbUIButton->setBounds (443, 477, 56, 40);
     //[UserResized] Add your own custom resize handling here..
 	const int keyboardHeight = 70;
 	midiKeyboard.setBounds(4, getHeight() - keyboardHeight - 4, getWidth() - 8, keyboardHeight);
@@ -674,41 +674,11 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 	AudeaAudioProcessor* ourProcessor = getProcessor();
     //[/UsersliderValueChanged_Pre]
 
-    if (sliderThatWasMoved == ReverbMixSlider)
+    if (sliderThatWasMoved == FlangerFeedbackSlider)
     {
-        //[UserSliderCode_ReverbMixSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ReverbMix, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_ReverbMixSlider]
-    }
-    else if (sliderThatWasMoved == ChorusMixSlider)
-    {
-        //[UserSliderCode_ChorusMixSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ChorusMix, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_ChorusMixSlider]
-    }
-    else if (sliderThatWasMoved == DistortionAmountSlider)
-    {
-        //[UserSliderCode_DistortionAmountSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::DistortionAmt, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_DistortionAmountSlider]
-    }
-    else if (sliderThatWasMoved == ReverbWidthSlider)
-    {
-        //[UserSliderCode_ReverbWidthSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ReverbWidth, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_ReverbWidthSlider]
-    }
-    else if (sliderThatWasMoved == FlangerMixSlider)
-    {
-        //[UserSliderCode_FlangerMixSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FlangerMix, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_FlangerMixSlider]
-    }
-    else if (sliderThatWasMoved == ChorusRateSlider)
-    {
-        //[UserSliderCode_ChorusRateSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::ChorusRate, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_ChorusRateSlider]
+        //[UserSliderCode_FlangerFeedbackSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerFeedback, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_FlangerFeedbackSlider]
     }
     else if (sliderThatWasMoved == FlangerDelaySlider)
     {
@@ -716,17 +686,47 @@ void AudeaAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 		ourProcessor->setParameter(AudeaAudioProcessor::FlangerDelay, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_FlangerDelaySlider]
     }
+    else if (sliderThatWasMoved == FlangerMixSlider)
+    {
+        //[UserSliderCode_FlangerMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::FlangerMix, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_FlangerMixSlider]
+    }
+    else if (sliderThatWasMoved == ReverbMixSlider)
+    {
+        //[UserSliderCode_ReverbMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbMix, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_ReverbMixSlider]
+    }
+    else if (sliderThatWasMoved == DistortionAmountSlider)
+    {
+        //[UserSliderCode_DistortionAmountSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::DistortionAmt, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_DistortionAmountSlider]
+    }
+    else if (sliderThatWasMoved == ChorusRateSlider)
+    {
+        //[UserSliderCode_ChorusRateSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ChorusRate, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_ChorusRateSlider]
+    }
+    else if (sliderThatWasMoved == ChorusMixSlider)
+    {
+        //[UserSliderCode_ChorusMixSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ChorusMix, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_ChorusMixSlider]
+    }
+    else if (sliderThatWasMoved == ReverbWidthSlider)
+    {
+        //[UserSliderCode_ReverbWidthSlider] -- add your slider handling code here..
+		ourProcessor->setParameter(AudeaAudioProcessor::ReverbWidth, (float)sliderThatWasMoved->getValue());
+        //[/UserSliderCode_ReverbWidthSlider]
+    }
     else if (sliderThatWasMoved == ReverbSizeSlider)
     {
         //[UserSliderCode_ReverbSizeSlider] -- add your slider handling code here..
 		ourProcessor->setParameter(AudeaAudioProcessor::ReverbSize, (float)sliderThatWasMoved->getValue());
         //[/UserSliderCode_ReverbSizeSlider]
-    }
-    else if (sliderThatWasMoved == FlangerFeedbackSlider)
-    {
-        //[UserSliderCode_FlangerFeedbackSlider] -- add your slider handling code here..
-		ourProcessor->setParameter(AudeaAudioProcessor::FlangerFeedback, (float)sliderThatWasMoved->getValue());
-        //[/UserSliderCode_FlangerFeedbackSlider]
     }
     else if (sliderThatWasMoved == OscVoicesSlider)
     {
@@ -1192,91 +1192,106 @@ BEGIN_JUCER_METADATA
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
                  fixedSize="0" initialWidth="800" initialHeight="620">
   <BACKGROUND backgroundColour="ff401f09"/>
-  <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="312 451 296 40" min="0"
-          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="ChorusMixSlider" id="e459f174052e0ff2" memberName="ChorusMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="312 428 296 40" min="0"
-          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 402 297 40" min="0"
-          max="99" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FlangerMixLabel" id="c0699ca2f76a7f24" memberName="FlangerMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="216 456 40 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="218 458 40 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="217 456 87 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="1" italic="0" justification="33"/>
-  <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 428 296 40" min="0"
-          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="312 454 296 37" min="0"
-          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 402 297 40" min="1.25"
-          max="25" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
-          virtualName="" explicitFocusOrder="0" pos="311 431 296 26" min="1"
-          max="10" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 402 297 40" min="0"
-          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
-          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
-         virtualName="" explicitFocusOrder="0" pos="216 412 80 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="1" italic="0" justification="33"/>
-  <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 407 296 35" min="0"
-          max="0.98999999999999999" int="0.01" style="LinearHorizontal"
-          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
   <LABEL name="FlangerDelayLabel" id="272eb6964a7114f0" memberName="FlangerDelayLabel"
-         virtualName="" explicitFocusOrder="0" pos="216 432 88 24" textCol="ffb2ff8b"
+         virtualName="" explicitFocusOrder="0" pos="221 433 88 24" textCol="ffb2ff8b"
          edTextCol="ff000000" edBkgCol="0" labelText="Delay" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="ChorusMixLabel" id="b4ad33fdd8052ed9" memberName="ChorusMixLabel"
+         virtualName="" explicitFocusOrder="0" pos="219 435 86 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="ReverbWidthLabel" id="9d1ccd10ad6d1c44" memberName="ReverbWidthLabel"
+         virtualName="" explicitFocusOrder="0" pos="221 438 86 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Width" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="FlangerFeedbackLabel" id="fdc662dd4cb4641" memberName="FlangerFeedbackLabel"
+         virtualName="" explicitFocusOrder="0" pos="220 411 88 32" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="FB" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="ChorusRateLabel" id="e0f7b956e48ef71c" memberName="ChorusRateLabel"
+         virtualName="" explicitFocusOrder="0" pos="220 411 80 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Rate" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="DistortionLabel" id="b173d143f99d7088" memberName="DistortionLabel"
+         virtualName="" explicitFocusOrder="0" pos="208 367 257 48" edTextCol="ff000000"
+         edBkgCol="0" labelText="Distortion" editableSingleClick="0" editableDoubleClick="0"
+         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
+         bold="0" italic="0" justification="33"/>
   <LABEL name="FlangerLabel" id="5ec9329753b3d00a" memberName="FlangerLabel"
          virtualName="" explicitFocusOrder="0" pos="208 367 168 48" edTextCol="ff000000"
          edBkgCol="0" labelText="Flanger" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
   <LABEL name="ChorusLabel" id="5719d28c1a4ccd5a" memberName="ChorusLabel"
-         virtualName="" explicitFocusOrder="0" pos="210 365 184 48" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="210 368 184 48" edTextCol="ff000000"
          edBkgCol="0" labelText="Chorus" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
+  <SLIDER name="FlangerFeedbackSlider" id="55f1dc6792ca6a21" memberName="FlangerFeedbackSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 407 296 35" min="0"
+          max="0.98999999999999999" int="0.01" style="LinearHorizontal"
+          textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="FlangerDelaySlider" id="c1a82d56f3ba0cc4" memberName="FlangerDelaySlider"
+          virtualName="" explicitFocusOrder="0" pos="311 431 296 26" min="1"
+          max="10" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="FlangerMixSlider" id="319d434bc47c41de" memberName="FlangerMixSlider"
+          virtualName="" explicitFocusOrder="0" pos="312 454 296 37" min="0"
+          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
+          virtualName="" explicitFocusOrder="0" pos="312 454 296 40" min="0"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 407 297 40" min="0"
+          max="99" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="ChorusRateSlider" id="c43bd9eda52e3985" memberName="ChorusRateSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 407 297 40" min="1.25"
+          max="25" int="0.10000000000000001" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="ChorusMixSlider" id="e459f174052e0ff2" memberName="ChorusMixSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 431 296 40" min="0"
+          max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbLabel" id="263233fc263bb9ce" memberName="ReverbLabel"
-         virtualName="" explicitFocusOrder="0" pos="209 365 184 56" edTextCol="ff000000"
+         virtualName="" explicitFocusOrder="0" pos="208 368 184 56" edTextCol="ff000000"
          edBkgCol="0" labelText="Reverb" editableSingleClick="0" editableDoubleClick="0"
          focusDiscardsChanges="0" fontname="Default font" fontsize="15"
          bold="0" italic="0" justification="33"/>
-  <LABEL name="DistortionLabel" id="b173d143f99d7088" memberName="DistortionLabel"
-         virtualName="" explicitFocusOrder="0" pos="209 367 257 48" edTextCol="ff000000"
-         edBkgCol="0" labelText="Distortion" editableSingleClick="0" editableDoubleClick="0"
-         focusDiscardsChanges="0" fontname="Default font" fontsize="15"
-         bold="0" italic="0" justification="33"/>
-  <LABEL name="FlangerFeedbackLabel" id="fdc662dd4cb4641" memberName="FlangerFeedbackLabel"
-         virtualName="" explicitFocusOrder="0" pos="216 408 88 32" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="FB" editableSingleClick="0"
+  <LABEL name="DistortionAmountLabel" id="be66008f7bf2db32" memberName="DistortionAmountLabel"
+         virtualName="" explicitFocusOrder="0" pos="222 409 72 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Amount&#10;" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
-  <LABEL name="DistortionAmountLabel" id="be66008f7bf2db32" memberName="DistortionAmountLabel"
-         virtualName="" explicitFocusOrder="0" pos="218 412 72 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Amount&#10;" editableSingleClick="0"
+  <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 431 296 40" min="0"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
+          virtualName="" explicitFocusOrder="0" pos="311 407 297 40" min="0"
+          max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
+          textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
+         virtualName="" explicitFocusOrder="0" pos="220 412 79 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Size" editableSingleClick="0"
+         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
+         fontsize="15" bold="1" italic="0" justification="33"/>
+  <LABEL name="ReverbMixLabel" id="b0762b0e2e30b987" memberName="ReverbMixLabel"
+         virtualName="" explicitFocusOrder="0" pos="218 458 87 24" textCol="ffb2ff8b"
+         edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <COMBOBOX name="OscOneBox" id="3f82eca8fbc59029" memberName="OscOneBox"
@@ -1354,27 +1369,17 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="363 128 24 24" min="0"
           max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
-         virtualName="" explicitFocusOrder="0" pos="217 412 79 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Size" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="1" italic="0" justification="33"/>
-  <LABEL name="ChorusMixLabel" id="b4ad33fdd8052ed9" memberName="ChorusMixLabel"
-         virtualName="" explicitFocusOrder="0" pos="218 432 86 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Mix" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="1" italic="0" justification="33"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
                 virtualName="" explicitFocusOrder="0" pos="368 376 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="ChorusIsOn" id="505699439b1f920e" memberName="ChorusIsOn"
-                virtualName="" explicitFocusOrder="0" pos="496 376 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="352 376 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="ReverbIsOn" id="c6e156e132276275" memberName="ReverbIsOn"
-                virtualName="" explicitFocusOrder="0" pos="456 376 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="352 376 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="DistortionIsOn" id="6cc597398b435cf2" memberName="DistortionIsOn"
-                virtualName="" explicitFocusOrder="0" pos="528 376 24 24" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="395 376 24 24" buttonText=""
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
           virtualName="" explicitFocusOrder="0" pos="450 301 24 24" min="0"
@@ -1408,11 +1413,6 @@ BEGIN_JUCER_METADATA
             virtualName="" explicitFocusOrder="0" pos="518 148 48 16" editable="0"
             layout="33" items="1/1&#10;1/2&#10;1/3&#10;1/4&#10;1/6&#10;1/8&#10;1/12&#10;1/16&#10;1/24&#10;1/32"
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
-  <LABEL name="ReverbWidthLabel" id="9d1ccd10ad6d1c44" memberName="ReverbWidthLabel"
-         virtualName="" explicitFocusOrder="0" pos="218 432 86 24" textCol="ffb2ff8b"
-         edTextCol="ff000000" edBkgCol="0" labelText="Width" editableSingleClick="0"
-         editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
-         fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
           virtualName="" explicitFocusOrder="0" pos="94 389 104 92" min="0"
           max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
@@ -1431,13 +1431,13 @@ BEGIN_JUCER_METADATA
                 virtualName="" explicitFocusOrder="0" pos="299 478 56 38" buttonText=""
                 connectedEdges="15" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="DistortionUIButton" id="18e18e9ee4814f9d" memberName="DistortionUIButton"
-                virtualName="" explicitFocusOrder="0" pos="352 478 56 40" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="347 477 56 40" buttonText=""
                 connectedEdges="15" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="ChorusUIButton" id="40e76ee8da06b18d" memberName="ChorusUIButton"
-                virtualName="" explicitFocusOrder="0" pos="401 478 56 38" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="395 477 56 38" buttonText=""
                 connectedEdges="15" needsCallback="1" radioGroupId="0" state="0"/>
   <TOGGLEBUTTON name="ReverbUIButton" id="51f90337ab9e0954" memberName="ReverbUIButton"
-                virtualName="" explicitFocusOrder="0" pos="445 477 56 40" buttonText=""
+                virtualName="" explicitFocusOrder="0" pos="443 477 56 40" buttonText=""
                 connectedEdges="15" needsCallback="1" radioGroupId="0" state="0"/>
 </JUCER_COMPONENT>
 

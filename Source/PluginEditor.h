@@ -94,25 +94,28 @@ private:
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<Slider> ReverbMixSlider;
-    ScopedPointer<Slider> ChorusMixSlider;
-    ScopedPointer<Slider> DistortionAmountSlider;
     ScopedPointer<Label> FlangerMixLabel;
-    ScopedPointer<Label> ReverbMixLabel;
-    ScopedPointer<Slider> ReverbWidthSlider;
-    ScopedPointer<Slider> FlangerMixSlider;
-    ScopedPointer<Slider> ChorusRateSlider;
-    ScopedPointer<Slider> FlangerDelaySlider;
-    ScopedPointer<Slider> ReverbSizeSlider;
-    ScopedPointer<Label> ChorusRateLabel;
-    ScopedPointer<Slider> FlangerFeedbackSlider;
     ScopedPointer<Label> FlangerDelayLabel;
+    ScopedPointer<Label> ChorusMixLabel;
+    ScopedPointer<Label> ReverbWidthLabel;
+    ScopedPointer<Label> FlangerFeedbackLabel;
+    ScopedPointer<Label> ChorusRateLabel;
+    ScopedPointer<Label> DistortionLabel;
     ScopedPointer<Label> FlangerLabel;
     ScopedPointer<Label> ChorusLabel;
+    ScopedPointer<Slider> FlangerFeedbackSlider;
+    ScopedPointer<Slider> FlangerDelaySlider;
+    ScopedPointer<Slider> FlangerMixSlider;
+    ScopedPointer<Slider> ReverbMixSlider;
+    ScopedPointer<Slider> DistortionAmountSlider;
+    ScopedPointer<Slider> ChorusRateSlider;
+    ScopedPointer<Slider> ChorusMixSlider;
     ScopedPointer<Label> ReverbLabel;
-    ScopedPointer<Label> DistortionLabel;
-    ScopedPointer<Label> FlangerFeedbackLabel;
     ScopedPointer<Label> DistortionAmountLabel;
+    ScopedPointer<Slider> ReverbWidthSlider;
+    ScopedPointer<Slider> ReverbSizeSlider;
+    ScopedPointer<Label> ReverbSizeLabel;
+    ScopedPointer<Label> ReverbMixLabel;
     ScopedPointer<ComboBox> OscOneBox;
     ScopedPointer<ComboBox> OscTwoBox;
     ScopedPointer<ToggleButton> OscTwoIsOn;
@@ -132,8 +135,6 @@ private:
     ScopedPointer<Slider> FilterCutoffSlider;
     ScopedPointer<Slider> FilterResonanceSlider;
     ScopedPointer<Slider> FilterEnvelopeSlider;
-    ScopedPointer<Label> ReverbSizeLabel;
-    ScopedPointer<Label> ChorusMixLabel;
     ScopedPointer<ToggleButton> FlangerIsOn;
     ScopedPointer<ToggleButton> ChorusIsOn;
     ScopedPointer<ToggleButton> ReverbIsOn;
@@ -146,7 +147,6 @@ private:
     ScopedPointer<ComboBox> LFODestinationBox;
     ScopedPointer<Slider> LFOAmountSlider;
     ScopedPointer<ComboBox> LFORateBox;
-    ScopedPointer<Label> ReverbWidthLabel;
     ScopedPointer<Slider> GlobalVolumeSlider;
     ScopedPointer<Slider> GlobalPanSlider;
     ScopedPointer<TextButton> SavePresetButton;
