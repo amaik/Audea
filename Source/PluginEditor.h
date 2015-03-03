@@ -39,9 +39,9 @@
 */
 class AudeaAudioProcessorEditor  : public AudioProcessorEditor,
                                    public Timer,
+                                   public SliderListener,
                                    public ComboBoxListener,
-                                   public ButtonListener,
-                                   public SliderListener
+                                   public ButtonListener
 {
 public:
     //==============================================================================
@@ -59,9 +59,9 @@ public:
 
     void paint (Graphics& g);
     void resized();
+    void sliderValueChanged (Slider* sliderThatWasMoved);
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
     void buttonClicked (Button* buttonThatWasClicked);
-    void sliderValueChanged (Slider* sliderThatWasMoved);
 
 
 
@@ -73,16 +73,46 @@ private:
 	AudeaLookAndFeel2* lookAndFeel2;
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
+	File resourceDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
 	//Constants
 	File backGroundImgFile;
-	String backGroundImgPath = "Resources/BackgroundPure.jpg";
+	String backGroundImgPath ="Resources/BackgroundPure.jpg";
+
+
+	enum EffectState{
+		Flanger,
+		Distortion,
+		Chorus,
+		Reverb
+	};
+
+	int effectState = 0;
+	void changeFlangerUIState(bool);
+	void changeDistortionUIState(bool);
+	void changeChorusUIState(bool);
+	void changeReverbUIState(bool);
     //[/UserVariables]
 
     //==============================================================================
-    ScopedPointer<GroupComponent> ReverbGroup;
-    ScopedPointer<GroupComponent> ChorusGroup;
-    ScopedPointer<GroupComponent> DistortionGroup;
-    ScopedPointer<GroupComponent> FlangerGroup;
+    ScopedPointer<Slider> ReverbMixSlider;
+    ScopedPointer<Slider> ChorusMixSlider;
+    ScopedPointer<Slider> DistortionAmountSlider;
+    ScopedPointer<Label> FlangerMixLabel;
+    ScopedPointer<Label> ReverbMixLabel;
+    ScopedPointer<Slider> ReverbWidthSlider;
+    ScopedPointer<Slider> FlangerMixSlider;
+    ScopedPointer<Slider> ChorusRateSlider;
+    ScopedPointer<Slider> FlangerDelaySlider;
+    ScopedPointer<Slider> ReverbSizeSlider;
+    ScopedPointer<Label> ChorusRateLabel;
+    ScopedPointer<Slider> FlangerFeedbackSlider;
+    ScopedPointer<Label> FlangerDelayLabel;
+    ScopedPointer<Label> FlangerLabel;
+    ScopedPointer<Label> ChorusLabel;
+    ScopedPointer<Label> ReverbLabel;
+    ScopedPointer<Label> DistortionLabel;
+    ScopedPointer<Label> FlangerFeedbackLabel;
+    ScopedPointer<Label> DistortionAmountLabel;
     ScopedPointer<ComboBox> OscOneBox;
     ScopedPointer<ComboBox> OscTwoBox;
     ScopedPointer<ToggleButton> OscTwoIsOn;
@@ -102,26 +132,12 @@ private:
     ScopedPointer<Slider> FilterCutoffSlider;
     ScopedPointer<Slider> FilterResonanceSlider;
     ScopedPointer<Slider> FilterEnvelopeSlider;
-    ScopedPointer<Slider> ReverbMixSlider;
-    ScopedPointer<Slider> ReverbSizeSlider;
-    ScopedPointer<Label> ReverbMixLabel;
     ScopedPointer<Label> ReverbSizeLabel;
     ScopedPointer<Label> ChorusMixLabel;
-    ScopedPointer<Slider> ChorusRateSlider;
-    ScopedPointer<Slider> ChorusMixSlider;
-    ScopedPointer<Label> ChorusRateLabel;
-    ScopedPointer<Slider> FlangerFeedbackSlider;
-    ScopedPointer<Label> FlangerDelayLabel;
-    ScopedPointer<Label> FlangerFeedbackLabel;
-    ScopedPointer<Slider> FlangerDelaySlider;
     ScopedPointer<ToggleButton> FlangerIsOn;
     ScopedPointer<ToggleButton> ChorusIsOn;
     ScopedPointer<ToggleButton> ReverbIsOn;
-    ScopedPointer<Slider> DistortionAmountSlider;
     ScopedPointer<ToggleButton> DistortionIsOn;
-    ScopedPointer<Label> DistortionAmountLabel;
-    ScopedPointer<Label> FlangerMixLabel;
-    ScopedPointer<Slider> FlangerMixSlider;
     ScopedPointer<Slider> DelayMixSlider;
     ScopedPointer<Slider> DelayFeedbackSlider;
     ScopedPointer<ComboBox> DelayRateLeftBox;
@@ -131,11 +147,14 @@ private:
     ScopedPointer<Slider> LFOAmountSlider;
     ScopedPointer<ComboBox> LFORateBox;
     ScopedPointer<Label> ReverbWidthLabel;
-    ScopedPointer<Slider> ReverbWidthSlider;
     ScopedPointer<Slider> GlobalVolumeSlider;
     ScopedPointer<Slider> GlobalPanSlider;
     ScopedPointer<TextButton> SavePresetButton;
     ScopedPointer<TextButton> LoadPresetButton;
+    ScopedPointer<ToggleButton> FlangerUIButton;
+    ScopedPointer<ToggleButton> DistortionUIButton;
+    ScopedPointer<ToggleButton> ChorusUIButton;
+    ScopedPointer<ToggleButton> ReverbUIButton;
 
 
     //==============================================================================

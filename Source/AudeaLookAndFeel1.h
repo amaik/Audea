@@ -29,8 +29,19 @@ public:
 							float rotaryEndAngle,
 							Slider& slider);
 
+	void drawLinearSliderThumb(Graphics& g,
+		int x,
+		int y,
+		int width,
+		int height,
+		float sliderPos,
+		float minSliderPos,
+		float maxSliderPos,
+		const Slider::SliderStyle style,
+		Slider& slider);
 
-	void drawLinearSlider(Graphics &,
+
+	void drawLinearSliderBackground(Graphics &,
 		int x,
 		int y,
 		int width,
@@ -44,16 +55,26 @@ public:
 private:
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
+	File resourcesDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
 	//Constants
+	String SmallSliderImgPath = "Resources/SliderSmall.png";
 	String BigSliderImgPath = "Resources/SliderBig.png";
 	String HorizontalSliderOneTenImgPath = "Resources/HorizontalSliderOneTen.png";
 	String SmallVertSliderImgPath = "Resources/VertSliderSmall.png";
+	String SmallVerticalSliderKnobImgPath = "Resources/SmallVerticalSliderKnob.png";
+	String HorizontalSliderKnobImgPath = "Resources/HorizontalSliderKnob.png";
+	File SmallSliderImgFile;
 	File BigSliderImgFile;
 	File HorizontalSliderOneTenImgFile;
 	File SmallVertSliderImgFile;
+	File SmallVerticalSliderKnobImgFile;
+	File HorizontalSliderKnobImgFile;
+	Image SmallSliderImg;
 	Image BigSliderImg;
 	Image HorizontalSliderOneTenImg;
 	Image SmallVertSliderImg;
+	Image SmallVerticalSliderKnobImg;
+	Image HorizontalSliderKnobImg;
 
 
 };

@@ -61,13 +61,6 @@ public:
 	void drawLabel(Graphics &,
 		Label &);
 
-
-	void drawToggleButton(Graphics &,
-		ToggleButton &,
-		bool  	isMouseOverButton,
-		bool  	isButtonDown
-		);
-
 private:
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
@@ -84,22 +77,6 @@ private:
 	String DistortionLabelImgPath = "Resources/DistortionLabel.png";
 	String ChorusLabelImgPath = "Resources/ChorusLabel.png";
 	String ReverbLabelImgPath = "Resources/ReverbLabel.png";
-	String MixLabelImgPath = "Resources/MixLabel.png";
-	String DelayLabelImgPath = "Resources/DelayLabel.png";
-	String FeedbackLabelImgPath = "Resources/FeedbackLabel.png";
-	String AmountLabelImgPath = "Resources/AmountLabel.png";
-	String RateLabelImgPath = "Resources/RateLabel.png";
-	String SizeLabelImgPath = "Resources/SizeLabel.png";
-	String WidthLabelImgPath = "Resources/WidthLabel.png";
-	String backGroundImgPath = "Resources/BackgroundPure.jpg";
-	String FlangerButtonUpImgPath = "Resources/FlangerButtonUp.png";
-	String DistortionButtonUpImgPath = "Resources/DistortionButtonUp.png";
-	String ReverbButtonUpImgPath = "Resources/ReverbButtonUp.png";
-	String ChorusButtonUpImgPath = "Resources/ChorusButtonUp.png";
-	String FlangerButtonDownImgPath = "Resources/FlangerButtonDown.png";
-	String DistortionButtonDownImgPath = "Resources/DistortionButtonDown.png";
-	String ReverbButtonDownImgPath = "Resources/ReverbButtonDown.png";
-	String ChorusButtonDownImgPath = "Resources/ChorusButtonDown.png";
 	File SmallSliderImgFile;
 	File SliderBarImgFile;
 	File HorizontalSliderTenHunImgFile;
@@ -111,21 +88,6 @@ private:
 	File DistortionLabelImgFile;
 	File ChorusLabelImgFile;
 	File ReverbLabelImgFile;
-	File MixLabelImgFile;
-	File DelayLabelImgFile;
-	File FeedbackLabelImgFile;
-	File AmountLabelImgFile;
-	File RateLabelImgFile;
-	File SizeLabelImgFile;
-	File WidthLabelImgFile;
-	File FlangerButtonUpImgFile;
-	File DistortionButtonUpImgFile;
-	File ReverbButtonUpImgFile;
-	File ChorusButtonUpImgFile;
-	File FlangerButtonDownImgFile;
-	File DistortionButtonDownImgFile;
-	File ReverbButtonDownImgFile;
-	File ChorusButtonDownImgFile;
 	Image SliderBarImg;
 	Image SmallSliderImg;
 	Image HorizontalSliderTenHunImg;
@@ -137,21 +99,6 @@ private:
 	Image ChorusLabelImg;
 	Image DistortionLabelImg;
 	Image ReverbLabelImg;
-	Image MixLabelImg;
-	Image DelayLabelImg;
-	Image FeedbackLabelImg;
-	Image AmountLabelImg;
-	Image RateLabelImg;
-	Image SizeLabelImg;
-	Image WidthLabelImg;
-	Image FlangerButtonUpImg;
-	Image DistortionButtonUpImg;
-	Image ReverbButtonUpImg;
-	Image ChorusButtonUpImg;
-	Image FlangerButtonDownImg;
-	Image DistortionButtonDownImg;
-	Image ReverbButtonDownImg;
-	Image ChorusButtonDownImg;
 
 
 };
