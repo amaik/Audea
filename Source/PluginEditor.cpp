@@ -506,6 +506,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 	ChorusIsOn->setLookAndFeel(lookAndFeel1);
 	OscVoicesSlider->setLookAndFeel(lookAndFeel1);
 	OscTwoTuneSlider->setLookAndFeel(lookAndFeel1);
+	OscOneBox->setLookAndFeel(lookAndFeel1);
+	OscTwoBox->setLookAndFeel(lookAndFeel1);
+	FilterTypeBox->setLookAndFeel(lookAndFeel1);
+	LFODestinationBox->setLookAndFeel(lookAndFeel1);
+	LFORateBox->setLookAndFeel(lookAndFeel1);
+	DelayRateLeftBox->setLookAndFeel(lookAndFeel1);
+	DelayRateRightBox->setLookAndFeel(lookAndFeel1);
 
     //[/Constructor]
 }
@@ -613,14 +620,14 @@ void AudeaAudioProcessorEditor::resized()
     FlangerFeedbackSlider->setBounds (311, 407, 296, 35);
     FlangerDelaySlider->setBounds (311, 431, 296, 26);
     FlangerMixSlider->setBounds (312, 454, 296, 37);
-    ReverbMixSlider->setBounds (312, 454, 296, 40);
+    ReverbMixSlider->setBounds (312, 454, 296, 26);
     DistortionAmountSlider->setBounds (311, 407, 297, 40);
     ChorusRateSlider->setBounds (311, 407, 297, 40);
     ChorusMixSlider->setBounds (311, 431, 296, 40);
     ReverbLabel->setBounds (208, 368, 184, 56);
     DistortionAmountLabel->setBounds (222, 409, 72, 24);
-    ReverbWidthSlider->setBounds (311, 431, 296, 40);
-    ReverbSizeSlider->setBounds (311, 407, 297, 40);
+    ReverbWidthSlider->setBounds (311, 431, 296, 27);
+    ReverbSizeSlider->setBounds (311, 407, 297, 28);
     ReverbSizeLabel->setBounds (220, 412, 79, 24);
     ReverbMixLabel->setBounds (218, 458, 87, 24);
     OscOneBox->setBounds (87, 151, 56, 16);
@@ -1251,7 +1258,7 @@ BEGIN_JUCER_METADATA
           max="0.5" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbMixSlider" id="d849c3dbe7a16d9f" memberName="ReverbMixSlider"
-          virtualName="" explicitFocusOrder="0" pos="312 454 296 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="312 454 296 26" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DistortionAmountSlider" id="7332128eca099479" memberName="DistortionAmountSlider"
@@ -1277,11 +1284,11 @@ BEGIN_JUCER_METADATA
          editableDoubleClick="0" focusDiscardsChanges="0" fontname="Default font"
          fontsize="15" bold="1" italic="0" justification="33"/>
   <SLIDER name="ReverbWidthSlider" id="ec827733ecdec647" memberName="ReverbWidthSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 431 296 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="311 431 296 27" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="ReverbSizeSlider" id="14c637fa440025d0" memberName="ReverbSizeSlider"
-          virtualName="" explicitFocusOrder="0" pos="311 407 297 40" min="0"
+          virtualName="" explicitFocusOrder="0" pos="311 407 297 28" min="0"
           max="1" int="0.01" style="LinearHorizontal" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <LABEL name="ReverbSizeLabel" id="cacb75ef18d579f3" memberName="ReverbSizeLabel"
