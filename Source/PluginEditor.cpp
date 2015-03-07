@@ -234,19 +234,19 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (OscTwoAmpSlider = new Slider ("OscTwoAmpSlider"));
     OscTwoAmpSlider->setRange (0, 1, 0.01);
-    OscTwoAmpSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    OscTwoAmpSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     OscTwoAmpSlider->setTextBoxStyle (Slider::NoTextBox, false, 20, 20);
     OscTwoAmpSlider->addListener (this);
 
     addAndMakeVisible (OscTwoTuneSlider = new Slider ("OscTwoTuneSlider"));
     OscTwoTuneSlider->setRange (-24, 24, 1);
-    OscTwoTuneSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    OscTwoTuneSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     OscTwoTuneSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 28, 20);
     OscTwoTuneSlider->addListener (this);
 
     addAndMakeVisible (OscOneAmpSlider = new Slider ("OscOneAmpSlider"));
     OscOneAmpSlider->setRange (0, 1, 0.01);
-    OscOneAmpSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    OscOneAmpSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     OscOneAmpSlider->setTextBoxStyle (Slider::NoTextBox, false, 30, 20);
     OscOneAmpSlider->addListener (this);
 
@@ -318,20 +318,20 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (FilterCutoffSlider = new Slider ("FilterCutoffSlider"));
     FilterCutoffSlider->setRange (40, 20000, 1);
-    FilterCutoffSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FilterCutoffSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     FilterCutoffSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterCutoffSlider->addListener (this);
     FilterCutoffSlider->setSkewFactor (0.5);
 
     addAndMakeVisible (FilterResonanceSlider = new Slider ("FilterResonanceSlider"));
     FilterResonanceSlider->setRange (0.5, 5, 0.01);
-    FilterResonanceSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FilterResonanceSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     FilterResonanceSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterResonanceSlider->addListener (this);
 
     addAndMakeVisible (FilterEnvelopeSlider = new Slider ("FilterEnvelopeSlider"));
     FilterEnvelopeSlider->setRange (0, 5000, 1);
-    FilterEnvelopeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    FilterEnvelopeSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     FilterEnvelopeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     FilterEnvelopeSlider->addListener (this);
 
@@ -353,13 +353,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (DelayMixSlider = new Slider ("DelayMixSlider"));
     DelayMixSlider->setRange (0, 1, 0.01);
-    DelayMixSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    DelayMixSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     DelayMixSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DelayMixSlider->addListener (this);
 
     addAndMakeVisible (DelayFeedbackSlider = new Slider ("DelayFeedbackSlider"));
     DelayFeedbackSlider->setRange (0, 0.99, 0.01);
-    DelayFeedbackSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    DelayFeedbackSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     DelayFeedbackSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     DelayFeedbackSlider->addListener (this);
 
@@ -406,7 +406,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (LFOAmountSlider = new Slider ("LFOAmountSlider"));
     LFOAmountSlider->setRange (0, 1, 0.01);
-    LFOAmountSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    LFOAmountSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     LFOAmountSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     LFOAmountSlider->addListener (this);
 
@@ -429,13 +429,13 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
 
     addAndMakeVisible (GlobalVolumeSlider = new Slider ("GlobalVolumeSlider"));
     GlobalVolumeSlider->setRange (0, 1.5, 0.01);
-    GlobalVolumeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    GlobalVolumeSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     GlobalVolumeSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalVolumeSlider->addListener (this);
 
     addAndMakeVisible (GlobalPanSlider = new Slider ("GlobalPanSlider"));
     GlobalPanSlider->setRange (0, 1, 0.01);
-    GlobalPanSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    GlobalPanSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     GlobalPanSlider->setTextBoxStyle (Slider::NoTextBox, false, 80, 20);
     GlobalPanSlider->addListener (this);
 
@@ -1318,15 +1318,15 @@ BEGIN_JUCER_METADATA
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoAmpSlider" id="518b8887fab7548c" memberName="OscTwoAmpSlider"
           virtualName="" explicitFocusOrder="0" pos="162 214 27 24" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="20" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoTuneSlider" id="ac82cf89dc2fc12c" memberName="OscTwoTuneSlider"
           virtualName="" explicitFocusOrder="0" pos="205 212 30 45" min="-24"
-          max="24" int="1" style="RotaryVerticalDrag" textBoxPos="TextBoxBelow"
+          max="24" int="1" style="RotaryHorizontalVerticalDrag" textBoxPos="TextBoxBelow"
           textBoxEditable="1" textBoxWidth="28" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscOneAmpSlider" id="a081a349e74fa1fb" memberName="OscOneAmpSlider"
           virtualName="" explicitFocusOrder="0" pos="166 146 40 24" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="30" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="AmpEnvAttackSlider" id="4f8a01927368655c" memberName="AmpEnvAttackSlider"
           virtualName="" explicitFocusOrder="0" pos="617 118 40 130" min="0"
@@ -1366,15 +1366,15 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="FilterCutoffSlider" id="290abad0411db05d" memberName="FilterCutoffSlider"
           virtualName="" explicitFocusOrder="0" pos="363 190 24 24" min="40"
-          max="20000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="20000" int="1" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="0.5"/>
   <SLIDER name="FilterResonanceSlider" id="72b8c8fcc7e3a9a5" memberName="FilterResonanceSlider"
           virtualName="" explicitFocusOrder="0" pos="363 159 24 24" min="0.5"
-          max="5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="5" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="FilterEnvelopeSlider" id="654dbb7b23a5e6b2" memberName="FilterEnvelopeSlider"
           virtualName="" explicitFocusOrder="0" pos="363 128 24 24" min="0"
-          max="5000" int="1" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="5000" int="1" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TOGGLEBUTTON name="FlangerIsOn" id="a34be7e02470739c" memberName="FlangerIsOn"
                 virtualName="" explicitFocusOrder="0" pos="368 376 24 24" buttonText=""
@@ -1390,11 +1390,11 @@ BEGIN_JUCER_METADATA
                 connectedEdges="0" needsCallback="1" radioGroupId="0" state="0"/>
   <SLIDER name="DelayMixSlider" id="6159a703559ee993" memberName="DelayMixSlider"
           virtualName="" explicitFocusOrder="0" pos="450 301 24 24" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="DelayFeedbackSlider" id="f08fbb5aea530b08" memberName="DelayFeedbackSlider"
           virtualName="" explicitFocusOrder="0" pos="528 300 24 24" min="0"
-          max="0.98999999999999999" int="0.01" style="RotaryVerticalDrag"
+          max="0.98999999999999999" int="0.01" style="RotaryHorizontalVerticalDrag"
           textBoxPos="NoTextBox" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="DelayRateLeftBox" id="62978c8037a61708" memberName="DelayRateLeftBox"
@@ -1414,7 +1414,7 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="LFOAmountSlider" id="5f882442e23151cd" memberName="LFOAmountSlider"
           virtualName="" explicitFocusOrder="0" pos="465 150 24 24" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <COMBOBOX name="LFORateBox" id="a255da4f656aae8d" memberName="LFORateBox"
             virtualName="" explicitFocusOrder="0" pos="518 148 48 16" editable="0"
@@ -1422,11 +1422,11 @@ BEGIN_JUCER_METADATA
             textWhenNonSelected="" textWhenNoItems="(no choices)"/>
   <SLIDER name="GlobalVolumeSlider" id="1f6431dfbd6c5f62" memberName="GlobalVolumeSlider"
           virtualName="" explicitFocusOrder="0" pos="94 389 104 92" min="0"
-          max="1.5" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1.5" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="GlobalPanSlider" id="72a0c666b8af61fd" memberName="GlobalPanSlider"
           virtualName="" explicitFocusOrder="0" pos="626 389 104 97" min="0"
-          max="1" int="0.01" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
+          max="1" int="0.01" style="RotaryHorizontalVerticalDrag" textBoxPos="NoTextBox"
           textBoxEditable="1" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <TEXTBUTTON name="SavePresetButton" id="d275c33d0d3e1621" memberName="SavePresetButton"
               virtualName="" explicitFocusOrder="0" pos="631 485 80 14" buttonText=""
