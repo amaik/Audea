@@ -76,7 +76,7 @@ private:
 	File resourceDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
 	//Constants
 	File backGroundImgFile;
-	String backGroundImgPath ="Resources/BackgroundPure.jpg";
+	String backGroundImgPath ="Resources/BackgroundPure2.0.jpg";
 
 
 	enum EffectState{
