@@ -39,9 +39,9 @@
 */
 class AudeaAudioProcessorEditor  : public AudioProcessorEditor,
                                    public Timer,
+                                   public ButtonListener,
                                    public SliderListener,
-                                   public ComboBoxListener,
-                                   public ButtonListener
+                                   public ComboBoxListener
 {
 public:
     //==============================================================================
@@ -59,9 +59,9 @@ public:
 
     void paint (Graphics& g);
     void resized();
+    void buttonClicked (Button* buttonThatWasClicked);
     void sliderValueChanged (Slider* sliderThatWasMoved);
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
-    void buttonClicked (Button* buttonThatWasClicked);
 
 
 
@@ -71,6 +71,7 @@ private:
 
 	AudeaLookAndFeel1* lookAndFeel1;
 	AudeaLookAndFeel2* lookAndFeel2;
+	TooltipWindow tooltipWindow;
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
 	File resourceDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
@@ -94,6 +95,7 @@ private:
     //[/UserVariables]
 
     //==============================================================================
+    ScopedPointer<ToggleButton> ReverbIsOn;
     ScopedPointer<Label> FlangerMixLabel;
     ScopedPointer<Label> FlangerDelayLabel;
     ScopedPointer<Label> ChorusMixLabel;
@@ -137,7 +139,6 @@ private:
     ScopedPointer<Slider> FilterEnvelopeSlider;
     ScopedPointer<ToggleButton> FlangerIsOn;
     ScopedPointer<ToggleButton> ChorusIsOn;
-    ScopedPointer<ToggleButton> ReverbIsOn;
     ScopedPointer<ToggleButton> DistortionIsOn;
     ScopedPointer<Slider> DelayMixSlider;
     ScopedPointer<Slider> DelayFeedbackSlider;
@@ -155,6 +156,14 @@ private:
     ScopedPointer<ToggleButton> DistortionUIButton;
     ScopedPointer<ToggleButton> ChorusUIButton;
     ScopedPointer<ToggleButton> ReverbUIButton;
+    ScopedPointer<Label> AmpAttackLabel;
+    ScopedPointer<Label> AmpDecayLabel2;
+    ScopedPointer<Label> AmpSustainLabel;
+    ScopedPointer<Label> AmpReleaseLabel;
+    ScopedPointer<Label> FilterAttackLabel;
+    ScopedPointer<Label> FilterDecayLabel2;
+    ScopedPointer<Label> FilterSustainLabel;
+    ScopedPointer<Label> FilterReleaseLabel;
 
 
     //==============================================================================
