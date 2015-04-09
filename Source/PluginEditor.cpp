@@ -233,7 +233,7 @@ AudeaAudioProcessorEditor::AudeaAudioProcessorEditor (AudeaAudioProcessor* owner
     OscTwoIsOn->addListener (this);
 
     addAndMakeVisible (OscVoicesSlider = new Slider ("OscVoicesSlider"));
-    OscVoicesSlider->setRange (1, 14, 1);
+    OscVoicesSlider->setRange (1, 4, 1);
     OscVoicesSlider->setSliderStyle (Slider::IncDecButtons);
     OscVoicesSlider->setTextBoxStyle (Slider::TextBoxAbove, false, 40, 20);
     OscVoicesSlider->addListener (this);
@@ -1440,7 +1440,7 @@ BEGIN_JUCER_METADATA
                 state="0"/>
   <SLIDER name="OscVoicesSlider" id="6bc9606b0691e0d2" memberName="OscVoicesSlider"
           virtualName="" explicitFocusOrder="0" pos="98 281 64 32" min="1"
-          max="14" int="1" style="IncDecButtons" textBoxPos="TextBoxAbove"
+          max="4" int="1" style="IncDecButtons" textBoxPos="TextBoxAbove"
           textBoxEditable="1" textBoxWidth="40" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="OscTwoAmpSlider" id="518b8887fab7548c" memberName="OscTwoAmpSlider"
           virtualName="" explicitFocusOrder="0" pos="162 214 27 24" tooltip="drag up/down"

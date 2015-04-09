@@ -74,7 +74,9 @@ private:
 	TooltipWindow tooltipWindow;
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
-	File resourceDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
+	//File resourceDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
+	File resourceDirectory = pluginLocation.getParentDirectory();//.getParentDirectory();
+
 	//Constants
 	File backGroundImgFile;
 	String backGroundImgPath ="Resources/BackgroundPure2.0.jpg";

@@ -55,7 +55,7 @@ public:
 private:
 	//Location of the DLL
 	File pluginLocation = File::getSpecialLocation(File::SpecialLocationType::currentApplicationFile);
-	File resourcesDirectory = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory();
+	File resourcesDirectory = pluginLocation.getParentDirectory();//.getParentDirectory().getParentDirectory().getParentDirectory();
 	//Constants
 	String SmallSliderImgPath = "Resources/SliderSmall.png";
 	String BigSliderImgPath = "Resources/SliderBig.png";
