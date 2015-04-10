@@ -710,7 +710,7 @@ void AudeaAudioProcessorEditor::paint (Graphics& g)
     g.fillAll (Colour (0xff401f09));
 
     //[UserPaint] Add your own custom painting code here..
-	backGroundImgFile = pluginLocation.getParentDirectory().getParentDirectory().getParentDirectory().getParentDirectory().getChildFile(backGroundImgPath);
+	backGroundImgFile = pluginLocation.getParentDirectory()/*.getParentDirectory().getParentDirectory().getParentDirectory()*/.getChildFile(backGroundImgPath);
 	Image backgroundImg = ImageFileFormat::loadFrom(backGroundImgFile);
 	g.drawImageAt(backgroundImg, 0, 0);
     //[/UserPaint]
